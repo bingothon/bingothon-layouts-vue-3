@@ -3,6 +3,7 @@
   /* They are only used for the vite.config.ts file. */
   "extends": "@tsconfig/node22/tsconfig.json",
   "compilerOptions": {
+    "incremental": true,
     "noEmit": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.vite.tsbuildinfo",
     "module": "ESNext",

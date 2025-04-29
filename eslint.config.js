@@ -12,6 +12,11 @@ export default tseslint.config([
       'extension/**/*',
       'graphics/**/*',
       'shared/dist/**/*',
+      
+      // Don't lint the eslint configs (bad for typed linting)
+      'eslint.config.js',
+      'eslint.browser.js',
+      'eslint.extension.js'
     ],
   },
   browser,
