@@ -5,21 +5,21 @@ import extension from './eslint.extension.js';
 
 /* Exists so anything looking for an ESLint config file (including VSCode and the `eslint` command) can find the rules. */
 export default tseslint.config([
-  {
-    ignores: [
-      // Ignore built files.
-      'dashboard/**/*',
-      'extension/**/*',
-      'graphics/**/*',
-      'shared/dist/**/*',
-      'src/types/schemas/**/*.d.ts',
+    {
+        ignores: [
+            // Ignore built files.
+            'dashboard/**/*',
+            'extension/**/*',
+            'graphics/**/*',
+            'shared/dist/**/*',
+            'src/types/schemas/**/*.d.ts',
 
-      // Don't lint the eslint configs (bad for typed linting)
-      'eslint.config.js',
-      'eslint.browser.js',
-      'eslint.extension.js'
-    ],
-  },
-  extension,
-  browser,
+            // Don't lint the eslint configs (bad for typed linting)
+            'eslint.config.js',
+            'eslint.browser.js',
+            'eslint.extension.js'
+        ]
+    },
+    extension,
+    browser
 ]);

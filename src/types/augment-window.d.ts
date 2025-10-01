@@ -7,6 +7,6 @@ import type { NodeCGAPIClient } from '../../node_modules/nodecg/out/client/api/a
 import type { Configschema } from './schemas/configschema.d.ts';
 
 declare global {
-  let NodeCG: typeof NodeCGAPIClient;
-  let nodecg: NodeCGAPIClient<Configschema>;
+    let NodeCG: typeof NodeCGAPIClient;
+    let nodecg: NodeCGAPIClient<Configschema>;
 }

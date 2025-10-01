@@ -2,22 +2,21 @@
 
 Template for NodeCG bundles that use Vue.js and TypeScript.
 
-
 ## Technical Details
 
 - Tested with Node.js v22.11.0 and above (as of writing, latest LTS properly tested and supported with NodeCG).
 - Extension uses TypeScript.
 - Browser uses Vue.js (v3), with TypeScript for the scripting.
-  - Includes the [nodecg-vue-composable](https://github.com/Dan-Shields/nodecg-vue-composable) helper composable to help with using replicants; I advise you check it's README for more information.
-  - Dashboard also includes Quasar, for easy styling of UI.
-    - If you wish to configure Quasar differently, check [the quasar vite-plugin documentation](https://quasar.dev/start/vite-plugin#using-quasar).
-  - Builds using Vite, using the [vite-plugin-nodecg](https://github.com/dan-shields/vite-plugin-nodecg) plugin.
-    - The bundle also overrides `vite` to v6 (dependency asks for v5) as it is tested working.
+    - Includes the [nodecg-vue-composable](https://github.com/Dan-Shields/nodecg-vue-composable) helper composable to help with using replicants; I advise you check it's README for more information.
+    - Dashboard also includes Quasar, for easy styling of UI.
+        - If you wish to configure Quasar differently, check [the quasar vite-plugin documentation](https://quasar.dev/start/vite-plugin#using-quasar).
+    - Builds using Vite, using the [vite-plugin-nodecg](https://github.com/dan-shields/vite-plugin-nodecg) plugin.
+        - The bundle also overrides `vite` to v6 (dependency asks for v5) as it is tested working.
 - ESLint is included for extension/browser/typings.
-  - Extends some other recommended configurations.
+    - Extends some other recommended configurations.
 - I personally use Visual Studio Code with some appropriate extensions so have made sure it works well in that editor.
-  - Includes a `.vscode/extensions.json` that will suggest you appropriate extensions.
-  - Includes a `.vscode/settings.json` that has some settings that you may find useful.
+    - Includes a `.vscode/extensions.json` that will suggest you appropriate extensions.
+    - Includes a `.vscode/settings.json` that has some settings that you may find useful.
 - The extension/browser files have some example code scattered about that should help in how to use things.
 
 ## Limitations
@@ -47,17 +46,17 @@ If you want to see all of the changes, check out the commit comparison (TBA).
 
 - Switched Vite config file to TypeScript (`vite.config.mjs` > `vite.config.ts`).
 - Updated how the extension code is built and how it is run in a Node.js context:
-  - It now runs using the `module` type.
-  - It is built targetting more modern standards (based on `@tsconfig/node22`).
+    - It now runs using the `module` type.
+    - It is built targetting more modern standards (based on `@tsconfig/node22`).
 - All updates needed for NodeCG v2, which isn't too many but is still some (mainly type related).
 - Bumped `package.json`s `nodecg.compatibleRange` to `^2.3.0`, as that's the first NodeCG version that properly supported Node.js v22.11.0 LTS.
 - Use NodeCG types from official dependency.
 - Replaced [@vueuse/head](https://github.com/vueuse/head) with [@unhead/vue](https://github.com/unjs/unhead), due to the former's sunsetting.
 - ESLint overhaul:
-  - Upgraded from ESLint v9 from v8.
-  - Switched to using flat configs.
-  - A lot was stripped out that I don't think was needed (feel free to report any issues you may have).
-  - No longer extends the configuration from airbnb-typescript, as it isn't available for ESLint v9 yet, and I wanted to try without it.
+    - Upgraded from ESLint v9 from v8.
+    - Switched to using flat configs.
+    - A lot was stripped out that I don't think was needed (feel free to report any issues you may have).
+    - No longer extends the configuration from airbnb-typescript, as it isn't available for ESLint v9 yet, and I wanted to try without it.
 - Reduced the amount of `package.json` scripts/commands by combining some of them and removing the extension/browser/etc. splits.
 - Added a `./src/browser_shared` folder with a shared `replicant.ts` helper file for browser contexts.
 - Removed MDI CSS being imported by default on dashboard panels.

@@ -1,23 +1,20 @@
 // @ts-check
-import {defineConfigWithVueTs, vueTsConfigs} from '@vue/eslint-config-typescript';
+import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript';
 import pluginVue from 'eslint-plugin-vue';
 import vueParser from 'vue-eslint-parser';
 
 /* Rules used for anything browser related (dashboard and graphics). */
-export default ({
+export default {
     languageOptions: {
         parser: vueParser
     },
     plugins: {
-        vue: pluginVue,
+        vue: pluginVue
     },
-    extends: defineConfigWithVueTs(
-        pluginVue.configs['flat/recommended'],
-        vueTsConfigs.recommended,
-    ),
+    extends: defineConfigWithVueTs(pluginVue.configs['flat/recommended'], vueTsConfigs.recommended),
     rules: {
         // Allows "main.vue" files to be named as such.
-        'vue/multi-word-component-names': ['error', {ignores: ['main']}],
+        'vue/multi-word-component-names': ['error', { ignores: ['main'] }]
     },
     files: [
         'src/browser_shared/**/*.ts',
@@ -25,6 +22,6 @@ export default ({
         'src/dashboard/**/*.ts',
         'src/dashboard/**/*.vue',
         'src/graphics/**/*.ts',
-        'src/graphics/**/*.vue',
-    ],
-});
+        'src/graphics/**/*.vue'
+    ]
+};
