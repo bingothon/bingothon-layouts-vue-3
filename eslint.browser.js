@@ -1,12 +1,12 @@
 // @ts-check
 import {defineConfigWithVueTs, vueTsConfigs} from '@vue/eslint-config-typescript';
 import pluginVue from 'eslint-plugin-vue';
-import tseslint from 'typescript-eslint';
+import vueParser from 'vue-eslint-parser';
 
 /* Rules used for anything browser related (dashboard and graphics). */
 export default ({
     languageOptions: {
-        parser: 'vue-eslint-parser'
+        parser: vueParser
     },
     plugins: {
         vue: pluginVue,

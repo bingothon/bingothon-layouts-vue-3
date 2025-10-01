@@ -1,8 +1,7 @@
 import globals from 'globals';
 import pluginJs from '@eslint/js';
 import tseslint from 'typescript-eslint';
-import eslintPluginPrettierRecommened from 'eslint-config-prettier';
-import { join } from 'path';
+import eslintPluginPrettierRecommended from 'eslint-config-prettier';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -16,7 +15,7 @@ export default [
     }
   },
   pluginJs.configs.recommended,
-  eslintPluginPrettierRecommened,
+  eslintPluginPrettierRecommended,
   ...tseslint.configs.recommendedTypeChecked,
   {
     rules: {
@@ -36,6 +35,7 @@ export default [
     ],
     ignores: [
       'src/types/schemas/**/*.d.ts',
+	  'src/types/schemas/*.d.ts',
       'src/types/env.d.ts'
     ]
   }
