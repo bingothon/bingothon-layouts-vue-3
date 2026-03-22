@@ -39,6 +39,8 @@
         "eslint": "^9.22.0",
         "eslint-config-prettier": "^10.0.1",
         "eslint-plugin-vue": "^10.0.0",
+        "husky": "^9.1.7",
+        "lint-staged": "^16.2.7",
         "nodecg": "^2.5.3",
         "nodecg-vue-composable": "^1.1.0",
         "prettier": "^3.6.2",
@@ -83,5 +85,12 @@
     },
     "dependencies": {
         "vue-eslint-parser": "^10.2.0"
+    },
+    "lint-staged": {
+        "*.{cjs,json,css,scss,htm,html,md,yml,yaml}": "prettier --write",
+        "*.{ts,vue}": [
+            "eslint --fix",
+            "prettier --write"
+        ]
     }
 }
