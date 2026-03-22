@@ -1,6 +1,6 @@
 #!/bin/bash
+# Source - https://stackoverflow.com/a/76103308
+# Posted by Yuri Teixeira
+# Retrieved 2026-03-22, License - CC BY-SA 4.0
 
-set -eu -o pipefail
-
-
-npx lint-staged
+npm run autofix

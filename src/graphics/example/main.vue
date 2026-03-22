@@ -13,12 +13,12 @@
 </script>
 
 <template>
-    <div>
-        {{ text }}
-        <br /><br />
-        <img src="./image.png" />
-        <br /><br />
-        <!-- Example code: accessing a replicant. -->
-        {{ exampleReplicant?.data?.exampleProperty }}
-    </div>
+  <div>
+    {{ text }}
+    <br><br>
+    <img src="./image.png">
+    <br><br>
+    <!-- Example code: accessing a replicant. -->
+    {{ exampleReplicant?.data?.exampleProperty }}
+  </div>
 </template>
