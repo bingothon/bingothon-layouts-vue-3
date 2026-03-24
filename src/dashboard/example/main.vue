@@ -13,20 +13,20 @@
 </script>
 
 <template>
-  <div>
-    {{ text }}
-    <br><br>
-    <img
-      src="./image.png"
-      :style="{ width: '100%' }"
-    >
-    <br><br>
-    <QBtn
-      color="primary"
-      label="Example"
-    />
-    <br><br>
-    <!-- Example code: accessing a replicant. -->
-    {{ exampleReplicant?.data?.exampleProperty }}
-  </div>
+    <div>
+        {{ text }}
+        <br><br>
+        <img
+            src="./image.png"
+            :style="{ width: '100%' }"
+        >
+        <br><br>
+        <QBtn
+            color="primary"
+            label="Example"
+        />
+        <br><br>
+        <!-- Example code: accessing a replicant. -->
+        {{ exampleReplicant?.data?.exampleProperty }}
+    </div>
 </template>
