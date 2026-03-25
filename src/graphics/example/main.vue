@@ -1,10 +1,11 @@
 <script setup lang="ts">
     import { useHead } from '@unhead/vue';
-import { ref } from 'vue';
-import { exampleReplicant } from '../../browser_shared/replicants';
-import type { ExampleType } from '../../types';
-import DiscordDisplay from '../components/discordDisplay.vue';
-import CellTextFit from '../components/helpers/cellTextFit.vue';
+    import { ref } from 'vue';
+    import { exampleReplicant } from '../../browser_shared/replicants';
+    import type { ExampleType } from '../../types';
+    import Bingoboard from '../components/bingoboard/bingoBoard.vue';
+    import DiscordDisplay from '../components/discordDisplay.vue';
+    import CellTextFit from '../components/helpers/cellTextFit.vue';
 
     useHead({ title: 'example' }); // set the title of this page
     const text = ref('Example');
@@ -50,7 +51,15 @@ import CellTextFit from '../components/helpers/cellTextFit.vue';
             :name-width-px="100"
             voice-highlight-color="rgba(255, 0, 0, 0.5)"
         />
-        <CellTextFit id="ctf" :text="randomText" font-size="20px" />
+        <CellTextFit
+            id="ctf"
+            :text="randomText"
+            font-size="20px"
+        />
+        <Bingoboard
+            id="bboard"
+            font-size="20px"
+        />
     </div>
 </template>
 
@@ -69,10 +78,10 @@ import CellTextFit from '../components/helpers/cellTextFit.vue';
         width: 50px;
     }
 
-    #ctf {
+    #bboard {
         position: relative;
         left: 500px;
-        height: 50px;
-        width: 50px;
+        height: 700px;
+        width: 700px;
     }
 </style>

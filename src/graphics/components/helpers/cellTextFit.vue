@@ -1,5 +1,8 @@
 <template>
-    <div ref="containerRef" class="cellTextFixContainer">
+    <div
+        ref="containerRef"
+        class="cellTextFixContainer"
+    >
         <div
             ref="contentRef"
             class="fittedContent"

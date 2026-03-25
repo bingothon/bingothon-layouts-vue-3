@@ -1,8 +1,8 @@
 <script setup lang="ts">
     import { useHead } from '@unhead/vue';
-import { ref } from 'vue';
-import { exampleReplicant } from '../../browser_shared/replicants';
-import type { ExampleType } from '../../types';
+    import { ref } from 'vue';
+    import { exampleReplicant } from '../../browser_shared/replicants';
+    import type { ExampleType } from '../../types';
 
     useHead({ title: 'example' }); // set the title of this page
     const text = ref('Example');
