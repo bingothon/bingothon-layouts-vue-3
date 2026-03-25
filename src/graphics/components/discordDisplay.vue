@@ -1,18 +1,21 @@
 <script setup lang="ts">
     import { faMicrophone } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { computed } from 'vue';
-import { voiceActivityReplicant } from '../../browser_shared/replicants';
-import TextFit from './textFit.vue';
+    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+    import { computed } from 'vue';
+    import { voiceActivityReplicant } from '../../browser_shared/replicants';
+    import TextFit from './textFit.vue';
 
-    const props = withDefaults(defineProps<{
-        iconHeightPx: number;
-        nameWidthPx: number;
-        voiceHighlightColor: string;
-        maxUserCount?: number;
-    }>(), {
-        maxUserCount: 20,
-    });
+    const props = withDefaults(
+        defineProps<{
+            iconHeightPx: number;
+            nameWidthPx: number;
+            voiceHighlightColor: string;
+            maxUserCount?: number;
+        }>(),
+        {
+            maxUserCount: 20
+        }
+    );
 
     const members = computed(() => {
         const all = voiceActivityReplicant?.data?.members ?? [];
@@ -36,12 +39,9 @@ import TextFit from './textFit.vue';
             :class="{ Active: member.isSpeaking }"
         >
             <div class="AvatarContainer">
-                <img :src="member.avatar">
+                <img :src="member.avatar" />
                 <div class="MicIcon FlexContainer">
-                    <font-awesome-icon
-                        :icon="faMicrophone"
-                        :style="{ color: 'white' }"
-                    />
+                    <font-awesome-icon :icon="faMicrophone" :style="{ color: 'white' }" />
                 </div>
             </div>
             <div class="Name">

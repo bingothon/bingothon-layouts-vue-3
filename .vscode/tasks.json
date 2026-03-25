@@ -1,13 +1,13 @@
 {
-	"version": "2.0.0",
-	"tasks": [
-		{
-			"type": "npm",
-			"script": "watch",
-			"group": "build",
-			"problemMatcher": [],
-			"label": "npm: watch",
-			"detail": "conc -n B,E -c red,blue -k vite \"tsc -b -w --preserveWatchOutput tsconfig.extension.json\""
-		}
-	]
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "npm",
+            "script": "watch",
+            "group": "build",
+            "problemMatcher": [],
+            "label": "npm: watch",
+            "detail": "conc -n B,E -c red,blue -k vite \"tsc -b -w --preserveWatchOutput tsconfig.extension.json\""
+        }
+    ]
 }
