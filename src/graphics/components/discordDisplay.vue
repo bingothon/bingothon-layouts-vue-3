@@ -1,19 +1,23 @@
 <script setup lang="ts">
-    import { voiceActivityReplicant } from '../../browser_shared/replicants';
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
     import { faMicrophone } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { computed } from 'vue';
+import { voiceActivityReplicant } from '../../browser_shared/replicants';
+import TextFit from './textFit.vue';
 
-    const { iconHeightPx, nameWidthPx, voiceHighlightColor, maxUserCount } = defineProps({
-        iconHeightPx: { type: Number, required: true },
-        nameWidthPx: { type: Number, required: true },
-        voiceHighlightColor: { type: String, required: true },
-        maxUserCount: { type: Number, required: false, default: 20 }
+    const props = withDefaults(defineProps<{
+        iconHeightPx: number;
+        nameWidthPx: number;
+        voiceHighlightColor: string;
+        maxUserCount?: number;
+    }>(), {
+        maxUserCount: 20,
     });
 
-    let members = voiceActivityReplicant?.data?.members || [];
-    if (members.length > maxUserCount) {
-        members = members.slice(0, maxUserCount);
-    }
+    const members = computed(() => {
+        const all = voiceActivityReplicant?.data?.members ?? [];
+        return all.slice(0, props.maxUserCount);
+    });
 </script>
 
 <template>
@@ -41,7 +45,7 @@
                 </div>
             </div>
             <div class="Name">
-                <text-fit :text="member.name" />
+                <TextFit :text="member.name" />
             </div>
         </div>
     </div>

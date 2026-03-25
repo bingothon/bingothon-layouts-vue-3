@@ -1,9 +1,9 @@
 <script setup lang="ts">
     import { useHead } from '@unhead/vue';
-    import { ref } from 'vue';
-    import { exampleReplicant } from '../../browser_shared/replicants';
-    import type { ExampleType } from '../../types';
-    import DiscordDisplay from '../components/discordDisplay.vue';
+import { ref } from 'vue';
+import { exampleReplicant } from '../../browser_shared/replicants';
+import type { ExampleType } from '../../types';
+import DiscordDisplay from '../components/discordDisplay.vue';
 
     useHead({ title: 'example' }); // set the title of this page
     const text = ref('Example');
@@ -28,3 +28,12 @@
         />
     </div>
 </template>
+
+<style scoped>
+    .DiscordVoiceDisplay {
+        position: absolute;
+        top: 200px;
+        left: 20px;
+        width: 350px;
+    }
+</style>
