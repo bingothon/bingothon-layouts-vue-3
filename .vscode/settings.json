@@ -6,8 +6,15 @@
     },
     "editor.tabSize": 2,
     "files.eol": "\n",
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.codeActionsOnSave": {
         "source.organizeImports": "explicit"
     },
-    "typescript.tsdk": "node_modules\\typescript\\lib"
+    "[vue]": {
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+        "editor.tabSize": 4
+    },
+    "eslint.format.enable": true,
+    "js/ts.tsdk.path": "node_modules\\typescript\\lib"
 }

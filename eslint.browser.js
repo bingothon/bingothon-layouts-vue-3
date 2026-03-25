@@ -14,7 +14,8 @@ export default {
     extends: defineConfigWithVueTs(pluginVue.configs['flat/recommended'], vueTsConfigs.recommended),
     rules: {
         // Allows "main.vue" files to be named as such.
-        'vue/multi-word-component-names': ['error', { ignores: ['main'] }]
+        'vue/multi-word-component-names': ['error', { ignores: ['main'] }],
+        'vue/html-indent': ['error', 4, { baseIndent: 1 }],
     },
     files: [
         'src/browser_shared/**/*.ts',
