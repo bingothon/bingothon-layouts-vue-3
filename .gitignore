@@ -129,6 +129,19 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+# JetBrains / WebStorm
+.idea/
+!.idea/codeStyles/
+!.idea/vcs.xml
+!.idea/prettier.xml
+!.idea/eslint.xml
+!.idea/modules.xml
+!.idea/runConfigurations/ # Useful if you share launch scripts!
+.idea/workspace.xml
+.idea/shelf/
+.idea/httpRequests/
+.idea/dictionaries/
+
 # NodeCG built files
 /dashboard/
 /extension/

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PrettierConfiguration">
+    <option name="myConfigurationMode" value="MANUAL" />
+    <option name="myRunOnSave" value="true" />
+    <option name="myRunOnReformat" value="true" />
+    <option name="customIgnorePath" value="\\wsl.localhost\Ubuntu-24.04\home\floha\nodecg\bundles\bingothon-layouts-vue-3\.prettierignore" />
+    <option name="formatFilesOutsideDependencyScope" value="false" />
+  </component>
+</project>
