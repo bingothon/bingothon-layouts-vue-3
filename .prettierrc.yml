@@ -3,6 +3,7 @@ singleQuote: true
 semi: true
 bracketSpacing: true
 vueIndentScriptAndStyle: true
+singleAttributePerLine: true
 endOfLine: lf
 trailingComma: none
 jsxSingleQuote: false

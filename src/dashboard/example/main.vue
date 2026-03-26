@@ -15,17 +15,17 @@
 <template>
     <div>
         {{ text }}
-        <br><br>
+        <br /><br />
         <img
             src="./image.png"
             :style="{ width: '100%' }"
-        >
-        <br><br>
+        />
+        <br /><br />
         <QBtn
             color="primary"
             label="Example"
         />
-        <br><br>
+        <br /><br />
         <!-- Example code: accessing a replicant. -->
         {{ exampleReplicant?.data?.exampleProperty }}
     </div>

@@ -13,9 +13,21 @@ export default {
     },
     extends: defineConfigWithVueTs(pluginVue.configs['flat/recommended'], vueTsConfigs.recommended),
     rules: {
-        // Allows "main.vue" files to be named as such.
+        // Allows 'main.vue' files to be named as such.
         'vue/multi-word-component-names': ['error', { ignores: ['main'] }],
-        'vue/html-indent': ['error', 4, { baseIndent: 1 }]
+        'vue/html-indent': ['error', 4, { baseIndent: 1 }],
+        'vue/html-self-closing': [
+            'error',
+            {
+                html: {
+                    void: 'always' /* This matches Prettier's behavior */,
+                    normal: 'never',
+                    component: 'always'
+                },
+                svg: 'always',
+                math: 'always'
+            }
+        ]
     },
     files: [
         'src/browser_shared/**/*.ts',

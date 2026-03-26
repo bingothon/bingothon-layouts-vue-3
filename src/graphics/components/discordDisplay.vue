@@ -41,7 +41,10 @@
             <div class="AvatarContainer">
                 <img :src="member.avatar" />
                 <div class="MicIcon FlexContainer">
-                    <font-awesome-icon :icon="faMicrophone" :style="{ color: 'white' }" />
+                    <font-awesome-icon
+                        :icon="faMicrophone"
+                        :style="{ color: 'white' }"
+                    />
                 </div>
             </div>
             <div class="Name">

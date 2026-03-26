@@ -16,12 +16,18 @@
 <template>
     <div>
         {{ text }}
-        <br /><br />
+        <br />
+        <br />
         <img src="./image.png" />
-        <br /><br />
+        <br />
+        <br />
         <!-- Example code: accessing a replicant. -->
         {{ exampleReplicant?.data?.exampleProperty }}
-        <DiscordDisplay :icon-height-px="50" :name-width-px="100" voice-highlight-color="rgba(255, 0, 0, 0.5)" />
+        <DiscordDisplay
+            :icon-height-px="50"
+            :name-width-px="100"
+            voice-highlight-color="rgba(255, 0, 0, 0.5)"
+        />
     </div>
 </template>
 
