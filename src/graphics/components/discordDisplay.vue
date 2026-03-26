@@ -17,6 +17,9 @@
         }
     );
 
+    const iconHeightString = computed(() => `${props.iconHeightPx}px`);
+    const nameWidthString = computed(() => `${props.nameWidthPx}px`);
+
     const members = computed(() => {
         const all = voiceActivityReplicant?.data?.members ?? [];
         return all.slice(0, props.maxUserCount);
@@ -27,8 +30,8 @@
     <div
         class="DiscordVoiceDisplay FlexContainer"
         :style="{
-            '--icon-height': iconHeightPx + 'px',
-            '--name-width': nameWidthPx + 'px',
+            '--icon-height': iconHeightString,
+            '--name-width': nameWidthString,
             '--voice-highlight-color': voiceHighlightColor
         }"
     >
@@ -62,46 +65,46 @@
         flex-wrap: wrap;
     }
 
-    .DiscordVoiceDisplay > .Member {
+    .DiscordVoiceDisplay .Member {
         margin: 5px 0 0 5px;
     }
 
-    .DiscordVoiceDisplay > .Member > .AvatarContainer {
+    .DiscordVoiceDisplay .Member .AvatarContainer {
         position: relative;
     }
 
-    .DiscordVoiceDisplay > .Member > .AvatarContainer > img {
-        width: var(--icon-height);
-        height: var(--icon-height);
+    .DiscordVoiceDisplay .Member .AvatarContainer img {
+        width: v-bind(iconHeightString);
+        height: v-bind(iconHeightString);
         border-radius: 100%;
     }
 
-    .DiscordVoiceDisplay > .Member > .AvatarContainer > .MicIcon {
+    .DiscordVoiceDisplay .Member .AvatarContainer .MicIcon {
         position: absolute;
         width: 25px;
         height: 25px;
         top: -4px;
         right: -4px;
-        background-color: var(--voice-highlight-color);
+        background-color: v-bind(voiceHighlightColor);
         border-radius: 100%;
 
         opacity: 0;
     }
 
-    .DiscordVoiceDisplay > .Member.Active > .AvatarContainer > .MicIcon {
+    .DiscordVoiceDisplay .Member.Active .AvatarContainer .MicIcon {
         opacity: 1;
     }
 
-    .DiscordVoiceDisplay > .Member > div.Name {
+    .DiscordVoiceDisplay .Member div.Name {
         font-size: 22px;
         margin-left: 8px;
         margin-right: 8px;
         color: white;
-        width: var(--name-width);
+        width: v-bind(nameWidthString);
         position: relative;
     }
 
-    .DiscordVoiceDisplay > .Member.Active > div.Name {
-        text-shadow: 0px 0px 15px var(--voice-highlight-color);
+    .Member.Active .Name {
+        text-shadow: 0 0 15px v-bind(voiceHighlightColor);
     }
 </style>
