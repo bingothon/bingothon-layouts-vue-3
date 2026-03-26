@@ -1,6 +1,13 @@
 <template>
-    <div ref="containerRef" class="TextContainer">
-        <div ref="contentRef" class="FittedTextContent" :style="{ transform, top }">
+    <div
+        ref="containerRef"
+        class="TextContainer"
+    >
+        <div
+            ref="contentRef"
+            class="FittedTextContent"
+            :style="{ transform, top }"
+        >
             {{ text }}
         </div>
     </div>
@@ -54,11 +61,11 @@
         const fittedContent = contentRef.value;
         if (!container || !fittedContent) return;
 
-        let scaleX = container.scrollWidth / fittedContent.scrollWidth;
+        let scaleX = container.clientWidth / fittedContent.clientWidth;
         // limit scaleX to 1 (don't stretch text, only shrink)
         scaleX = Math.min(scaleX, 1);
 
-        let toLeft = (container.scrollWidth - fittedContent.scrollWidth) / 2;
+        let toLeft = (container.clientWidth - fittedContent.clientWidth) / 2;
         if (scaleX === 1) {
             if (props.align === 'left') {
                 toLeft = 0;
