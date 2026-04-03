@@ -17,6 +17,8 @@ export const exampleReplicant = useReplicant<Schemas.ExampleReplicant>('exampleR
 export const voiceActivityReplicant = useReplicant<oldSchemas.VoiceActivity>('voiceActivity', oldBundle);
 export const currentMainBingoboard = useReplicant<oldSchemas.CurrentMainBingoboard>('currentMainBingoboard', oldBundle);
 export const bingoboardMeta = useReplicant<oldSchemas.BingoboardMeta>('bingoboardMeta', oldBundle);
+export const soundOnTwitchStream = useReplicant<number>('soundOnTwitchStream', oldBundle);
+export const bestOfX = useReplicant<oldSchemas.BestOfX>('bestOfX', oldBundle);
 
 // SpeedControl Replicants
 export const runDataActiveRunReplicant = useReplicant<RunDataActiveRun>('runDataActiveRun', scBundle);

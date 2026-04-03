@@ -7,6 +7,7 @@
     import DiscordDisplay from '../components/discordDisplay.vue';
     import GameInfoContainer from '../components/gameInfo/gameInfoContainer.vue';
     import CellTextFit from '../components/helpers/cellTextFit.vue';
+    import PlayerInfo from '../components/playerInfo/playerInfo.vue';
     import SponsorLogoRotation, { LogoAssetType } from '../components/sponsorLogoRotation.vue';
     import TimerContainer from '../components/timerContainer.vue';
 
@@ -49,6 +50,26 @@
         <br />
         <!-- Example code: accessing a replicant. -->
         {{ exampleReplicant?.data?.exampleProperty }}
+        <PlayerInfo
+            id="pi1"
+            :player-index="0"
+            height="45px"
+        />
+        <PlayerInfo
+            id="pi2"
+            :player-index="1"
+            height="45px"
+        />
+        <PlayerInfo
+            id="pi3"
+            :player-index="2"
+            height="45px"
+        />
+        <PlayerInfo
+            id="pi4"
+            :player-index="3"
+            height="45px"
+        />
         <DiscordDisplay
             :icon-height-px="50"
             :name-width-px="100"
