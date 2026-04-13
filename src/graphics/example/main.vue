@@ -4,6 +4,7 @@
     import { exampleReplicant } from '../../browser_shared/replicants';
     import type { ExampleType } from '../../types';
     import DiscordDisplay from '../components/discordDisplay.vue';
+    import TimerContainer from '../components/timerContainer.vue';
 
     useHead({ title: 'example' }); // set the title of this page
     const text = ref('Example');
@@ -28,6 +29,7 @@
             :name-width-px="100"
             voice-highlight-color="rgba(255, 0, 0, 0.5)"
         />
+        <TimerContainer id="timer" />
     </div>
 </template>
 
@@ -37,5 +39,12 @@
         top: 200px;
         left: 20px;
         width: 350px;
+    }
+
+    #timer {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        background-color: brown;
     }
 </style>
