@@ -4,7 +4,7 @@ import type * as oldSchemas from '../../../bingothon-layouts/schemas';
 import type { Schemas } from '../types';
 
 // YOU MUST CHANGE THIS TO YOUR BUNDLE'S NAME!
-const thisBundle = 'bingothon-layouts-vue-3';
+export const thisBundle = 'bingothon-layouts-vue-3';
 const oldBundle = 'bingothon-layouts';
 const scBundle = 'nodecg-speedcontrol';
 

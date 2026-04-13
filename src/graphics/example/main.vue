@@ -5,6 +5,7 @@
     import type { ExampleType } from '../../types';
     import DiscordDisplay from '../components/discordDisplay.vue';
     import TimerContainer from '../components/timerContainer.vue';
+    import GameInfoContainer from '../components/gameInfo/gameInfoContainer.vue';
 
     useHead({ title: 'example' }); // set the title of this page
     const text = ref('Example');
@@ -30,6 +31,7 @@
             voice-highlight-color="rgba(255, 0, 0, 0.5)"
         />
         <TimerContainer id="timer" />
+        <GameInfoContainer id="game" />
     </div>
 </template>
 
@@ -46,5 +48,13 @@
         top: 20px;
         left: 20px;
         background-color: brown;
+    }
+
+    #game {
+        position: absolute;
+        top: 200px;
+        left: 200px;
+        height: 100px;
+        background-color: darkblue;
     }
 </style>
