@@ -15,7 +15,10 @@
                 class="FlexContainer"
                 style="column-gap: 8px"
             >
-                <GameSystemChip v-if="gameSystem" :game-system="gameSystem" />
+                <GameSystemChip
+                    v-if="gameSystem"
+                    :game-system="gameSystem"
+                />
                 <!-- Added Category next to the Game System -->
                 <div class="GameChip FlexContainer">
                     <span>{{ gameCategory }}</span>
@@ -60,12 +63,12 @@
     }
 
     .GameChip {
-        align-content: center;
         text-align: center;
-        padding: 3px 4px;
+        height: 28px;
+        padding: 0 6px;
         background-color: rgba(220, 240, 255, 0.9); /* Light blueish, slightly transparent */
         border-radius: 2px;
-        font-size: 18px;
+        font-size: 17px;
         color: #333;
         border: 1px solid rgba(180, 230, 255, 0.7); /* Slightly blueish border for that 'frozen' feel */
         box-shadow: 0px 0px 5px 2px rgba(200, 240, 255, 0.3); /* Subtle glow to add depth */

@@ -1,5 +1,5 @@
 <template>
-    <div class="GameSystem GameChip Flexbox">
+    <div class="GameSystem GameChip FlexContainer">
         <img
             v-if="gameSystemImage"
             :src="gameSystemImage"
@@ -44,6 +44,6 @@
     .GameSystem img {
         width: auto;
         max-width: 100px;
-        height: 25px;
+        height: 20px;
     }
 </style>
