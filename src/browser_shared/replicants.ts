@@ -4,7 +4,7 @@ import type { Schemas } from '../types';
 
 // YOU MUST CHANGE THIS TO YOUR BUNDLE'S NAME!
 const thisBundle = 'bingothon-layouts-vue-3';
-const oldBundle = 'bingothon-layouts';
+export const oldBundle = 'bingothon-layouts';
 
 /**
  * This is where you can declare all of your replicants to import easily into other (browser based) files.
