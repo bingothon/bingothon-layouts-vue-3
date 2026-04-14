@@ -16,6 +16,7 @@
     "scripts": {
         "autofix": "eslint --fix",
         "format": "prettier --write .",
+        "format:check": "prettier --check .",
         "prebuild": "trash ./extension && trash ./node_modules/.vite && trash ./shared/dist && trash ./dashboard && trash ./graphics",
         "build": "vite build && tsc -b tsconfig.extension.json",
         "lint": "eslint",
