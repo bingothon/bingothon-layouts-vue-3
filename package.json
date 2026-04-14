@@ -14,12 +14,12 @@
     "author": "zoton2",
     "type": "module",
     "scripts": {
-        "autofix": "eslint --fix",
+        "autofix": "eslint --fix --max-warnings 0",
         "format": "prettier --write .",
         "format:check": "prettier --check .",
         "prebuild": "trash ./extension && trash ./node_modules/.vite && trash ./shared/dist && trash ./dashboard && trash ./graphics",
         "build": "vite build && tsc -b tsconfig.extension.json",
-        "lint": "eslint",
+        "lint": "eslint --max-warnings 0",
         "schema-types": "nodecg schema-types",
         "start": "cd ../.. && node index.js",
         "watch": "conc -n B,E -c red,blue -k vite \"tsc -b -w --preserveWatchOutput tsconfig.extension.json\"",
@@ -100,7 +100,7 @@
     "lint-staged": {
         "*.{cjs,json,css,scss,htm,html,md,yml,yaml}": "prettier --write",
         "*.{ts,vue}": [
-            "eslint --fix",
+            "eslint --fix --max-warnings 0",
             "prettier --write"
         ]
     }
