@@ -1,29 +1,12 @@
 <template>
-    <div
-        class="GameContainer GameDetails FlexContainer"
-        style="flex-direction: column; row-gap: 8px"
-    >
-        <!-- Title in the middle -->
+    <div class="GameDetails FlexContainer">
         <div class="GameName FlexContainer">{{ gameName }}</div>
-        <!-- Other information on the middle bottom -->
-        <div
-            class="GameExtra FlexContainer"
-            style="flex-direction: column; padding: 0 4px"
-        >
-            <!-- Game System Chip and Category in the same row -->
-            <div
-                class="FlexContainer"
-                style="column-gap: 8px"
-            >
-                <GameSystemChip
-                    v-if="gameSystem"
-                    :game-system="gameSystem"
-                />
-                <!-- Added Category next to the Game System -->
-                <div class="GameChip FlexContainer">
-                    <span>{{ gameCategory }}</span>
-                </div>
-            </div>
+        <div class="GameExtra FlexContainer">
+            <GameSystemChip
+                v-if="gameSystem"
+                :game-system="gameSystem"
+            />
+            <div class="GameChip FlexContainer">{{ gameCategory }}</div>
         </div>
     </div>
 </template>
@@ -41,14 +24,19 @@
 <style>
     .GameDetails {
         align-content: center;
-        align-items: center;
         flex-direction: column;
         text-align: center;
+        row-gap: 8px;
     }
 
     .GameDetails > .GameName {
         font-size: 30px;
         color: white;
+    }
+
+    .GameExtra {
+        column-gap: 8px;
+        padding: 0 4px;
     }
 
     .GameExtra img {
@@ -57,7 +45,7 @@
         max-height: 19px;
     }
 
-    .GameContainer img {
+    .GameDetails img {
         max-width: 60px;
         max-height: 60px;
     }
@@ -66,11 +54,11 @@
         text-align: center;
         height: 28px;
         padding: 0 6px;
-        background-color: rgba(220, 240, 255, 0.9); /* Light blueish, slightly transparent */
+        background-color: rgba(220, 240, 255, 0.9);
         border-radius: 2px;
         font-size: 17px;
         color: #333;
-        border: 1px solid rgba(180, 230, 255, 0.7); /* Slightly blueish border for that 'frozen' feel */
-        box-shadow: 0px 0px 5px 2px rgba(200, 240, 255, 0.3); /* Subtle glow to add depth */
+        border: 1px solid rgba(180, 230, 255, 0.7);
+        box-shadow: 0px 0px 5px 2px rgba(200, 240, 255, 0.3);
     }
 </style>

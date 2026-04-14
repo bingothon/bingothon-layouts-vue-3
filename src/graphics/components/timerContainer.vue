@@ -1,7 +1,7 @@
 <template>
-    <div class="TimerContainer RunInfoBox FlexContainer">
+    <div class="TimerContainer FlexContainer">
         <div
-            class="TimerBox RunInfoBox FlexContainer"
+            class="TimerBox FlexContainer"
             :class="timerStateClass"
         >
             <template
