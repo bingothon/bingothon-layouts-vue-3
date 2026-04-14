@@ -5,9 +5,10 @@
     import type { ExampleType } from '../../types';
     import Bingoboard from '../components/bingoboard/bingoBoard.vue';
     import DiscordDisplay from '../components/discordDisplay.vue';
-    import TimerContainer from '../components/timerContainer.vue';
     import GameInfoContainer from '../components/gameInfo/gameInfoContainer.vue';
     import CellTextFit from '../components/helpers/cellTextFit.vue';
+    import SponsorLogoRotation, { LogoAssetType } from '../components/sponsorLogoRotation.vue';
+    import TimerContainer from '../components/timerContainer.vue';
 
     useHead({ title: 'example' }); // set the title of this page
     const text = ref('Example');
@@ -64,6 +65,10 @@
             id="bboard"
             font-size="20px"
         />
+        <SponsorLogoRotation
+            id="sponsor"
+            :logo-asset-type="LogoAssetType.squareLogos"
+        />
     </div>
 </template>
 
@@ -102,5 +107,13 @@
         left: 500px;
         height: 700px;
         width: 700px;
+    }
+
+    #sponsor {
+        position: absolute;
+        top: 0;
+        left: 789px;
+        height: 400px;
+        width: 400px;
     }
 </style>
