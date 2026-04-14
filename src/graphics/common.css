@@ -1,3 +1,28 @@
+/*Bingo Colors*/
+:root {
+    --bingo-color-red: linear-gradient(#ff4944, #da4440 60%, #ce302c);
+    --bingo-color-orange: linear-gradient(#ff9c12, #f98e1e 60%, #d0800f);
+    --bingo-color-green: linear-gradient(#129912, #108010 60%, #0c660c);
+    --bingo-color-blue: linear-gradient(#409cff, #37a1de 60%, #088cbd);
+    --bingo-color-purple: linear-gradient(#822dbf, #7120ab);
+    --bingo-color-pink: linear-gradient(#ed86aa, #cc6e8f);
+    --bingo-color-brown: linear-gradient(#3bd45f, #30b050);
+    --bingo-color-teal: linear-gradient(#419695, #2e7372);
+    --bingo-color-navy: linear-gradient(#0d48b5, #022b75);
+    --bingo-color-yellow: linear-gradient(#8c8b8b, #808080);
+
+    --border-color-red: #ce302c;
+    --border-color-orange: #d0800f;
+    --border-color-green: #129912;
+    --border-color-blue: #088cbd;
+    --border-color-purple: #7120ab;
+    --border-color-pink: #cc6e8f;
+    --border-color-brown: #3bd45f;
+    --border-color-teal: #2e7372;
+    --border-color-navy: #022b75;
+    --border-color-yellow: #808080;
+}
+
 .FlexContainer {
     display: flex;
     justify-content: center;
