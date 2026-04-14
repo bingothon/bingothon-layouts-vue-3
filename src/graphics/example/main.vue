@@ -88,6 +88,8 @@
         left: 200px;
         height: 100px;
         background-color: darkblue;
+    }
+
     #ctf {
         position: relative;
         left: 500px;
