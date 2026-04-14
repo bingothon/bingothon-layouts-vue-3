@@ -12,8 +12,9 @@
                 '--font-size-multiplier': fontSizeMultiplier,
                 'font-size': `calc(${fontSize} * var(--font-size-multiplier))`
             }"
-            v-html="text"
-        />
+        >
+            {{ text }}
+        </div>
     </div>
 </template>
 
@@ -98,8 +99,5 @@
     .cellTextFixContainer > .fittedContent {
         position: absolute;
         left: 0;
-    }
-    span.underline {
-        text-decoration: underline;
     }
 </style>

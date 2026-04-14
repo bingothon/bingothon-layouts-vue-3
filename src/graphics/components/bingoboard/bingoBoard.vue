@@ -30,7 +30,7 @@
                         <div class="CellTextFitContainer">
                             <CellTextFit
                                 :text="cell.name"
-                                :font-size="fontSize"
+                                :font-size="props.fontSize"
                             />
                         </div>
                     </td>
@@ -63,15 +63,15 @@
 
 <script setup lang="ts">
     import { useDynamicReplicant } from 'nodecg-vue-composable';
-    import { computed, onMounted, onUnmounted, ref, useTemplateRef, watch, type Ref } from 'vue';
+    import { computed, onMounted, onUnmounted, ref, type Ref, useTemplateRef, watch } from 'vue';
     import type { Bingoboard } from '../../../../../bingothon-layouts/schemas';
     import { bingoboardMeta, currentMainBingoboard, oldBundle } from '../../../browser_shared/replicants';
     import CellTextFit from '../helpers/cellTextFit.vue';
-    import { colorsToTransforms, colorToGradient, defaultBingoBoard, type BingoCell } from './util';
+    import { type BingoCell, colorsToTransforms, colorToGradient, defaultBingoBoard } from './util';
 
     const props = withDefaults(
         defineProps<{
-            fontSize: string;
+            fontSize?: string;
             bingoboardRep?: string | null;
             alwaysShown?: boolean;
         }>(),
