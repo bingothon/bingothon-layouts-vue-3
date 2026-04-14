@@ -9,7 +9,6 @@ import * as tsParser from '@typescript-eslint/parser';
 export default tseslint.config(
     ...pluginVue.configs['flat/recommended'],
     ...defineConfigWithVueTs(vueTsConfigs.recommended),
-    eslintPluginPrettierRecommended,
     {
         files: ['src/browser_shared/**/*.{ts,vue}', 'src/dashboard/**/*.{ts,vue}', 'src/graphics/**/*.{ts,vue}'],
         rules: {
@@ -36,5 +35,6 @@ export default tseslint.config(
                 ecmaVersion: 'latest'
             }
         }
-    }
+    },
+    eslintPluginPrettierRecommended
 );

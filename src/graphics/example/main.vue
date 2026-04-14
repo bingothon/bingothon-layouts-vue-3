@@ -5,6 +5,8 @@
     import type { ExampleType } from '../../types';
     import Bingoboard from '../components/bingoboard/bingoBoard.vue';
     import DiscordDisplay from '../components/discordDisplay.vue';
+    import TimerContainer from '../components/timerContainer.vue';
+    import GameInfoContainer from '../components/gameInfo/gameInfoContainer.vue';
     import CellTextFit from '../components/helpers/cellTextFit.vue';
 
     useHead({ title: 'example' }); // set the title of this page
@@ -51,6 +53,8 @@
             :name-width-px="100"
             voice-highlight-color="rgba(255, 0, 0, 0.5)"
         />
+        <TimerContainer id="timer" />
+        <GameInfoContainer id="game" />
         <CellTextFit
             id="ctf"
             :text="randomText"
@@ -69,6 +73,21 @@
         top: 200px;
         left: 20px;
         width: 350px;
+    }
+
+    #timer {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        background-color: brown;
+    }
+
+    #game {
+        position: absolute;
+        top: 200px;
+        left: 200px;
+        height: 100px;
+        background-color: darkblue;
     }
 
     #ctf {
