@@ -23,14 +23,14 @@
 <script setup lang="ts">
     import { useDynamicReplicant } from 'nodecg-vue-composable';
     import { computed, onUnmounted, ref } from 'vue';
-    import { type Asset } from '../../../../bingothon-layouts/schemas';
+    import type { Asset } from '../../../../bingothon-layouts/schemas';
     import { oldBundle } from '../../browser_shared/replicants';
 
     const ROTATION_INTERVAL_SECS = 15;
 
     const props = withDefaults(
         defineProps<{
-            logoAssetType: LogoAssetType;
+            logoAssetType?: LogoAssetType;
         }>(),
         {
             logoAssetType: LogoAssetType.wideSmallLogos
