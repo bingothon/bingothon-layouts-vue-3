@@ -15,23 +15,36 @@ jobs:
         node-version: [22.x, 24.x] # Tests across multiple LTS versions
 
     steps:
-      - name: Checkout repository
+      - name: Checkout this repository
         uses: actions/checkout@v4
+        with:
+          path: bingothon-layouts-vue-3
+
+      - name: Checkout old bundle for typings
+        uses: actions/checkout@v4
+        with:
+          repository: bingothon/bingothon-layouts
+          path: bingothon-layouts
 
       - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+          cache-dependency-path: bingothon-layouts-vue-3/package-lock.json
 
       - name: Install dependencies
         run: npm ci
+        working-directory: bingothon-layouts-vue-3
 
       - name: Check formatting (Prettier)
         run: npm run format:check
+        working-directory: bingothon-layouts-vue-3
 
       - name: Check formatting (Lint)
         run: npm run lint
+        working-directory: bingothon-layouts-vue-3
 
       - name: Build project
         run: npm run build
+        working-directory: bingothon-layouts-vue-3
