@@ -5,7 +5,7 @@ import type { Schemas } from '../types';
 
 // YOU MUST CHANGE THIS TO YOUR BUNDLE'S NAME!
 export const thisBundle = 'bingothon-layouts-vue-3';
-const oldBundle = 'bingothon-layouts';
+export const oldBundle = 'bingothon-layouts';
 const scBundle = 'nodecg-speedcontrol';
 
 /**
@@ -15,6 +15,8 @@ const scBundle = 'nodecg-speedcontrol';
  */
 export const exampleReplicant = useReplicant<Schemas.ExampleReplicant>('exampleReplicant', thisBundle);
 export const voiceActivityReplicant = useReplicant<oldSchemas.VoiceActivity>('voiceActivity', oldBundle);
+export const currentMainBingoboard = useReplicant<oldSchemas.CurrentMainBingoboard>('currentMainBingoboard', oldBundle);
+export const bingoboardMeta = useReplicant<oldSchemas.BingoboardMeta>('bingoboardMeta', oldBundle);
 
 // SpeedControl Replicants
 export const runDataActiveRunReplicant = useReplicant<RunDataActiveRun>('runDataActiveRun', scBundle);
