@@ -8,7 +8,7 @@
             class="bg-primary"
         >
             <QToolbar>
-                <QToolbarTitle class="text-subtitle1 text-weight-bold"> Stream Control Center </QToolbarTitle>
+                <QToolbarTitle class="text-subtitle1 text-weight-bold"> Host Dashboard </QToolbarTitle>
             </QToolbar>
 
             <QTabs
@@ -19,11 +19,16 @@
                 indicator-color="secondary"
             >
                 <QTab
+                    name="blurbs"
+                    icon="chat"
+                    label="Blurbs"
+                />
+                <QTab
                     name="general"
                     icon="settings"
                     label="General"
                 />
-                <QTab
+                <!--                <QTab
                     name="lowerthirds"
                     icon="video_label"
                     label="Lower Thirds"
@@ -32,6 +37,16 @@
                     name="roster"
                     icon="groups"
                     label="Roster"
+                />-->
+                <QTab
+                    name="streamControl"
+                    icon="settings"
+                    label="Stream Control"
+                />
+                <QTab
+                    name="hostBingo"
+                    icon="square"
+                    label="Host Bingo"
                 />
             </QTabs>
         </QHeader>
@@ -43,6 +58,9 @@
                     animated
                     class="fit bg-transparent"
                 >
+                    <QTabPanel name="blurbs">
+                        <blurbs-tab />
+                    </QTabPanel>
                     <QTabPanel
                         name="general"
                         class="q-pa-md"
@@ -125,6 +143,12 @@
                             Roster management logic goes here.
                         </QBanner>
                     </QTabPanel>
+                    <QTabPanel name="streamControl">
+                        <stream-control-tab />
+                    </QTabPanel>
+                    <QTabPanel name="hostBingo">
+                        <!-- TODO: Add Component for Host Bingo -->
+                    </QTabPanel>
                 </QTabPanels>
             </QPage>
         </QPageContainer>
@@ -133,8 +157,10 @@
 
 <script setup lang="ts">
     import { ref } from 'vue';
+    import StreamControlTab from './components/streamControlTab.vue';
+    import BlurbsTab from './components/blurbsTab.vue';
 
-    const activeTab = ref('general');
+    const activeTab = ref('blurbs');
     const streamTitle = ref('My Awesome Tournament');
     const ltName = ref('');
     const ltRole = ref('');
