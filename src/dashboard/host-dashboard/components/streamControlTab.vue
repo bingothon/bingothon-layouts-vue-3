@@ -58,21 +58,6 @@
     </div>
 </template>
 
-<!--                <div
-                    v-if="hostsSpeakingDuringIntermission"
-                    id="intermission-live-warning"
-                    class="intermission-warning"
-                >
-                    You are currently live on stream
-                </div>
-                <div
-                    v-if="!!vdoUrl"
-                    class="intermission-warning"
-                >
-                    The VDO overlay is currently shown on the intermission layout!
-                </div>-->
-<!--        Roster management logic goes here.-->
-
 <script setup lang="ts">
     import {
         hostsSpeakingDuringIntermissionReplicant,

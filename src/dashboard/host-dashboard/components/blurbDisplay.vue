@@ -33,20 +33,16 @@
             >
                 <QCarouselSlide
                     v-for="(item, index) in displayedTexts"
-                    id="blurbCarouselSlide"
                     :key="index"
                     :name="index"
-                    class="column no-wrap justify-center flex-center q-px-xl"
+                    class="blurb-slide"
                 >
-                    <!--                    <QScrollArea class="full-width full-height">
-                        <div class="text-center text-subtitle1 q-pa-md">
-                            {{ item }}
-                        </div>
-                    </QScrollArea>-->
-                    <div class="fit row flex-center">
-                        <div class="text-center text-subtitle1">
-                            {{ item }}
-                        </div>
+                    <div class="blurb-slide-content">
+                        <QScrollArea class="full-width full-height">
+                            <div class="blurb-slide-text text-center text-subtitle1 q-pa-md">
+                                {{ item }}
+                            </div>
+                        </QScrollArea>
                     </div>
                 </QCarouselSlide>
             </QCarousel>
@@ -124,7 +120,7 @@
 </template>
 
 <script lang="ts" setup>
-    import { computed, defineProps, ref } from 'vue';
+    import { computed, ref } from 'vue';
     import { blurbsReplicant } from '../../../browser_shared/replicants.ts';
 
     const props = defineProps<{
@@ -156,5 +152,25 @@
     #blurbCarousel {
         min-height: 100px;
         height: auto;
+    }
+
+    #blurbCarousel :deep(.blurb-slide) {
+        padding: 0;
+    }
+
+    #blurbCarousel :deep(.blurb-slide .blurb-slide-content) {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 0 48px;
+    }
+
+    #blurbCarousel :deep(.blurb-slide-text) {
+        min-height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 </style>

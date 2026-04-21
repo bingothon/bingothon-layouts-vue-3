@@ -6,7 +6,9 @@
         <QHeader
             elevated
             class="bg-primary"
+            style="position: relative"
         >
+            <div class="donation-total text-h4 text-weight-bold">Donation Total: {{ donationTotal }}</div>
             <QToolbar>
                 <QToolbarTitle class="text-subtitle1 text-weight-bold"> Host Dashboard </QToolbarTitle>
             </QToolbar>
@@ -27,6 +29,11 @@
                     name="general"
                     icon="settings"
                     label="General"
+                />
+                <QTab
+                    name="scheduleAndIncentives"
+                    icon="event"
+                    label="Schedule & Incentives"
                 />
                 <!--                <QTab
                     name="lowerthirds"
@@ -143,6 +150,12 @@
                             Roster management logic goes here.
                         </QBanner>
                     </QTabPanel>
+                    <QTabPanel
+                        name="scheduleAndIncentives"
+                        class="q-pa-md"
+                    >
+                        <scheduled-and-incentives-tab />
+                    </QTabPanel>
                     <QTabPanel name="streamControl">
                         <stream-control-tab />
                     </QTabPanel>
@@ -156,11 +169,15 @@
 </template>
 
 <script setup lang="ts">
-    import { ref } from 'vue';
-    import StreamControlTab from './components/streamControlTab.vue';
+    import { computed, ref } from 'vue';
+    import { formatAmount } from '../../browser_shared/formatAmount';
+    import { donationTotalReplicant } from '../../browser_shared/replicants';
     import BlurbsTab from './components/blurbsTab.vue';
+    import StreamControlTab from './components/streamControlTab.vue';
+    import ScheduledAndIncentivesTab from './components/scheduledAndIncentivesTab.vue';
 
     const activeTab = ref('blurbs');
+    const donationTotal = computed(() => formatAmount(donationTotalReplicant?.data || 0));
     const streamTitle = ref('My Awesome Tournament');
     const ltName = ref('');
     const ltRole = ref('');
@@ -174,5 +191,12 @@
     .fit {
         width: 100%;
         height: 100vh;
+    }
+
+    .donation-total {
+        position: absolute;
+        right: 16px;
+        top: 50%;
+        transform: translateY(-50%);
     }
 </style>
