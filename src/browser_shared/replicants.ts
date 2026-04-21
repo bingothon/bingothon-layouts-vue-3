@@ -24,6 +24,7 @@ export const showThingsDuringIntermissionReplicant = useReplicant<oldSchemas.Sho
 export const donationTotalReplicant = useReplicant<oldSchemas.DonationTotal>('donationTotal', oldBundle);
 export const trackerOpenBidsReplicant = useReplicant<oldSchemas.TrackerOpenBids>('trackerOpenBids', oldBundle);
 export const trackerPrizesReplicant = useReplicant<oldSchemas.TrackerPrizes>('trackerPrizes', oldBundle);
+export const obsCurrentSceneReplicant = useReplicant<null | string>('obsCurrentScene', oldBundle);
 
 // SpeedControl Replicants
 export const runDataActiveRunReplicant = useReplicant<RunDataActiveRun>('runDataActiveRun', scBundle);
