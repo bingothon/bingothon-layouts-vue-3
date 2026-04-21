@@ -70,6 +70,12 @@
                 "title": "Example",
                 "file": "example/main.html",
                 "width": 3
+            },
+            {
+                "name": "Host Dashboard",
+                "title": "Host Dashboard",
+                "file": "host-dashboard/main.html",
+                "fullbleed": true
             }
         ],
         "graphics": [
@@ -100,7 +106,7 @@
     "lint-staged": {
         "*.{cjs,json,css,scss,htm,html,md,yml,yaml}": "prettier --write",
         "*.{ts,vue}": [
-            "eslint --fix --max-warnings 0",
+            "eslint --fix --max-warnings 0 --no-warn-ignored",
             "prettier --write"
         ]
     }

@@ -1,0 +1,29 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "charity": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "default": []
+        },
+        "sponsor": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "default": []
+        },
+        "bingothon": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "default": []
+        }
+    },
+    "required": ["charity", "sponsor", "bingothon"]
+}
