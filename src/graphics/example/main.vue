@@ -9,6 +9,7 @@
     import CellTextFit from '../components/helpers/cellTextFit.vue';
     import PlayerInfo from '../components/playerInfo/playerInfo.vue';
     import SponsorLogoRotation, { LogoAssetType } from '../components/sponsorLogoRotation.vue';
+    import TeamInfo from '../components/teamInfo.vue';
     import TimerContainer from '../components/timerContainer.vue';
 
     useHead({ title: 'example' }); // set the title of this page
@@ -69,6 +70,10 @@
             id="pi4"
             :player-index="3"
             height="45px"
+        />
+        <TeamInfo
+            id="teamInfo"
+            :team-index="0"
         />
         <DiscordDisplay
             :icon-height-px="50"
@@ -136,5 +141,19 @@
         left: 789px;
         height: 400px;
         width: 400px;
+    }
+
+    #teamInfo {
+        position: absolute;
+        top: 800px;
+        left: 0;
+    }
+
+    #teamInfo,
+    #pi1,
+    #pi2,
+    #pi3,
+    #pi4 {
+        background-color: black;
     }
 </style>

@@ -338,7 +338,7 @@
 </template>
 
 <style>
-    @import './medals.css';
+    @import '../shared/medals/medals.css';
 
     .PlayerInfoBox {
         /*Summer background-image: linear-gradient(var(--lighter-main-color), var(--darker-main-color));*/
