@@ -17,7 +17,7 @@
                 align="left"
                 inline-label
                 active-color="white"
-                indicator-color="secondary"
+                indicator-color="white"
             >
                 <QTab
                     name="blurbs"
