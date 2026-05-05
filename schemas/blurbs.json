@@ -6,21 +6,54 @@
         "charity": {
             "type": "array",
             "items": {
-                "type": "string"
+                "type": "object",
+                "properties": {
+                    "text": {
+                        "type": "string"
+                    },
+                    "enabled": {
+                        "type": "boolean",
+                        "default": true
+                    }
+                },
+                "required": ["text", "enabled"],
+                "additionalProperties": false
             },
             "default": []
         },
         "sponsor": {
             "type": "array",
             "items": {
-                "type": "string"
+                "type": "object",
+                "properties": {
+                    "text": {
+                        "type": "string"
+                    },
+                    "enabled": {
+                        "type": "boolean",
+                        "default": true
+                    }
+                },
+                "required": ["text", "enabled"],
+                "additionalProperties": false
             },
             "default": []
         },
         "bingothon": {
             "type": "array",
             "items": {
-                "type": "string"
+                "type": "object",
+                "properties": {
+                    "text": {
+                        "type": "string"
+                    },
+                    "enabled": {
+                        "type": "boolean",
+                        "default": true
+                    }
+                },
+                "required": ["text", "enabled"],
+                "additionalProperties": false
             },
             "default": []
         }

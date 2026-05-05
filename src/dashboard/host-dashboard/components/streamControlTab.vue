@@ -1,59 +1,4 @@
 <template>
-    <QBanner
-        v-if="showAdBanner"
-        class="bg-orange text-white rounded-borders q-mb-md"
-    >
-        <template #avatar>
-            <QIcon
-                name="info"
-                color="white"
-            />
-        </template>
-        Currently playing ads for {{ adTimer }} more seconds
-    </QBanner>
-    <QBanner
-        v-if="showHostsSpeakingBanner"
-        inline-actions
-        class="text-white bg-red rounded-borders q-mb-md"
-    >
-        <template #avatar>
-            <QIcon
-                name="mic"
-                color="white"
-            />
-        </template>
-        You are currently live on stream
-        <template #action>
-            <QBtn
-                flat
-                color="white"
-                icon="mic_off"
-                label="Mute"
-                @click="toggleHostsSpeakingDuringIntermission"
-            />
-        </template>
-    </QBanner>
-    <QBanner
-        v-if="showVdoBanner"
-        inline-actions
-        class="text-white bg-green rounded-borders q-mb-md"
-    >
-        <template #avatar>
-            <QIcon
-                name="video_chat"
-                color="white"
-            />
-        </template>
-        The VDO overlay is currently shown on the intermission layout!
-        <template #action>
-            <QBtn
-                flat
-                color="white"
-                icon="stop_circle"
-                label="Stop"
-            />
-        </template>
-    </QBanner>
     <QBtn
         color="red"
         :icon="hostsSpeakingDuringIntermission ? 'mic_off' : 'mic'"
@@ -136,7 +81,7 @@
         <div class="text-h6">Paste a VDO Ninja room during intermission</div>
     </div>
     <QInput
-        v-model="twitchClipUrl"
+        v-model="showThingsDuringIntermissionReplicant!.data!.vdoUrl"
         label="Paste the entire URL of the group scene here"
         outlined
         dark
@@ -172,10 +117,6 @@
     } from '../../../browser_shared/replicants.ts';
 
     const adTimer = computed(() => twitchCommercialTimerReplicant!.data!.secondsRemaining);
-    const vdoUrl = computed(() => showThingsDuringIntermissionReplicant!.data!.vdoUrl);
-    const showAdBanner = computed<boolean>(() => adTimer.value > 0);
-    const showHostsSpeakingBanner = computed<boolean>(() => hostsSpeakingDuringIntermission.value);
-    const showVdoBanner = computed<boolean>(() => !!vdoUrl.value);
     const twitchClipUrl = ref('');
 
     const twitchClipSlug = computed(() => {

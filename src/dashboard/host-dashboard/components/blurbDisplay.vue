@@ -6,14 +6,12 @@
             class="bg-dark text-white"
         >
             <QCardSection class="row items-center justify-between">
-                <div class="text-h6">
-                    {{ props.type.charAt(0).toLocaleUpperCase() }}{{ props.type.slice(1) }} Blurbs
-                </div>
+                <div class="text-h6 text-capitalize">{{ props.type }} Blurbs</div>
                 <QBadge
                     color="primary"
                     class="q-mr-sm"
                 >
-                    {{ currentIndex + 1 }} / {{ textItems.length }}
+                    {{ currentIndex + 1 }} / {{ textItems.filter((item) => item.enabled).length }}
                 </QBadge>
             </QCardSection>
 
@@ -60,10 +58,11 @@
         <QDialog
             v-model="showEditDialog"
             persistent
+            seamless
         >
-            <QCard style="min-width: 350px">
+            <QCard style="min-width: 900px">
                 <QCardSection>
-                    <div class="text-h6">Manage Blurbs</div>
+                    <div class="text-h6 text-capitalize">Manage {{ props.type }} Blurbs</div>
                 </QCardSection>
 
                 <QCardSection class="q-pt-none">
@@ -73,7 +72,7 @@
                         class="row q-mb-sm items-start"
                     >
                         <QInput
-                            v-model="blurbsReplicant!.data![props.type][index]"
+                            v-model="blurbsReplicant!.data![props.type][index].text"
                             type="textarea"
                             autogrow
                             outlined
@@ -86,6 +85,12 @@
                             color="negative"
                             icon="delete"
                             @click="removeItem(index)"
+                        />
+                        <QCheckbox
+                            v-model="blurbsReplicant!.data![props.type][index].enabled"
+                            color="positive"
+                            label="Enabled"
+                            class="q-ml-md"
                         />
                     </div>
                     <QBtn
@@ -127,13 +132,20 @@
         type: 'charity' | 'sponsor' | 'bingothon';
     }>();
 
-    const displayedTexts = computed<string[]>(() => blurbsReplicant?.oldData?.[props.type] ?? []);
+    const displayedTexts = computed<string[]>(() => {
+        const typeBlurbs = blurbsReplicant?.oldData?.[props.type];
+        return (
+            typeBlurbs
+                ?.filter((item: { text: string; enabled: boolean }) => item.enabled)
+                .map((item: { text: string; enabled: boolean }) => item.text) ?? []
+        );
+    });
     const textItems = computed(() => blurbsReplicant?.data?.[props.type] ?? []);
     const currentIndex = ref(0);
     const showEditDialog = ref(false);
 
     const handleCancel = () => {
-        blurbsReplicant!.revert();
+        blurbsReplicant?.revert();
         showEditDialog.value = false;
     };
 
@@ -145,9 +157,10 @@
         blurbsReplicant?.save();
     };
 
-    const addItem = () => blurbsReplicant!.data![props.type].push('');
-    const removeItem = (index: number) => blurbsReplicant!.data![props.type].splice(index, 1);
+    const addItem = () => blurbsReplicant?.data?.[props.type].push({ text: '', enabled: true });
+    const removeItem = (index: number) => blurbsReplicant?.data?.[props.type].splice(index, 1);
 </script>
+
 <style scoped>
     #blurbCarousel {
         min-height: 100px;

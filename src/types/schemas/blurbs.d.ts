@@ -7,7 +7,16 @@
  */
 
 export interface Blurbs {
-	charity: string[];
-	sponsor: string[];
-	bingothon: string[];
+	charity: {
+		text: string;
+		enabled: boolean;
+	}[];
+	sponsor: {
+		text: string;
+		enabled: boolean;
+	}[];
+	bingothon: {
+		text: string;
+		enabled: boolean;
+	}[];
 }
