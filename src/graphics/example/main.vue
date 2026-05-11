@@ -154,6 +154,31 @@
     #pi2,
     #pi3,
     #pi4 {
-        background-color: black;
+        background-color: blue;
+    }
+
+    #pi1 {
+        left: 1400px;
+        top: 300px;
+        position: absolute;
+        width: 700px;
+    }
+    #pi2 {
+        left: 1400px;
+        top: 380px;
+        position: absolute;
+        width: 700px;
+    }
+    #pi3 {
+        left: 1400px;
+        top: 460px;
+        position: absolute;
+        width: 700px;
+    }
+    #pi4 {
+        left: 1400px;
+        top: 540px;
+        position: absolute;
+        width: 700px;
     }
 </style>

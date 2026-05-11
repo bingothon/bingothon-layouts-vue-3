@@ -12,6 +12,7 @@
 
     import { useReplicant } from 'nodecg-vue-composable';
     import type { Bingoboard } from '../../../../../bingothon-layouts/schemas';
+    import BestOfX from '../bestOfX.vue';
     import TextFit from '../textFit.vue';
     import playerSoloImg from './player-solo.png';
     import twitchIconImg from './twitch-icon.png';
@@ -93,7 +94,11 @@
     });
 
     const show = computed(() => {
-        return playerAlternate;
+        return playerAlternate.value;
+    });
+
+    const height = computed(() => {
+        return props.height;
     });
 
     const currentIcon = computed(() => {
@@ -266,11 +271,8 @@
         :class="{ ReverseOrder: reverseOrder }"
         :style="{ height: height }"
     >
-        <div
-            class="CurrentIcon FlexContainer"
-            :style="{ width: `calc(${height} * 1.5)` }"
-        >
-            <Transition name="fade">
+        <div class="CurrentIcon FlexContainer">
+            <transition name="fade">
                 <div
                     v-if="show && pronouns"
                     key="pronuns"
@@ -283,7 +285,7 @@
                     :key="currentIcon"
                     :src="currentIcon"
                 />
-            </Transition>
+            </transition>
         </div>
         <div v-if="!hideFinishTime">
             <BestOfX
@@ -312,7 +314,6 @@
         <div
             v-if="!!player?.country"
             class="Flag FlexContainer"
-            :style="{ width: `calc(${height} * 1.9)` }"
         >
             <transition name="fade">
                 <img
@@ -325,10 +326,8 @@
         <div
             v-if="bingoColorShown === true"
             class="BingoColor FlexContainer"
-            :class="``"
+            :class="`bingo-${bingoColor}`"
             :style="{
-                width: parseFloat(height.replace('px', '')) * 0.75 + 'px',
-                height: parseFloat(height.replace('px', '')) * 0.75 + 'px',
                 'background-color': bingoColor
             }"
         >
@@ -355,6 +354,7 @@
 
     .PlayerInfoBox > .CurrentIcon {
         height: 100%;
+        width: calc(v-bind(height) * 1.5);
         text-align: left;
         position: relative;
     }
@@ -393,6 +393,7 @@
 
     .PlayerInfoBox > .Flag {
         height: 100%;
+        width: calc(v-bind(height) * 1.9);
         justify-content: flex-end;
         position: relative;
         margin-right: 15px;
@@ -416,6 +417,8 @@
         border-radius: 10%;
         border: 1px white solid;
         box-sizing: content-box;
+        height: calc(v-bind(height) * 0.75);
+        width: calc(v-bind(height) * 0.75);
     }
 
     .PlayerInfoBox > .Sound > img {
