@@ -73,7 +73,7 @@
         />
         <TeamInfo
             id="teamInfo"
-            :team-index="0"
+            :team-index="1"
         />
         <DiscordDisplay
             :icon-height-px="50"
@@ -178,6 +178,12 @@
     #pi4 {
         left: 1400px;
         top: 540px;
+        position: absolute;
+        width: 700px;
+    }
+    #teamInfo {
+        left: 1400px;
+        top: 620px;
         position: absolute;
         width: 700px;
     }
