@@ -272,7 +272,10 @@
         :style="{ height: height }"
     >
         <div class="CurrentIcon FlexContainer">
-            <transition name="fade">
+            <transition
+                name="fade"
+                mode="out-in"
+            >
                 <div
                     v-if="show && pronouns"
                     key="pronuns"
@@ -297,7 +300,10 @@
         </div>
         <div :class="medalClasses"></div>
         <div class="PlayerName">
-            <transition name="fade">
+            <transition
+                name="fade"
+                mode="out-in"
+            >
                 <TextFit
                     :key="text"
                     :text="finishTime + text"
@@ -315,7 +321,10 @@
             v-if="!!player?.country"
             class="Flag FlexContainer"
         >
-            <transition name="fade">
+            <transition
+                name="fade"
+                mode="out-in"
+            >
                 <img
                     :key="player.country"
                     :style="{ visibility: showFlag ? 'visible' : 'hidden' }"
@@ -468,11 +477,21 @@
 
     .v-enter-active,
     .v-leave-active {
-        transition: opacity 0.5s ease;
+        transition: opacity 1s ease;
     }
 
     .v-enter-from,
     .v-leave-to {
+        opacity: 0;
+    }
+
+    /* global animation stuff */
+    .fade-enter-active,
+    .fade-leave-active {
+        transition: opacity 1s;
+    }
+    .fade-enter,
+    .fade-leave-to {
         opacity: 0;
     }
 </style>
