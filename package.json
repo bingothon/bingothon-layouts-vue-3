@@ -72,6 +72,13 @@
                 "width": 3
             },
             {
+                "name": "crop control",
+                "title": "crop control",
+                "fullbleed": true,
+                "file": "crop-control/main.html",
+                "headerColor": "#008BB9"
+            },
+            {
                 "name": "Z - Host Dashboard",
                 "title": "Z - Host Dashboard",
                 "file": "host-dashboard/main.html",
