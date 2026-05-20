@@ -1,31 +1,3 @@
-<script setup lang="ts">
-    import { faMicrophone } from '@fortawesome/free-solid-svg-icons';
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-    import { computed } from 'vue';
-    import { voiceActivityReplicant } from '../../browser_shared/replicants';
-    import TextFit from './textFit.vue';
-
-    const props = withDefaults(
-        defineProps<{
-            iconHeightPx: number;
-            nameWidthPx: number;
-            voiceHighlightColor: string;
-            maxUserCount?: number;
-        }>(),
-        {
-            maxUserCount: 20
-        }
-    );
-
-    const iconHeightString = computed(() => `${props.iconHeightPx}px`);
-    const nameWidthString = computed(() => `${props.nameWidthPx}px`);
-
-    const members = computed(() => {
-        const all = voiceActivityReplicant?.data?.members ?? [];
-        return all.slice(0, props.maxUserCount);
-    });
-</script>
-
 <template>
     <div
         class="DiscordVoiceDisplay FlexContainer"
@@ -56,6 +28,34 @@
         </div>
     </div>
 </template>
+
+<script setup lang="ts">
+    import { faMicrophone } from '@fortawesome/free-solid-svg-icons';
+    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+    import { computed } from 'vue';
+    import { voiceActivityReplicant } from '../../browser_shared/replicants';
+    import TextFit from './textFit.vue';
+
+    const props = withDefaults(
+        defineProps<{
+            iconHeightPx: number;
+            nameWidthPx: number;
+            voiceHighlightColor: string;
+            maxUserCount?: number;
+        }>(),
+        {
+            maxUserCount: 20
+        }
+    );
+
+    const iconHeightString = computed(() => `${props.iconHeightPx}px`);
+    const nameWidthString = computed(() => `${props.nameWidthPx}px`);
+
+    const members = computed(() => {
+        const all = voiceActivityReplicant?.data?.members ?? [];
+        return all.slice(0, props.maxUserCount);
+    });
+</script>
 
 <style scoped>
     .DiscordVoiceDisplay {

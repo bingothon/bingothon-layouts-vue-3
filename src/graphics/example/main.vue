@@ -1,3 +1,36 @@
+<template>
+    <div>
+        {{ text }}
+        <br />
+        <br />
+        <img src="./image.png" />
+        <br />
+        <br />
+        <!-- Example code: accessing a replicant. -->
+        {{ exampleReplicant?.data?.exampleProperty }}
+        <DiscordDisplay
+            :icon-height-px="50"
+            :name-width-px="100"
+            voice-highlight-color="rgba(255, 0, 0, 0.5)"
+        />
+        <TimerContainer id="timer" />
+        <GameInfoContainer id="game" />
+        <CellTextFit
+            id="ctf"
+            :text="randomText"
+            font-size="20px"
+        />
+        <Bingoboard
+            id="bboard"
+            font-size="20px"
+        />
+        <SponsorLogoRotation
+            id="sponsor"
+            :logo-asset-type="LogoAssetType.squareLogos"
+        />
+    </div>
+</template>
+
 <script setup lang="ts">
     import { useHead } from '@unhead/vue';
     import { ref } from 'vue';
@@ -38,39 +71,6 @@
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const exampleType: ExampleType = { exampleProperty: 'exampleString' };
 </script>
-
-<template>
-    <div>
-        {{ text }}
-        <br />
-        <br />
-        <img src="./image.png" />
-        <br />
-        <br />
-        <!-- Example code: accessing a replicant. -->
-        {{ exampleReplicant?.data?.exampleProperty }}
-        <DiscordDisplay
-            :icon-height-px="50"
-            :name-width-px="100"
-            voice-highlight-color="rgba(255, 0, 0, 0.5)"
-        />
-        <TimerContainer id="timer" />
-        <GameInfoContainer id="game" />
-        <CellTextFit
-            id="ctf"
-            :text="randomText"
-            font-size="20px"
-        />
-        <Bingoboard
-            id="bboard"
-            font-size="20px"
-        />
-        <SponsorLogoRotation
-            id="sponsor"
-            :logo-asset-type="LogoAssetType.squareLogos"
-        />
-    </div>
-</template>
 
 <style scoped>
     .DiscordVoiceDisplay {

@@ -21,6 +21,12 @@ export default tseslint.config(
                     svg: 'always',
                     math: 'always'
                 }
+            ],
+            'vue/block-order': [
+                'error',
+                {
+                    order: ['template', 'script', 'style']
+                }
             ]
         }
     },
