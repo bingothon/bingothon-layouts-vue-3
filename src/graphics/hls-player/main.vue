@@ -1,6 +1,13 @@
 <template>
-    <span style="font-size: 50px; display: none">Delay: {{ hlsLatency }}</span>
-    <video ref="video"></video>
+    <video
+        id="video"
+        ref="video"
+    ></video>
+    <span
+        v-show="showDelayDebug"
+        id="video-delay"
+        >Delay: {{ hlsLatency.toFixed(2) }}</span
+    >
 </template>
 
 <script setup lang="ts">
@@ -10,7 +17,7 @@
 
     const hls = new Hls({
         lowLatencyMode: true,
-        maxLiveSyncPlaybackRate: 10
+        maxLiveSyncPlaybackRate: nodecg.bundleConfig.hlsPlayer?.maxLiveSyncPlaybackRate ?? 10
     });
 
     const videoElem = useTemplateRef<HTMLVideoElement>('video');
@@ -46,6 +53,8 @@
         }
     );
 
+    const showDelayDebug = nodecg.bundleConfig.hlsPlayer?.delayDebug === true;
+
     const hlsLatency = ref(hls.latency);
 
     const latencyInterval = setInterval(() => {
@@ -56,3 +65,18 @@
         clearInterval(latencyInterval);
     });
 </script>
+
+<style>
+    #video {
+        height: 1080px;
+        width: 1920px;
+        position: absolute;
+    }
+    #video-delay {
+        font-size: 50px;
+        position: absolute;
+        color: black;
+        /* make sure the text is always readable */
+        text-shadow: white 0px 50px;
+    }
+</style>

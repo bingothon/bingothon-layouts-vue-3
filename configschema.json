@@ -3,9 +3,17 @@
     "type": "object",
     "additionalProperties": false,
     "properties": {
-        "exampleProperty": {
-            "type": "string"
+        "hlsPlayer": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "delayDebug": {
+                    "type": "boolean"
+                },
+                "maxLiveSyncPlaybackRate": {
+                    "type": "number"
+                }
+            }
         }
-    },
-    "required": ["exampleProperty"]
+    }
 }
