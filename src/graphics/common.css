@@ -21,6 +21,15 @@
     --border-color-teal: #2e7372;
     --border-color-navy: #022b75;
     --border-color-yellow: #808080;
+
+    --container-background-color: rgba(206, 13, 0, 0.6);
+    --container-border-color: black;
+    --font-color: #fff;
+    --darker-main-color: #e94e1b;
+    --lighter-main-color: #f39200;
+    --alternative-main-color: #d32f3e;
+    --gradient-light: #ffa600;
+    --gradient-dark: #ff1125be;
 }
 
 .FlexContainer {

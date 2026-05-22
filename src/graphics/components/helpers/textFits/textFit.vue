@@ -6,7 +6,7 @@
         <div
             ref="contentRef"
             class="FittedTextContent"
-            :style="{ transform, top }"
+            :style="{ transform, top, position }"
         >
             {{ text }}
         </div>
@@ -20,9 +20,11 @@
         defineProps<{
             text: string;
             align?: 'left' | 'center' | 'right';
+            position?: 'absolute' | 'relative';
         }>(),
         {
-            align: 'left'
+            align: 'left',
+            position: 'absolute'
         }
     );
 
@@ -85,9 +87,5 @@
         height: 100%;
         white-space: nowrap;
         position: relative;
-    }
-
-    .FittedTextContent {
-        position: absolute;
     }
 </style>
