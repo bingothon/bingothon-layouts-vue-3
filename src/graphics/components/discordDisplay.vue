@@ -34,7 +34,7 @@
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
     import { computed } from 'vue';
     import { voiceActivityReplicant } from '../../browser_shared/replicants';
-    import TextFit from './textFit.vue';
+    import TextFit from './helpers/textFits/textFit.vue';
 
     const props = withDefaults(
         defineProps<{

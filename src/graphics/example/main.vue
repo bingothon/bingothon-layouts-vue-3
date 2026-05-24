@@ -39,7 +39,7 @@
     import Bingoboard from '../components/bingoboard/bingoBoard.vue';
     import DiscordDisplay from '../components/discordDisplay.vue';
     import GameInfoContainer from '../components/gameInfo/gameInfoContainer.vue';
-    import CellTextFit from '../components/helpers/cellTextFit.vue';
+    import CellTextFit from '../components/helpers/textFits/cellTextFit.vue';
     import SponsorLogoRotation, { LogoAssetType } from '../components/sponsorLogoRotation.vue';
     import TimerContainer from '../components/timerContainer.vue';
 
