@@ -116,7 +116,7 @@
         twitchCommercialTimerReplicant
     } from '../../../browser_shared/replicants.ts';
 
-    const adTimer = computed(() => twitchCommercialTimerReplicant!.data!.secondsRemaining);
+    const adTimer = computed(() => twitchCommercialTimerReplicant?.data?.secondsRemaining ?? 0);
     const twitchClipUrl = ref('');
 
     const twitchClipSlug = computed(() => {

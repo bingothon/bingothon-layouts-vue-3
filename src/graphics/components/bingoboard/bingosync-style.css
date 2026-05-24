@@ -20,7 +20,11 @@
 
 .square .bg-color,
 .square .shadow {
-    height: inherit;
+    width: 100%;
+    height: 100%;
+    /*Remove padding cause the board is kinda small*/
+    padding: 0;
+    border: 0;
     position: absolute;
     left: -2px;
     right: -2px;
