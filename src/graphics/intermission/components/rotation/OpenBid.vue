@@ -133,7 +133,8 @@
             labels: {
                 style: {
                     colors: '#ffffff', // Ensures long option labels stand out on dark layouts
-                    fontSize: '14px'
+                    fontFamily: 'Montserrat, sans-serif',
+                    fontSize: '22px'
                 }
             }
         },

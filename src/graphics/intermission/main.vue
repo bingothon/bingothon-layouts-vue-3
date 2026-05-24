@@ -124,6 +124,7 @@
     #Intermission {
         height: 1080px;
         overflow: hidden;
+        background: linear-gradient(-128deg, var(--gradient-light) 0, var(--gradient-dark) 100%) 100% no-repeat fixed;
     }
 
     #logoWinter {

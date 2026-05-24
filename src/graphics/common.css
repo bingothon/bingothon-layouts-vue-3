@@ -1,5 +1,11 @@
-/*Bingo Colors*/
+@import url('https://fonts.googleapis.com/css?family=Montserrat:600&subset=cyrillic,cyrillic-ext,latin-ext,vietnamese');
+
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
 :root {
+    /*Bingo Colors*/
     --bingo-color-red: linear-gradient(#ff4944, #da4440 60%, #ce302c);
     --bingo-color-orange: linear-gradient(#ff9c12, #f98e1e 60%, #d0800f);
     --bingo-color-green: linear-gradient(#129912, #108010 60%, #0c660c);

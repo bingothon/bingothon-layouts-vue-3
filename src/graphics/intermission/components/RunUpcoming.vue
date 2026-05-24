@@ -43,7 +43,7 @@
                                 <div
                                     v-for="(player, playerIndex) in team.players"
                                     :key="playerIndex"
-                                    class="PlayerChip-1 FlexContainer"
+                                    class="PlayerChip-1 PlayerChipCommon FlexContainer"
                                 >
                                     <text-fit
                                         :text="player.name"
@@ -55,10 +55,11 @@
                         </div>
                     </template>
                     <template v-else>
+                        <!-- TODO -->
                         <div
                             v-for="(player, playerIndex) in firstHalf as RunDataPlayer[]"
                             :key="playerIndex"
-                            class="PlayerChip-1 FlexContainer"
+                            class="PlayerChip-1 PlayerChipCommon FlexContainer"
                         >
                             <text-fit
                                 :text="player.name"
@@ -96,10 +97,10 @@
                     </div>
                     <div class="GameDetails">
                         <div
-                            v-if="data.estimate"
+                            v-if="data!.estimate"
                             class="Estimate Chip"
                         >
-                            <span class="ChipText">{{ data.estimate }}</span>
+                            <span class="ChipText">{{ data!.estimate }}</span>
                         </div>
                         <GameSystem
                             v-if="gameSystem"
@@ -130,7 +131,7 @@
                                 <div
                                     v-for="(player, playerIndex) in team.players"
                                     :key="playerIndex"
-                                    class="PlayerChip FlexContainer"
+                                    class="PlayerChip PlayerChipCommon FlexContainer"
                                 >
                                     <text-fit
                                         :text="player.name"
@@ -145,7 +146,7 @@
                         <div
                             v-for="(player, playerIndex) in secondHalf as RunDataPlayer[]"
                             :key="playerIndex"
-                            class="PlayerChip FlexContainer"
+                            class="PlayerChip PlayerChipCommon FlexContainer"
                         >
                             <text-fit
                                 :text="player.name"
@@ -232,27 +233,18 @@
     });
 
     function formETAUntilRun() {
-        const runStart = new Date(props.when!);
-        const now = new Date();
-        const diffMs = runStart.getTime() - now.getTime();
+        if (!props.when) return 'Soon';
         switch (true) {
-            case diffMs <= 0:
-                return 'This prize has ended';
-            case diffMs < 60 * 1000: {
-                const seconds = Math.floor(diffMs / 1000);
-                return seconds > 1 ? `Donate in the next ${seconds} seconds` : 'Donate in the next second';
+            case props.when < 60: {
+                return 'Soon';
             }
-            case diffMs < 60 * 60 * 1000: {
-                const minutes = Math.floor(diffMs / (60 * 1000));
-                return minutes > 1 ? `Donate in the next ${minutes} minutes` : 'Donate in the next minute';
-            }
-            case diffMs < 24 * 60 * 60 * 1000: {
-                const hours = Math.floor(diffMs / (60 * 60 * 1000));
-                return hours > 1 ? `Donate in the next ${hours} hours` : 'Donate in the next hour';
+            case props.when < 60 * 60: {
+                const minutes = Math.round(props.when / 60);
+                return minutes > 1 ? `in about ${minutes} minutes` : 'in a minute';
             }
             default: {
-                const days = Math.floor(diffMs / (24 * 60 * 60 * 1000));
-                return days > 1 ? `Donate in the next ${days} days` : 'Donate in the next day';
+                const hours = Math.round(props.when / (60 * 60));
+                return hours > 1 ? `in about ${hours} hours` : 'in an hour';
             }
         }
     }
@@ -337,37 +329,11 @@
     }
 
     .PlayerChip-1 {
-        position: relative; /* Corrected from 'display' to 'position' */
-        font-weight: bold;
-        padding: 3px 4px;
-        background-color: rgba(220, 240, 255, 0.9);
-        border-radius: 2px;
-        height: 32px;
-        min-width: 125px;
-        width: 125px;
-        max-width: 125px;
-        color: #333;
-        border: 1px solid rgba(180, 230, 255, 0.7);
-        background-image: url('data:image/svg+xml;utf8,<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="iceGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:rgba(240, 255, 255, 0.7); stop-opacity:1" /><stop offset="100%" style="stop-color:rgba(200, 240, 255, 0.9); stop-opacity:1" /></linearGradient></defs><rect width="100%" height="100%" fill="url(%23iceGradient)" /></svg>');
-        box-shadow: 0px 0px 5px 2px rgba(200, 240, 255, 0.3);
         margin: 4px 4px 4px 17px;
     }
 
     .PlayerChip {
-        position: relative; /* Corrected from 'display' to 'position' */
-        font-weight: bold;
-        padding: 3px 4px;
-        background-color: rgba(220, 240, 255, 0.9);
-        border-radius: 2px;
-        height: 32px;
-        min-width: 125px;
-        width: 125px;
-        max-width: 125px;
-        color: #333;
         margin: 4px 4px 4px 5px;
-        border: 1px solid rgba(180, 230, 255, 0.7);
-        background-image: url('data:image/svg+xml;utf8,<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="iceGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:rgba(240, 255, 255, 0.7); stop-opacity:1" /><stop offset="100%" style="stop-color:rgba(200, 240, 255, 0.9); stop-opacity:1" /></linearGradient></defs><rect width="100%" height="100%" fill="url(%23iceGradient)" /></svg>');
-        box-shadow: 0px 0px 5px 2px rgba(200, 240, 255, 0.3);
     }
 
     .PlayerPlaceHolder {
@@ -395,6 +361,7 @@
         /* background-image: url('data:image/svg+xml;utf8,<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="iceGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:rgba(240, 255, 255, 0.7); stop-opacity:1" /><stop offset="100%" style="stop-color:rgba(200, 240, 255, 0.9); stop-opacity:1" /></linearGradient></defs><rect width="100%" height="100%" fill="url(%23iceGradient)" /></svg>'); */
         box-shadow: 0px 0px 5px 2px rgba(40, 74, 87, 0.247);
         color: #fff;
+        font-size: 22px;
     }
 
     .joystick svg {
@@ -430,8 +397,6 @@
 
     .GameDetails {
         display: flex;
-        /* display: grid; */
-        /* grid-template-columns: 160px 160px; this creates 2 equal columns */
         gap: 4px;
         /* flex-direction: column; */
         align-items: flex-start; /* This makes the content align to the left */
@@ -461,11 +426,9 @@
         background-color: rgba(220, 240, 255, 0.9); /* Light blueish, slightly transparent */
         border-radius: 2px;
         height: 22px;
-        /* min-width: 150px; */
         color: #333;
         margin: 4px;
         border: 1px solid rgba(180, 230, 255, 0.7); /* Slightly blueish border for that 'frozen' feel */
-        /* max-width: 250px; */
 
         /* Ice-like gradient background using SVG */
         background-image: url('data:image/svg+xml;utf8,<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="iceGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:rgba(240, 255, 255, 0.7); stop-opacity:1" /><stop offset="100%" style="stop-color:rgba(200, 240, 255, 0.9); stop-opacity:1" /></linearGradient></defs><rect width="100%" height="100%" fill="url(%23iceGradient)" /></svg>');
@@ -497,7 +460,6 @@
         font-weight: 500;
         height: 60px;
         line-height: 60px;
-        background-color: var(--border-colour);
         color: white;
         font-size: 41px;
         text-transform: uppercase;
@@ -515,15 +477,29 @@
         margin-left: -29px;
     }
 
-    .PlayerChip #TextContainer {
+    .PlayerChipCommon {
+        position: relative; /* Corrected from 'display' to 'position' */
+        font-weight: bold;
+        padding: 3px 4px;
+        background-color: rgba(220, 240, 255, 0.9);
+        border-radius: 2px;
+        height: 32px;
+        min-width: 125px;
+        width: 125px;
+        max-width: 125px;
+        color: #333;
+        margin: 4px 4px 4px 5px;
+        border: 1px solid rgba(180, 230, 255, 0.7);
+        background-image: url('data:image/svg+xml;utf8,<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="iceGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:rgba(240, 255, 255, 0.7); stop-opacity:1" /><stop offset="100%" style="stop-color:rgba(200, 240, 255, 0.9); stop-opacity:1" /></linearGradient></defs><rect width="100%" height="100%" fill="url(%23iceGradient)" /></svg>');
+        box-shadow: 0px 0px 5px 2px rgba(200, 240, 255, 0.3);
         font-size: 22px;
     }
 
-    .TeamChip #TextContainer {
+    .TeamChip :deep(.TextContainer) {
         font-size: 22px;
     }
 
-    .PlayerChip-1 #TextContainer {
+    .PlayerChipCommon :deep(.TextContainer) {
         font-size: 22px;
     }
 </style>
