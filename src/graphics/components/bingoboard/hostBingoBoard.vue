@@ -40,15 +40,6 @@
                 </tr>
             </tbody>
         </table>
-        <div
-            v-if="props.dashboard"
-            id="btn"
-        >
-            <button @click="resetBoard()">Reset</button>
-            <div>Red = Bingothon</div>
-            <div>Blue = Nitro (Restream, left click)</div>
-            <div>Green = SRDE (Restream, right click)</div>
-        </div>
     </div>
 </template>
 
@@ -63,12 +54,10 @@
     const props = withDefaults(
         defineProps<{
             fontSize?: string;
-            dashboard?: boolean;
             isRestream?: boolean;
         }>(),
         {
             fontSize: '10px',
-            dashboard: false,
             isRestream: false
         }
     );
@@ -76,6 +65,8 @@
     const bingoCells = computed(() => hostingBingoboard?.data ?? []);
     const rowCount = computed(() => bingoCells.value.length);
     const columnCount = computed(() => bingoCells.value[0]?.length ?? 0);
+
+    defineExpose({ resetBoard });
 
     function resetBoard() {
         if (hostingBingoboard) {
@@ -172,17 +163,14 @@
         position: absolute;
     }
 
-    #btn {
-        position: absolute;
-        top: 100%;
-    }
-
     .square {
         padding: 0;
         height: calc(100% / v-bind(rowCount));
         width: calc(100% / v-bind(columnCount));
         border: 2px black solid;
         box-sizing: border-box;
+        overflow: hidden;
+        position: relative;
     }
 
     .CellTextFitContainer {
@@ -191,10 +179,7 @@
         position: absolute;
         margin: 2px;
     }
-    .text-container {
-        left: 0px;
-        right: 0px;
-    }
+
     .bingo-table {
         border-collapse: collapse;
     }

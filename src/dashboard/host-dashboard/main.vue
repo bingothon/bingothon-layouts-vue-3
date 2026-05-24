@@ -105,12 +105,10 @@
                         <stream-control-tab />
                     </QTabPanel>
                     <QTabPanel name="hostBingo">
-                        <div id="HostingBingo">
-                            <HostBingoBoard
-                                dashboard
-                                font-size="25px"
-                            />
-                        </div>
+                        <host-bingo-tab
+                            :is-restream="false"
+                            font-size="25px"
+                        />
                     </QTabPanel>
                 </QTabPanels>
             </QPage>
@@ -127,19 +125,19 @@
         showThingsDuringIntermissionReplicant,
         twitchCommercialTimerReplicant
     } from '../../browser_shared/replicants';
-    import HostBingoBoard from '../../graphics/components/bingoboard/hostBingoBoard.vue';
     import BlurbsTab from './components/blurbsTab.vue';
     import ScheduledAndIncentivesTab from './components/scheduledAndIncentivesTab.vue';
     import StreamControlTab from './components/streamControlTab.vue';
+    import HostBingoTab from './components/hostBingoTab.vue';
 
     const activeTab = ref('blurbs');
     const donationTotal = computed(() => formatAmount(donationTotalReplicant?.data || 0));
 
     const adTimer = computed(() => twitchCommercialTimerReplicant?.data?.secondsRemaining ?? 0);
     const showAdBanner = computed(() => adTimer.value > 0);
-    const showHostsSpeakingBanner = computed(() => hostsSpeakingDuringIntermissionReplicant!.data!.speaking);
+    const showHostsSpeakingBanner = computed(() => hostsSpeakingDuringIntermissionReplicant?.data?.speaking || false);
     // Use oldData to check if the replicant actually got updated and not just the model
-    const showVdoBanner = computed(() => !!showThingsDuringIntermissionReplicant!.oldData!.vdoUrl);
+    const showVdoBanner = computed(() => !!showThingsDuringIntermissionReplicant?.oldData?.vdoUrl || '');
 
     const headerClass = computed(() => {
         if (showHostsSpeakingBanner.value) return 'bg-red';
@@ -185,6 +183,6 @@
         height: 500px;
     }
     #HostingBingo {
-        height: 530px;
+        height: 600px;
     }
 </style>
