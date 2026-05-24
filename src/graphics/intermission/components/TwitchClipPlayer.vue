@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-    import { computed, nextTick, onMounted } from 'vue';
+    import { computed, onMounted } from 'vue';
 
     let isShown: boolean = false; // This is the new data property for internal visibility control
     let twitchClipSlug: string = '';
@@ -26,10 +26,8 @@
     );
 
     onMounted(() => {
-        nextTick(() => {
-            nodecg.listenFor('playTwitchClip', playClip);
-            nodecg.listenFor('stopTwitchClip', stopClip);
-        });
+        nodecg.listenFor('playTwitchClip', playClip);
+        nodecg.listenFor('stopTwitchClip', stopClip);
     });
 
     async function fetchTwitchClipDuration(slug: string) {

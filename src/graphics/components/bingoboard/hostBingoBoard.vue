@@ -48,7 +48,7 @@
     import type { HostBingoCell } from '../../../../../bingothon-layouts/schemas';
     import goals from '../../../../../bingothon-layouts/static/hostBingo.json';
     import { hostingBingoboard } from '../../../browser_shared/replicants';
-    import CellTextFit from '../helpers/cellTextFit.vue';
+    import CellTextFit from '../helpers/textFits/cellTextFit.vue';
     import { translatePercent } from './util';
 
     const props = withDefaults(

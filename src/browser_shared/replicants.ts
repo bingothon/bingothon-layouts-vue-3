@@ -3,7 +3,6 @@ import type { RunDataArray } from 'speedcontrol-util/types/speedcontrol';
 import type { RunDataActiveRun, Timer, TwitchCommercialTimer } from 'speedcontrol-util/types/speedcontrol/schemas';
 import type * as oldSchemas from '../../../bingothon-layouts/schemas';
 import type { Schemas } from '../types';
-import type { RunDataArray } from 'speedcontrol-util/types/speedcontrol';
 
 // YOU MUST CHANGE THIS TO YOUR BUNDLE'S NAME!
 export const thisBundle = 'bingothon-layouts-vue-3';
@@ -28,12 +27,6 @@ export const trackerPrizesReplicant = useReplicant<oldSchemas.TrackerPrizes>('tr
 export const obsCurrentSceneReplicant = useReplicant<null | string>('obsCurrentScene', oldBundle);
 export const streamsReplicant = useReplicant<oldSchemas.TwitchStream[]>('twitchStreams', oldBundle);
 export const discordDelayInfo = useReplicant<oldSchemas.DiscordDelayInfo>('discordDelayInfo', oldBundle);
-export const hostsSpeakingDuringIntermissionReplicant = useReplicant<oldSchemas.HostsSpeakingDuringIntermission>('hostsSpeakingDuringIntermission', oldBundle);
-export const showThingsDuringIntermissionReplicant = useReplicant<oldSchemas.ShowThingsDuringIntermission>('showThingsDuringIntermission', oldBundle);
-export const donationTotalReplicant = useReplicant<oldSchemas.DonationTotal>('donationTotal', oldBundle);
-export const trackerOpenBidsReplicant = useReplicant<oldSchemas.TrackerOpenBids>('trackerOpenBids', oldBundle);
-export const trackerPrizesReplicant = useReplicant<oldSchemas.TrackerPrizes>('trackerPrizes', oldBundle);
-export const obsCurrentSceneReplicant = useReplicant<null | string>('obsCurrentScene', oldBundle);
 export const hostingBingoboard = useReplicant<oldSchemas.HostingBingoboard>('hostingBingoboard', oldBundle);
 export const songDataReplicant = useReplicant<oldSchemas.SongData>('songData', oldBundle);
 

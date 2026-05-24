@@ -11,7 +11,7 @@
             id="ComingUpNext"
             :data="nextRun"
         ></run-upcoming>
-        <!--        <rotation></rotation>-->
+        <IntermissionRotation></IntermissionRotation>
         <div id="ReaderAndMusic">
             <div
                 v-if="hostsSpeakingDuringIntermission"
@@ -29,11 +29,11 @@
         </div>
 
         <div class="HostingBingo">
-            <!--            <HostBingo
+            <HostBingoBoard
                 id="Bingo-board"
                 class="BingoBoard"
                 font-size="20px"
-            ></HostBingo>-->
+            ></HostBingoBoard>
         </div>
         <div :class="'ImageView ' + (showIntermissionImage ? 'PictureShown' : '')">
             <img
@@ -51,11 +51,11 @@
 </template>
 
 <script setup lang="ts">
-    // import Rotation from './components/Rotation.vue';
+    import IntermissionRotation from './components/rotation/IntermissionRotation.vue';
     import RunUpcoming from './components/RunUpcoming.vue';
     import type { RunData } from 'speedcontrol-util/types/speedcontrol/RunData';
     import DiscordDisplay from '../components/discordDisplay.vue';
-    // import HostBingo from '../components/hostBingo.vue';
+    import HostBingoBoard from '../components/bingoboard/hostBingoBoard.vue';
     import MusicDisplay from './components/MusicDisplay.vue';
     import TwitchClipPlayer from './components/TwitchClipPlayer.vue';
     import { computed, onMounted, ref, watch } from 'vue';
@@ -91,7 +91,7 @@
                 if (activeRun && runArray) {
                     refreshUpcomingRun();
 
-                    // Boom. The watcher tears itself down and never fires again.
+                    // Kill the watcher so it only runs once
                     unwatch();
                 }
             }
@@ -234,7 +234,6 @@
         left: 1px;
         width: 712px;
         height: 135px;
-        background-image: url(http://localhost:9090/bundles/bingothon-layouts/graphics/js/../img/snowbanner-5127a2773ddbe60639022ef42942cc78.png);
         background-size: cover;
         background-repeat: no-repeat;
         z-index: 1;

@@ -25,7 +25,7 @@
     const pathsAndLogos = computed(() => pathsAndText);
 
     const gameSystemImage = computed<string>(() => {
-        const imagePath = pathsAndLogos.value[props.gameSystem.toLocaleLowerCase()].logoPath;
+        const imagePath = pathsAndLogos.value[props.gameSystem.toLocaleLowerCase()]?.logoPath;
         if (imagePath) {
             return `/bundles/bingothon-layouts/static/game-systems/${imagePath}`;
         }
