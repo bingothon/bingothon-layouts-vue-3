@@ -105,7 +105,12 @@
                         <stream-control-tab />
                     </QTabPanel>
                     <QTabPanel name="hostBingo">
-                        <!-- TODO: Add Component for Host Bingo -->
+                        <div id="HostingBingo">
+                            <HostBingoBoard
+                                dashboard
+                                font-size="25px"
+                            />
+                        </div>
                     </QTabPanel>
                 </QTabPanels>
             </QPage>
@@ -122,6 +127,7 @@
         showThingsDuringIntermissionReplicant,
         twitchCommercialTimerReplicant
     } from '../../browser_shared/replicants';
+    import HostBingoBoard from '../../graphics/components/bingoboard/hostBingoBoard.vue';
     import BlurbsTab from './components/blurbsTab.vue';
     import ScheduledAndIncentivesTab from './components/scheduledAndIncentivesTab.vue';
     import StreamControlTab from './components/streamControlTab.vue';
@@ -129,7 +135,7 @@
     const activeTab = ref('blurbs');
     const donationTotal = computed(() => formatAmount(donationTotalReplicant?.data || 0));
 
-    const adTimer = computed(() => twitchCommercialTimerReplicant!.data!.secondsRemaining);
+    const adTimer = computed(() => twitchCommercialTimerReplicant?.data?.secondsRemaining ?? 0);
     const showAdBanner = computed(() => adTimer.value > 0);
     const showHostsSpeakingBanner = computed(() => hostsSpeakingDuringIntermissionReplicant!.data!.speaking);
     // Use oldData to check if the replicant actually got updated and not just the model
@@ -170,5 +176,15 @@
         display: flex;
         align-items: center;
         white-space: nowrap;
+    }
+</style>
+
+<style>
+    #HostingBingo .bingo-table {
+        width: 500px;
+        height: 500px;
+    }
+    #HostingBingo {
+        height: 530px;
     }
 </style>

@@ -1,8 +1,8 @@
 import { useReplicant } from 'nodecg-vue-composable';
+import type { RunDataArray } from 'speedcontrol-util/types/speedcontrol';
 import type { RunDataActiveRun, Timer, TwitchCommercialTimer } from 'speedcontrol-util/types/speedcontrol/schemas';
 import type * as oldSchemas from '../../../bingothon-layouts/schemas';
 import type { Schemas } from '../types';
-import type { RunDataArray } from 'speedcontrol-util/types/speedcontrol';
 
 // YOU MUST CHANGE THIS TO YOUR BUNDLE'S NAME!
 export const thisBundle = 'bingothon-layouts-vue-3';
@@ -25,6 +25,7 @@ export const donationTotalReplicant = useReplicant<oldSchemas.DonationTotal>('do
 export const trackerOpenBidsReplicant = useReplicant<oldSchemas.TrackerOpenBids>('trackerOpenBids', oldBundle);
 export const trackerPrizesReplicant = useReplicant<oldSchemas.TrackerPrizes>('trackerPrizes', oldBundle);
 export const obsCurrentSceneReplicant = useReplicant<null | string>('obsCurrentScene', oldBundle);
+export const hostingBingoboard = useReplicant<oldSchemas.HostingBingoboard>('hostingBingoboard', oldBundle);
 
 // SpeedControl Replicants
 export const runDataActiveRunReplicant = useReplicant<RunDataActiveRun>('runDataActiveRun', scBundle);
