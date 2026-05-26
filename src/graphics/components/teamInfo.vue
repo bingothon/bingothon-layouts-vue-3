@@ -66,9 +66,7 @@
     );
 
     const name = computed(() => {
-        console.log(runDataActiveRunReplicant?.data?.teams);
         const team = runDataActiveRunReplicant?.data?.teams[props.teamIndex];
-        console.log(team);
         if (!team) {
             return '';
         }
