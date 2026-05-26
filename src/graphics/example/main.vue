@@ -27,10 +27,16 @@
             id="pi4"
             :player-index="3"
             height="45px"
+            reverse-order
         />
         <TeamInfo
             id="teamInfo"
+            :team-index="0"
+        />
+        <TeamInfo
+            id="teamInfo1"
             :team-index="1"
+            reverse-order
         />
         <DiscordDisplay
             :icon-height-px="50"
@@ -143,13 +149,8 @@
         width: 400px;
     }
 
-    #teamInfo {
-        position: absolute;
-        top: 800px;
-        left: 0;
-    }
-
     #teamInfo,
+    #teamInfo1,
     #pi1,
     #pi2,
     #pi3,
@@ -184,6 +185,12 @@
     #teamInfo {
         left: 1400px;
         top: 620px;
+        position: absolute;
+        width: 700px;
+    }
+    #teamInfo1 {
+        left: 1400px;
+        top: 700px;
         position: absolute;
         width: 700px;
     }

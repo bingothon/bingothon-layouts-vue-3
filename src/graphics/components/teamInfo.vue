@@ -4,18 +4,6 @@
         :style="{ height: height }"
         :class="{ ReverseOrder: reverseOrder }"
     >
-        <div
-            v-if="bingoColorShown === true"
-            class="BingoColor FlexContainer"
-            :class="``"
-            :style="{
-                width: parseFloat(height.replace('px', '')) * 0.75 + 'px',
-                height: parseFloat(height.replace('px', '')) * 0.75 + 'px',
-                'background-color': bingoColor
-            }"
-        >
-            <span v-if="bingoCountShown === true">{{ bingoGoalCount }}</span>
-        </div>
         <div>
             <BestOfX
                 v-if="boXEnabled"
@@ -30,6 +18,17 @@
                 :text="`${finishTime} ${name || ''}`"
                 :align="reverseOrder ? 'right' : 'left'"
             />
+        </div>
+        <div
+            v-if="bingoColorShown === true"
+            class="BingoColor FlexContainer"
+            :style="{
+                width: parseFloat(height.replace('px', '')) * 0.75 + 'px',
+                height: parseFloat(height.replace('px', '')) * 0.75 + 'px',
+                'background-color': bingoColor
+            }"
+        >
+            <span v-if="bingoCountShown === true">{{ bingoGoalCount }}</span>
         </div>
     </div>
 </template>
@@ -215,10 +214,13 @@
         justify-content: center;
         height: 55px;
         width: 55px;
-        margin-right: 20px;
         font-size: 30px;
         border-radius: 10%;
         border: 1px white solid;
+    }
+
+    .TeamInfoBox.ReverseOrder > .BingoColor {
+        margin-right: 20px;
     }
 
     /* Bingosync styled gradients */

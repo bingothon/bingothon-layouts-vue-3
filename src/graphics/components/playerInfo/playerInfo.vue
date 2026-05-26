@@ -1,3 +1,82 @@
+<template>
+    <div
+        class="FlexContainer PlayerInfoBox"
+        :class="{ ReverseOrder: reverseOrder }"
+        :style="{ height: height }"
+    >
+        <div v-if="!hideFinishTime">
+            <BestOfX
+                v-if="boXEnabled"
+                id="boX"
+                :player-index="teamIndex"
+                :height="height"
+            />
+        </div>
+        <div class="CurrentIcon FlexContainer">
+            <transition
+                name="fade"
+                mode="out-in"
+            >
+                <div
+                    v-if="show && pronouns"
+                    key="pronuns"
+                    class="PronounsContainer"
+                >
+                    <TextFit :text="pronouns" />
+                </div>
+                <img
+                    v-else
+                    :key="currentIcon"
+                    :src="currentIcon"
+                />
+            </transition>
+        </div>
+        <div :class="medalClasses"></div>
+        <div class="PlayerName">
+            <transition
+                name="fade"
+                mode="out-in"
+            >
+                <TextFit
+                    :key="text"
+                    :text="finishTime + text"
+                    :align="reverseOrder ? 'right' : 'left'"
+                />
+            </transition>
+        </div>
+        <div
+            v-if="showSound"
+            class="Sound"
+        >
+            <img :src="'/bundles/bingothon-layouts/static/music-note.png'" />
+        </div>
+        <div
+            v-if="!!player?.country"
+            class="Flag FlexContainer"
+        >
+            <transition
+                name="fade"
+                mode="out-in"
+            >
+                <img
+                    :key="player.country"
+                    :style="{ visibility: showFlag ? 'visible' : 'hidden' }"
+                    :src="getPlayerFlag(player.country)"
+                />
+            </transition>
+        </div>
+        <div
+            v-if="bingoColorShown === true"
+            class="BingoColor FlexContainer"
+            :style="{
+                'background-color': bingoColor
+            }"
+        >
+            <span v-if="bingoCountShown === true">{{ bingoGoalCount }}</span>
+        </div>
+    </div>
+</template>
+
 <script setup lang="ts">
     import { computed, onMounted, onUnmounted, ref } from 'vue';
     import {
@@ -265,86 +344,6 @@
     });
 </script>
 
-<template>
-    <div
-        class="FlexContainer PlayerInfoBox"
-        :class="{ ReverseOrder: reverseOrder }"
-        :style="{ height: height }"
-    >
-        <div class="CurrentIcon FlexContainer">
-            <transition
-                name="fade"
-                mode="out-in"
-            >
-                <div
-                    v-if="show && pronouns"
-                    key="pronuns"
-                    class="PronounsContainer"
-                >
-                    <TextFit :text="pronouns" />
-                </div>
-                <img
-                    v-else
-                    :key="currentIcon"
-                    :src="currentIcon"
-                />
-            </transition>
-        </div>
-        <div v-if="!hideFinishTime">
-            <BestOfX
-                v-if="boXEnabled"
-                id="boX"
-                :player-index="teamIndex"
-                :height="height"
-            />
-        </div>
-        <div :class="medalClasses"></div>
-        <div class="PlayerName">
-            <transition
-                name="fade"
-                mode="out-in"
-            >
-                <TextFit
-                    :key="text"
-                    :text="finishTime + text"
-                    :align="reverseOrder ? 'right' : 'left'"
-                />
-            </transition>
-        </div>
-        <div
-            v-if="showSound"
-            class="Sound"
-        >
-            <img :src="'/bundles/bingothon-layouts/static/music-note.png'" />
-        </div>
-        <div
-            v-if="!!player?.country"
-            class="Flag FlexContainer"
-        >
-            <transition
-                name="fade"
-                mode="out-in"
-            >
-                <img
-                    :key="player.country"
-                    :style="{ visibility: showFlag ? 'visible' : 'hidden' }"
-                    :src="getPlayerFlag(player.country)"
-                />
-            </transition>
-        </div>
-        <div
-            v-if="bingoColorShown === true"
-            class="BingoColor FlexContainer"
-            :class="`bingo-${bingoColor}`"
-            :style="{
-                'background-color': bingoColor
-            }"
-        >
-            <span v-if="bingoCountShown === true">{{ bingoGoalCount }}</span>
-        </div>
-    </div>
-</template>
-
 <style>
     @import '../shared/medals/medals.css';
 
@@ -428,6 +427,11 @@
         box-sizing: content-box;
         height: calc(v-bind(height) * 0.75);
         width: calc(v-bind(height) * 0.75);
+    }
+
+    .PlayerInfoBox.ReverseOrder > .BingoColor {
+        margin-left: 0px;
+        margin-right: 14px;
     }
 
     .PlayerInfoBox > .Sound > img {
