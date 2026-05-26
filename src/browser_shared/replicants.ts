@@ -19,6 +19,8 @@ export const currentMainBingoboard = useReplicant<oldSchemas.CurrentMainBingoboa
 export const bingoboardMeta = useReplicant<oldSchemas.BingoboardMeta>('bingoboardMeta', oldBundle);
 export const soundOnTwitchStream = useReplicant<number>('soundOnTwitchStream', oldBundle);
 export const bestOfX = useReplicant<oldSchemas.BestOfX>('bestOfX', oldBundle);
+export const streamsReplicant = useReplicant<oldSchemas.TwitchStream[]>('twitchStreams', oldBundle);
+export const discordDelayInfo = useReplicant<oldSchemas.DiscordDelayInfo>('discordDelayInfo', oldBundle);
 
 // SpeedControl Replicants
 export const runDataActiveRunReplicant = useReplicant<RunDataActiveRun>('runDataActiveRun', scBundle);
