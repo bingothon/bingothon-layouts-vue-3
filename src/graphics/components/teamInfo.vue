@@ -207,7 +207,8 @@
         height: 100%;
         position: relative;
         white-space: nowrap;
-        justify-content: left;
+        justify-content: flex-start;
+        margin-right: 15px;
     }
 
     .TeamInfoBox > .BingoColor {
