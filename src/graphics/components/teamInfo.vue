@@ -1,3 +1,39 @@
+<template>
+    <div
+        class="FlexContainer TeamInfoBox"
+        :style="{ height: height }"
+        :class="{ ReverseOrder: reverseOrder }"
+    >
+        <div
+            v-if="bingoColorShown === true"
+            class="BingoColor FlexContainer"
+            :class="``"
+            :style="{
+                width: parseFloat(height.replace('px', '')) * 0.75 + 'px',
+                height: parseFloat(height.replace('px', '')) * 0.75 + 'px',
+                'background-color': bingoColor
+            }"
+        >
+            <span v-if="bingoCountShown === true">{{ bingoGoalCount }}</span>
+        </div>
+        <div>
+            <BestOfX
+                v-if="boXEnabled"
+                id="boX"
+                :player-index="teamIndex"
+                :height="height"
+            />
+        </div>
+        <div :class="medalClasses"></div>
+        <div class="TeamNameContainer">
+            <TextFit
+                :text="`${finishTime} ${name || ''}`"
+                :align="reverseOrder ? 'right' : 'left'"
+            />
+        </div>
+    </div>
+</template>
+
 <script setup lang="ts">
     import { useReplicant } from 'nodecg-vue-composable';
     import { computed } from 'vue';
@@ -10,6 +46,7 @@
         runDataActiveRunReplicant,
         timerReplicant
     } from '../../browser_shared/replicants';
+    import BestOfX from '../components/bestOfX.vue';
     import TextFit from './textFit.vue';
 
     const props = withDefaults(
@@ -152,42 +189,6 @@
         return bestOfX?.data?.enabled;
     });
 </script>
-
-<template>
-    <div
-        class="FlexContainer TeamInfoBox"
-        :style="{ height: height }"
-        :class="{ ReverseOrder: reverseOrder }"
-    >
-        <div
-            v-if="bingoColorShown === true"
-            class="BingoColor FlexContainer"
-            :class="``"
-            :style="{
-                width: parseFloat(height.replace('px', '')) * 0.75 + 'px',
-                height: parseFloat(height.replace('px', '')) * 0.75 + 'px',
-                'background-color': bingoColor
-            }"
-        >
-            <span v-if="bingoCountShown === true">{{ bingoGoalCount }}</span>
-        </div>
-        <div>
-            <BestOfX
-                v-if="boXEnabled"
-                id="boX"
-                :player-index="teamIndex"
-                :height="height"
-            />
-        </div>
-        <div :class="medalClasses"></div>
-        <div class="TeamNameContainer">
-            <TextFit
-                :text="`${finishTime} ${name || ''}`"
-                :align="reverseOrder ? 'right' : 'left'"
-            />
-        </div>
-    </div>
-</template>
 
 <style>
     @import './shared/medals/medals.css';
