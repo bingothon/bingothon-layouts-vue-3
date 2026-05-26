@@ -8,6 +8,36 @@
         <br />
         <!-- Example code: accessing a replicant. -->
         {{ exampleReplicant?.data?.exampleProperty }}
+        <PlayerInfo
+            id="pi1"
+            :player-index="0"
+            height="45px"
+        />
+        <PlayerInfo
+            id="pi2"
+            :player-index="1"
+            height="45px"
+        />
+        <PlayerInfo
+            id="pi3"
+            :player-index="2"
+            height="45px"
+        />
+        <PlayerInfo
+            id="pi4"
+            :player-index="3"
+            height="45px"
+            reverse-order
+        />
+        <TeamInfo
+            id="teamInfo"
+            :team-index="0"
+        />
+        <TeamInfo
+            id="teamInfo1"
+            :team-index="1"
+            reverse-order
+        />
         <DiscordDisplay
             :icon-height-px="50"
             :name-width-px="100"
@@ -40,7 +70,9 @@
     import DiscordDisplay from '../components/discordDisplay.vue';
     import GameInfoContainer from '../components/gameInfo/gameInfoContainer.vue';
     import CellTextFit from '../components/helpers/cellTextFit.vue';
+    import PlayerInfo from '../components/playerInfo/playerInfo.vue';
     import SponsorLogoRotation, { LogoAssetType } from '../components/sponsorLogoRotation.vue';
+    import TeamInfo from '../components/teamInfo.vue';
     import TimerContainer from '../components/timerContainer.vue';
 
     useHead({ title: 'example' }); // set the title of this page
@@ -115,5 +147,51 @@
         left: 789px;
         height: 400px;
         width: 400px;
+    }
+
+    #teamInfo,
+    #teamInfo1,
+    #pi1,
+    #pi2,
+    #pi3,
+    #pi4 {
+        background-color: blue;
+    }
+
+    #pi1 {
+        left: 1400px;
+        top: 300px;
+        position: absolute;
+        width: 700px;
+    }
+    #pi2 {
+        left: 1400px;
+        top: 380px;
+        position: absolute;
+        width: 700px;
+    }
+    #pi3 {
+        left: 1400px;
+        top: 460px;
+        position: absolute;
+        width: 700px;
+    }
+    #pi4 {
+        left: 1400px;
+        top: 540px;
+        position: absolute;
+        width: 700px;
+    }
+    #teamInfo {
+        left: 1400px;
+        top: 620px;
+        position: absolute;
+        width: 700px;
+    }
+    #teamInfo1 {
+        left: 1400px;
+        top: 700px;
+        position: absolute;
+        width: 700px;
     }
 </style>
