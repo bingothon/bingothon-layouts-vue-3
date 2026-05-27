@@ -4,7 +4,8 @@
     "extends": "@vue/tsconfig/tsconfig.dom.json",
     "compilerOptions": {
         "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.browser.tsbuildinfo",
-        "incremental": true
+        "incremental": true,
+        "types": ["vite/client"]
     },
     "include": [
         "./src/browser_shared/**/*.ts",

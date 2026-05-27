@@ -26,17 +26,17 @@
         <PlayerInfo
             id="pi4"
             :player-index="3"
-            height="45px"
             reverse-order
+            height="45px"
         />
         <TeamInfo
             id="teamInfo"
+            reverse-order
             :team-index="0"
         />
         <TeamInfo
             id="teamInfo1"
             :team-index="1"
-            reverse-order
         />
         <DiscordDisplay
             :icon-height-px="50"
@@ -50,7 +50,7 @@
             :text="randomText"
             font-size="20px"
         />
-        <Bingoboard
+        <BingoBoard
             id="bboard"
             font-size="20px"
         />
@@ -66,7 +66,7 @@
     import { ref } from 'vue';
     import { exampleReplicant } from '../../browser_shared/replicants';
     import type { ExampleType } from '../../types';
-    import Bingoboard from '../components/bingoboard/bingoBoard.vue';
+    import BingoBoard from '../components/bingoboard/bingoBoard.vue';
     import DiscordDisplay from '../components/discordDisplay.vue';
     import GameInfoContainer from '../components/gameInfo/gameInfoContainer.vue';
     import CellTextFit from '../components/helpers/cellTextFit.vue';
@@ -147,6 +147,12 @@
         left: 789px;
         height: 400px;
         width: 400px;
+    }
+
+    #teamInfo {
+        position: absolute;
+        top: 800px;
+        left: 0;
     }
 
     #teamInfo,

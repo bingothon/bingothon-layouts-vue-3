@@ -82,6 +82,11 @@
                 "file": "hls-player/main.html",
                 "width": 1920,
                 "height": 1080
+            },
+            {
+                "file": "game-layout/main.html",
+                "width": 1920,
+                "height": 1080
             }
         ],
         "mount": [
@@ -101,7 +106,8 @@
         "@fortawesome/free-solid-svg-icons": "^7.2.0",
         "@fortawesome/vue-fontawesome": "^3.1.3",
         "hls.js": "^1.6.16",
-        "speedcontrol-util": "^0.6.1"
+        "speedcontrol-util": "^0.6.1",
+        "vue-router": "^5.0.7"
     },
     "lint-staged": {
         "*.{cjs,json,css,scss,htm,html,md,yml,yaml}": "prettier --write",
