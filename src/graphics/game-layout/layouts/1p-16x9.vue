@@ -7,6 +7,7 @@
             <PlayerInfo
                 :id="`pi${i + 1}`"
                 class="PlayerInfo"
+                :class="i === 0 ? 'First' : i === players.length - 1 ? 'Last' : 'Middle'"
                 :style="{ top: `${60 * i}px` }"
                 :player-index="i"
                 height="60px"
@@ -21,6 +22,7 @@
         ></BingoBoard>
         <DiscordDisplay
             id="discord-voice"
+            :style="{ top: `${500 + 60 * players.length}px`, height: `${325 - 60 * players.length}px` }"
             :icon-height-px="40"
             :name-width-px="114"
             :max-user-count="8"
@@ -59,10 +61,8 @@
 
     #discord-voice {
         position: absolute;
-        top: v-bind('500 + 60 * players.length');
         left: 0px;
         width: 448px;
-        height: v-bind('325 - 60 * players.length');
         border: 2px var(--container-border-color) solid;
     }
 
@@ -72,6 +72,19 @@
         border: 2px var(--container-border-color) solid;
         width: 448px;
         box-sizing: border-box;
+    }
+
+    .PlayerInfo.First {
+        border-bottom-width: 1px;
+    }
+
+    .PlayerInfo.Last {
+        border-top-width: 1px;
+    }
+
+    .PlayerInfo.Middle {
+        border-top-width: 1px;
+        border-bottom-width: 1px;
     }
 
     #Bingo-board {
