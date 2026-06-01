@@ -19,18 +19,20 @@
         <BingoBoard
             id="Bingo-board"
             font-size="30px"
+            :style="{ top: `${60 * players.length}px` }"
         ></BingoBoard>
         <DiscordDisplay
             id="discord-voice"
-            :style="{ top: `${502 + 60 * players.length}px`, height: `${328 - 60 * players.length}px` }"
+            :style="{ top: `${500 + 60 * players.length}px`, height: `${332 - 60 * players.length}px` }"
             :icon-height-px="40"
             :name-width-px="120"
             :max-user-count="maxDiscordMembers"
             voice-highlight-color="red"
         ></DiscordDisplay>
-        <div id="SponsorContainer">
-            <SponsorLogoRotation :logo-asset-type="LogoAssetType.wideLargeLogos"></SponsorLogoRotation>
-        </div>
+        <SponsorLogoRotation
+            id="SponsorContainer"
+            :logo-asset-type="LogoAssetType.wideLargeLogos"
+        ></SponsorLogoRotation>
         <twitch-player
             id="stream1"
             stream-index="0"
@@ -103,10 +105,9 @@
 
     #Bingo-board {
         position: absolute;
-        top: v-bind('`${60 * players.length}px`');
         left: 0px;
         border: 2px var(--container-border-color) solid;
-        width: 448px;
+        width: 450px;
         height: 500px;
     }
 
@@ -132,17 +133,17 @@
         position: absolute;
         top: 0px;
         left: 450px;
-        width: 1471px;
-        height: 828px;
+        width: 1470px;
+        height: 830px;
         background-color: aqua;
     }
 
     #SponsorContainer {
         position: absolute;
-        top: 828px;
+        top: 830px;
         left: 0px;
-        width: 446px;
+        width: 450px;
         border: 2px var(--container-border-color) solid;
-        height: 168px;
+        height: 170px;
     }
 </style>
