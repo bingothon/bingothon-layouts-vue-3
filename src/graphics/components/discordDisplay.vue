@@ -63,6 +63,7 @@
         align-content: center;
         text-align: center;
         flex-wrap: wrap;
+        box-sizing: border-box;
     }
 
     .DiscordVoiceDisplay .Member {

@@ -27,6 +27,7 @@
         flex-direction: column;
         text-align: center;
         row-gap: 8px;
+        box-sizing: border-box;
     }
 
     .GameDetails > .GameName {

@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-    import { computed, ref, watch, type Ref } from 'vue';
+    import { computed, ref, type Ref, watch } from 'vue';
     import { runDataActiveRunReplicant, timerReplicant } from '../../browser_shared/replicants';
 
     const backupTimerTO: Ref<number | undefined> = ref(undefined);
@@ -67,6 +67,7 @@
     .TimerContainer {
         flex-direction: column;
         color: white;
+        box-sizing: border-box;
     }
 
     .TimerBox {

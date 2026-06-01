@@ -10,7 +10,7 @@
                 :class="i === 0 ? 'First' : i === players.length - 1 ? 'Last' : 'Middle'"
                 :style="{ top: `${60 * i}px` }"
                 :player-index="i"
-                height="60px"
+                :height-px="60"
                 :hide-sound-icon="true"
             ></PlayerInfo>
         </div>
@@ -22,10 +22,10 @@
         ></BingoBoard>
         <DiscordDisplay
             id="discord-voice"
-            :style="{ top: `${500 + 60 * players.length}px`, height: `${325 - 60 * players.length}px` }"
+            :style="{ top: `${502 + 60 * players.length}px`, height: `${328 - 60 * players.length}px` }"
             :icon-height-px="40"
-            :name-width-px="114"
-            :max-user-count="8"
+            :name-width-px="120"
+            :max-user-count="maxDiscordMembers"
             voice-highlight-color="red"
         ></DiscordDisplay>
         <div id="SponsorContainer">
@@ -39,7 +39,7 @@
 </template>
 
 <script setup lang="ts">
-    import PlayerInfo from '../../components/playerInfo/playerInfo.vue';
+    import PlayerInfo from '../../components/runnerInfo/playerInfo.vue';
     import GameInfoContainer from '../../components/gameInfo/gameInfoContainer.vue';
     import BingoBoard from '../../components/bingoboard/bingoBoard.vue';
     import TwitchPlayer from '../../components/twitchStreamPlaceholder.vue';
@@ -47,6 +47,21 @@
     import TimerContainer from '../../components/timerContainer.vue';
     import DiscordDisplay from '../../components/discordDisplay.vue';
     import { players } from './common.ts';
+    import { computed } from 'vue';
+
+    const maxDiscordMembers = computed<number>(() => {
+        switch (players.value.length) {
+            case 1:
+                return 8;
+            case 2:
+                return 6;
+            case 3:
+                return 4;
+            case 4:
+            default:
+                return 2;
+        }
+    });
 </script>
 
 <style scoped>
@@ -62,7 +77,7 @@
     #discord-voice {
         position: absolute;
         left: 0px;
-        width: 448px;
+        width: 450px;
         border: 2px var(--container-border-color) solid;
     }
 
@@ -70,8 +85,7 @@
         position: absolute;
         left: 0px;
         border: 2px var(--container-border-color) solid;
-        width: 448px;
-        box-sizing: border-box;
+        width: 450px;
     }
 
     .PlayerInfo.First {
@@ -108,8 +122,8 @@
     #timer {
         position: absolute;
         top: 828px;
-        left: 1198px;
-        width: 720px;
+        left: 1196px;
+        width: 724px;
         border: 2px var(--container-border-color) solid;
         height: 172px;
     }
@@ -127,8 +141,8 @@
         position: absolute;
         top: 828px;
         left: 0px;
-        width: 448px;
+        width: 446px;
         border: 2px var(--container-border-color) solid;
-        height: 172px;
+        height: 168px;
     }
 </style>
