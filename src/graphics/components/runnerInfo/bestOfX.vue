@@ -32,17 +32,19 @@
 
 <script setup lang="ts">
     import { computed } from 'vue';
-    import { bestOfX } from '../../browser_shared/replicants';
+    import { bestOfX } from '../../../browser_shared/replicants.ts';
 
     const props = withDefaults(
         defineProps<{
             playerIndex: number;
-            height?: string;
+            heightPx?: number;
         }>(),
         {
-            height: '55px'
+            heightPx: 55
         }
     );
+
+    const height = computed(() => `${props.heightPx}px`);
 
     const score = computed(() => {
         return bestOfX?.data?.matchCounts[props.playerIndex] ?? 0;
