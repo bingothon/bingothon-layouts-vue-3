@@ -7,12 +7,26 @@
         >
             <QCardSection class="row items-center justify-between">
                 <div class="text-h6 text-capitalize">{{ props.type }} Blurbs</div>
-                <QBadge
-                    color="primary"
-                    class="q-mr-sm"
-                >
-                    {{ currentIndex + 1 }} / {{ textItems.filter((item) => item.enabled).length }}
-                </QBadge>
+                <div class="row items-center">
+                    <QSelect
+                        v-if="!isPrimary && availableLanguages.length > 0"
+                        :model-value="activeLanguage"
+                        :options="availableLanguages"
+                        dense
+                        outlined
+                        dark
+                        label="Language"
+                        class="q-mr-sm"
+                        style="min-width: 120px"
+                        @update:model-value="selectedLanguage = $event"
+                    />
+                    <QBadge
+                        color="primary"
+                        class="q-mr-sm"
+                    >
+                        {{ currentIndex + 1 }} / {{ displayedTexts.length }}
+                    </QBadge>
+                </div>
             </QCardSection>
 
             <QSeparator dark />
@@ -45,7 +59,10 @@
                 </QCarouselSlide>
             </QCarousel>
 
-            <QCardActions align="right">
+            <QCardActions
+                v-if="isPrimary"
+                align="right"
+            >
                 <QBtn
                     flat
                     icon="edit"
@@ -69,29 +86,85 @@
                     <div
                         v-for="(_item, index) in textItems"
                         :key="index"
-                        class="row q-mb-sm items-start"
+                        class="q-mb-md"
                     >
-                        <QInput
-                            v-model="blurbsReplicant!.data![props.type][index].text"
-                            type="textarea"
-                            autogrow
-                            outlined
-                            class="col"
-                            :label="`Item ${index + 1}`"
-                        />
-                        <QBtn
-                            flat
-                            round
-                            color="negative"
-                            icon="delete"
-                            @click="removeItem(index)"
-                        />
-                        <QCheckbox
-                            v-model="blurbsReplicant!.data![props.type][index].enabled"
-                            color="positive"
-                            label="Enabled"
-                            class="q-ml-md"
-                        />
+                        <div class="row q-mb-xs items-start">
+                            <QInput
+                                v-model="blurbsReplicant!.data![props.type][index].text"
+                                type="textarea"
+                                autogrow
+                                outlined
+                                class="col"
+                                :label="`Item ${index + 1}`"
+                            />
+                            <QBtn
+                                flat
+                                round
+                                color="negative"
+                                icon="delete"
+                                @click="removeItem(index)"
+                            />
+                            <QCheckbox
+                                v-model="blurbsReplicant!.data![props.type][index].enabled"
+                                color="positive"
+                                label="Enabled"
+                                class="q-ml-md"
+                            />
+                        </div>
+                        <!-- Translations editing -->
+                        <div class="q-ml-lg q-mt-xs">
+                            <div class="text-caption text-grey q-mb-xs">Translations</div>
+                            <div
+                                v-for="lang in getTranslationKeys(index)"
+                                :key="lang"
+                                class="row q-mb-xs items-center"
+                            >
+                                <QInput
+                                    :model-value="lang"
+                                    outlined
+                                    dense
+                                    readonly
+                                    class="q-mr-sm"
+                                    style="max-width: 100px"
+                                />
+                                <QInput
+                                    v-model="blurbsReplicant!.data![props.type][index].translations![lang]"
+                                    type="textarea"
+                                    autogrow
+                                    outlined
+                                    dense
+                                    class="col"
+                                    :label="`Translation (${lang})`"
+                                />
+                                <QBtn
+                                    flat
+                                    round
+                                    dense
+                                    color="negative"
+                                    icon="remove_circle"
+                                    @click="removeTranslation(index, lang)"
+                                />
+                            </div>
+                            <div class="row q-mt-xs items-center">
+                                <QInput
+                                    v-model="newLangKey[index]"
+                                    outlined
+                                    dense
+                                    label="Language key"
+                                    class="q-mr-sm"
+                                    style="max-width: 100px"
+                                />
+                                <QBtn
+                                    outline
+                                    dense
+                                    label="Add Translation"
+                                    icon="translate"
+                                    :disable="!newLangKey[index]"
+                                    @click="addTranslation(index)"
+                                />
+                            </div>
+                        </div>
+                        <QSeparator class="q-mt-sm" />
                     </div>
                     <QBtn
                         outline
@@ -125,24 +198,74 @@
 </template>
 
 <script lang="ts" setup>
-    import { computed, ref } from 'vue';
+    import { computed, reactive, ref } from 'vue';
     import { blurbsReplicant } from '../../../browser_shared/replicants.ts';
 
     const props = defineProps<{
         type: 'charity' | 'sponsor' | 'bingothon';
+        isPrimary?: boolean;
     }>();
+
+    const selectedLanguage = ref<string | null>(null);
+
+    const availableLanguages = computed<string[]>(() => {
+        const blurbs = blurbsReplicant?.oldData?.[props.type] ?? [];
+        const langSet = new Set<string>();
+        for (const item of blurbs) {
+            if (item.translations) {
+                for (const key of Object.keys(item.translations)) {
+                    langSet.add(key);
+                }
+            }
+        }
+        return [...langSet].sort();
+    });
+
+    const activeLanguage = computed(() => selectedLanguage.value ?? availableLanguages.value[0] ?? null);
 
     const displayedTexts = computed<string[]>(() => {
         const typeBlurbs = blurbsReplicant?.oldData?.[props.type];
-        return (
-            typeBlurbs
-                ?.filter((item: { text: string; enabled: boolean }) => item.enabled)
-                .map((item: { text: string; enabled: boolean }) => item.text) ?? []
-        );
+        if (!typeBlurbs) return [];
+
+        const enabledItems = typeBlurbs.filter((item: { text: string; enabled: boolean }) => item.enabled);
+
+        if (!props.isPrimary && activeLanguage.value) {
+            return enabledItems.map(
+                (item: { text: string; enabled: boolean; translations?: { [k: string]: string } }) =>
+                    item.translations?.[activeLanguage.value!] ?? item.text
+            );
+        }
+
+        return enabledItems.map((item: { text: string; enabled: boolean }) => item.text);
     });
+
     const textItems = computed(() => blurbsReplicant?.data?.[props.type] ?? []);
     const currentIndex = ref(0);
     const showEditDialog = ref(false);
+    const newLangKey = reactive<Record<number, string>>({});
+
+    const getTranslationKeys = (index: number): string[] => {
+        const item = blurbsReplicant?.data?.[props.type]?.[index];
+        return item?.translations ? Object.keys(item.translations).sort() : [];
+    };
+
+    const addTranslation = (index: number) => {
+        const key = newLangKey[index]?.trim();
+        if (!key) return;
+        const item = blurbsReplicant?.data?.[props.type]?.[index];
+        if (item) {
+            if (!item.translations) item.translations = {};
+            item.translations[key] = '';
+            newLangKey[index] = '';
+        }
+    };
+
+    const removeTranslation = (index: number, lang: string) => {
+        const item = blurbsReplicant?.data?.[props.type]?.[index];
+        if (item?.translations) {
+            delete item.translations[lang];
+        }
+    };
 
     const handleCancel = () => {
         blurbsReplicant?.revert();
@@ -150,8 +273,8 @@
     };
 
     const handleSave = async () => {
-        if (currentIndex.value >= textItems.value.length) {
-            currentIndex.value = Math.max(0, textItems.value.length - 1);
+        if (currentIndex.value >= displayedTexts.value.length) {
+            currentIndex.value = Math.max(0, displayedTexts.value.length - 1);
         }
         showEditDialog.value = false;
         blurbsReplicant?.save();

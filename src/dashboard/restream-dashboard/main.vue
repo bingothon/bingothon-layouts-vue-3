@@ -76,11 +76,6 @@
                     label="Schedule & Incentives"
                 />
                 <QTab
-                    name="streamControl"
-                    icon="settings"
-                    label="Stream Control"
-                />
-                <QTab
                     name="hostBingo"
                     icon="square"
                     label="Host Bingo"
@@ -96,17 +91,14 @@
                     class="fit bg-transparent"
                 >
                     <QTabPanel name="blurbs">
-                        <blurbs-tab is-primary />
+                        <blurbs-tab />
                     </QTabPanel>
                     <QTabPanel name="scheduleAndIncentives">
                         <scheduled-and-incentives-tab />
                     </QTabPanel>
-                    <QTabPanel name="streamControl">
-                        <stream-control-tab />
-                    </QTabPanel>
                     <QTabPanel name="hostBingo">
                         <host-bingo-tab
-                            :is-restream="false"
+                            :is-restream="true"
                             font-size="25px"
                         />
                     </QTabPanel>
@@ -125,10 +117,9 @@
         showThingsDuringIntermissionReplicant,
         twitchCommercialTimerReplicant
     } from '../../browser_shared/replicants';
-    import BlurbsTab from './components/blurbsTab.vue';
-    import ScheduledAndIncentivesTab from './components/scheduledAndIncentivesTab.vue';
-    import StreamControlTab from './components/streamControlTab.vue';
-    import HostBingoTab from './components/hostBingoTab.vue';
+    import BlurbsTab from '../host-dashboard/components/blurbsTab.vue';
+    import ScheduledAndIncentivesTab from '../host-dashboard/components/scheduledAndIncentivesTab.vue';
+    import HostBingoTab from '../host-dashboard/components/hostBingoTab.vue';
 
     const activeTab = ref('blurbs');
     const donationTotal = computed(() => formatAmount(donationTotalReplicant?.data || 0));

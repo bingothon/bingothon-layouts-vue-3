@@ -72,9 +72,15 @@
                 "width": 3
             },
             {
-                "name": "Host Dashboard",
-                "title": "Host Dashboard",
+                "name": "Z - Host Dashboard",
+                "title": "Z - Host Dashboard",
                 "file": "host-dashboard/main.html",
+                "fullbleed": true
+            },
+            {
+                "name": "Z - Restream Dashboard",
+                "title": "Z - Restream Dashboard",
+                "file": "restream-dashboard/main.html",
                 "fullbleed": true
             }
         ],
