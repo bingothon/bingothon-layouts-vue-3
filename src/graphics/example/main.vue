@@ -11,33 +11,33 @@
         <PlayerInfo
             id="pi1"
             :player-index="0"
-            :height-px="45"
+            :height-px="60"
         />
         <PlayerInfo
             id="pi2"
             :player-index="1"
-            :height-px="45"
+            :height-px="60"
         />
         <PlayerInfo
             id="pi3"
             :player-index="2"
-            :height-px="45"
+            :height-px="60"
         />
         <PlayerInfo
             id="pi4"
             :player-index="3"
-            :height-px="45"
+            :height-px="60"
             reverse-order
         />
         <TeamInfo
             id="teamInfo"
             :team-index="0"
-            :height-px="45"
+            :height-px="60"
         />
         <TeamInfo
             id="teamInfo1"
             :team-index="1"
-            :height-px="45"
+            :height-px="60"
             reverse-order
         />
         <DiscordDisplay
