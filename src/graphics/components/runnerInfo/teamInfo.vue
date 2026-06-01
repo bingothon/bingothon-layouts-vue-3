@@ -9,7 +9,7 @@
                 v-if="boXEnabled"
                 id="boX"
                 :player-index="teamIndex"
-                :height="height"
+                :height-px="heightPx"
             />
         </div>
         <div :class="medalClasses"></div>
@@ -36,7 +36,7 @@
 <script setup lang="ts">
     import { useReplicant } from 'nodecg-vue-composable';
     import { computed } from 'vue';
-    import type { Bingoboard } from '../../../../bingothon-layouts/schemas';
+    import type { Bingoboard } from '../../../../../bingothon-layouts/schemas/index';
     import {
         bestOfX,
         bingoboardMeta,
@@ -44,25 +44,29 @@
         oldBundle,
         runDataActiveRunReplicant,
         timerReplicant
-    } from '../../browser_shared/replicants';
-    import BestOfX from '../components/bestOfX.vue';
-    import TextFit from './textFit.vue';
+    } from '../../../browser_shared/replicants.ts';
+    import BestOfX from './bestOfX.vue';
+    import TextFit from '../textFit.vue';
 
     const props = withDefaults(
         defineProps<{
             teamIndex: number;
             showFlag?: boolean;
             showColor?: boolean;
-            height?: string;
+            heightPx?: number;
             reverseOrder?: boolean;
         }>(),
         {
             showFlag: true,
             showColor: true,
-            height: '55px',
+            heightPx: 55,
             reverseOrder: false
         }
     );
+
+    const height = computed(() => {
+        return `${props.heightPx}px`;
+    });
 
     const name = computed(() => {
         const team = runDataActiveRunReplicant?.data?.teams[props.teamIndex];
@@ -188,7 +192,7 @@
 </script>
 
 <style>
-    @import './shared/medals/medals.css';
+    @import '../shared/medals/medals.css';
 
     .TeamInfoBox {
         color: var(--font-color);

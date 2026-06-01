@@ -11,32 +11,35 @@
         <PlayerInfo
             id="pi1"
             :player-index="0"
-            height="45px"
+            :height-px="45"
         />
         <PlayerInfo
             id="pi2"
             :player-index="1"
-            height="45px"
+            :height-px="45"
         />
         <PlayerInfo
             id="pi3"
             :player-index="2"
-            height="45px"
+            :height-px="45"
         />
         <PlayerInfo
             id="pi4"
             :player-index="3"
+            :height-px="45"
             reverse-order
-            height="45px"
         />
         <TeamInfo
             id="teamInfo"
             reverse-order
             :team-index="0"
+            :height-px="45"
         />
         <TeamInfo
             id="teamInfo1"
             :team-index="1"
+            :height-px="45"
+            reverse-order
         />
         <DiscordDisplay
             :icon-height-px="50"
@@ -70,9 +73,9 @@
     import DiscordDisplay from '../components/discordDisplay.vue';
     import GameInfoContainer from '../components/gameInfo/gameInfoContainer.vue';
     import CellTextFit from '../components/helpers/cellTextFit.vue';
-    import PlayerInfo from '../components/playerInfo/playerInfo.vue';
+    import PlayerInfo from '../components/runnerInfo/playerInfo.vue';
     import SponsorLogoRotation, { LogoAssetType } from '../components/sponsorLogoRotation.vue';
-    import TeamInfo from '../components/teamInfo.vue';
+    import TeamInfo from '../components/runnerInfo/teamInfo.vue';
     import TimerContainer from '../components/timerContainer.vue';
 
     useHead({ title: 'example' }); // set the title of this page

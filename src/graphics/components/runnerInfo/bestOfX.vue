@@ -1,30 +1,3 @@
-<!-- This component handles displays each player's information within a team. -->
-<!-- This is added dynamically to the PlayerContainer component when we need to show this. -->
-<!-- It is initialised with most info, it only listens to nodecg-speedcontrol for finish times. -->
-
-<script setup lang="ts">
-    import { computed } from 'vue';
-    import { bestOfX } from '../../browser_shared/replicants';
-
-    const props = withDefaults(
-        defineProps<{
-            playerIndex: number;
-            height?: string;
-        }>(),
-        {
-            height: '55px'
-        }
-    );
-
-    const score = computed(() => {
-        return bestOfX?.data?.matchCounts[props.playerIndex] ?? 0;
-    });
-
-    const totalMatches = computed(() => {
-        return bestOfX?.data?.totalMatches ?? 0;
-    });
-</script>
-
 <template>
     <div class="MatchCounter FlexContainer">
         <div
@@ -56,6 +29,31 @@
         </div>
     </div>
 </template>
+
+<script setup lang="ts">
+    import { computed } from 'vue';
+    import { bestOfX } from '../../../browser_shared/replicants.ts';
+
+    const props = withDefaults(
+        defineProps<{
+            playerIndex: number;
+            heightPx?: number;
+        }>(),
+        {
+            heightPx: 55
+        }
+    );
+
+    const height = computed(() => `${props.heightPx}px`);
+
+    const score = computed(() => {
+        return bestOfX?.data?.matchCounts[props.playerIndex] ?? 0;
+    });
+
+    const totalMatches = computed(() => {
+        return bestOfX?.data?.totalMatches ?? 0;
+    });
+</script>
 <style>
     .ScoreCounter > .Counter {
         margin-right: 10px;

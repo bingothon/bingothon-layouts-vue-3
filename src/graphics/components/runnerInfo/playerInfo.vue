@@ -9,7 +9,7 @@
                 v-if="boXEnabled"
                 id="boX"
                 :player-index="teamIndex"
-                :height="height"
+                :height-px="heightPx"
             />
         </div>
         <div class="CurrentIcon FlexContainer">
@@ -19,7 +19,7 @@
             >
                 <div
                     v-if="show && pronouns"
-                    key="pronuns"
+                    key="pronouns"
                     class="PronounsContainer"
                 >
                     <TextFit :text="pronouns" />
@@ -91,7 +91,7 @@
 
     import { useReplicant } from 'nodecg-vue-composable';
     import type { Bingoboard } from '../../../../../bingothon-layouts/schemas';
-    import BestOfX from '../bestOfX.vue';
+    import BestOfX from './bestOfX.vue';
     import TextFit from '../textFit.vue';
     import playerSoloImg from './player-solo.png';
     import twitchIconImg from './twitch-icon.png';
@@ -104,7 +104,7 @@
             playerIndex?: number;
             showFlag?: boolean;
             showColor?: boolean;
-            height?: string;
+            heightPx?: number;
             reverseOrder?: boolean;
             hideSoundIcon?: boolean;
             hideFinishTime?: boolean;
@@ -113,7 +113,7 @@
             playerIndex: -1,
             showFlag: true,
             showColor: true,
-            height: '55px',
+            heightPx: 55,
             reverseOrder: false,
             hideSoundIcon: false,
             hideFinishTime: false
@@ -132,25 +132,18 @@
         }
     });
 
+    const height = computed(() => {
+        return `${props.heightPx}px`;
+    });
+
     const player = computed(() => {
-        let idx = 0;
         let correctPlayer;
         if (!runDataActiveRunReplicant || !runDataActiveRunReplicant.data || !runDataActiveRunReplicant.data.teams) {
             return undefined;
         }
         if (!runDataActiveRunReplicant.data.relay) {
-            for (let i = 0; i < runDataActiveRunReplicant.data.teams.length; i++) {
-                const team = runDataActiveRunReplicant.data.teams[i];
-                for (let j = 0; j < team.players.length; j++) {
-                    if (idx == props.playerIndex) {
-                        correctPlayer = team.players[j];
-                        // break out of both loops
-                        i = 100;
-                        break;
-                    }
-                    idx++;
-                }
-            }
+            const allPlayers = runDataActiveRunReplicant?.data?.teams.flatMap((t) => t.players);
+            return allPlayers[props.playerIndex];
         } else {
             const team = runDataActiveRunReplicant.data.teams[props.playerIndex];
             correctPlayer = team.players.find((player) => player.id === team.relayPlayerID);
@@ -174,10 +167,6 @@
 
     const show = computed(() => {
         return playerAlternate.value;
-    });
-
-    const height = computed(() => {
-        return props.height;
     });
 
     const currentIcon = computed(() => {
@@ -219,8 +208,8 @@
             return '';
         }
         // get the team this player belongs to
-        if (teamID.value) {
-            const finishTime = timerReplicant?.data?.teamFinishTimes[teamID.value];
+        if (teamId.value) {
+            const finishTime = timerReplicant?.data?.teamFinishTimes[teamId.value];
             if (finishTime) {
                 // disable time if lockout, but still "change" it, to force a refit
                 if (runDataActiveRunReplicant?.data?.customData.Bingotype?.includes('lockout')) {
@@ -233,34 +222,14 @@
         return '';
     });
 
-    const teamID = computed(() => {
-        let theTeamID = null;
-        let playerNum = 0;
-        runDataActiveRunReplicant?.data?.teams.forEach((t) => {
-            t.players.forEach(() => {
-                if (playerNum == props.playerIndex) {
-                    theTeamID = t.id;
-                }
-                playerNum++;
-            });
-        });
-        return theTeamID;
+    const teamIndex = computed(() => {
+        const team = runDataActiveRunReplicant?.data?.teams.find((t) => t.id === teamId.value);
+        return team ? runDataActiveRunReplicant!.data!.teams.indexOf(team) : -1;
     });
 
-    const teamIndex = computed(() => {
-        // use 0 as a default in case this teamindex isn't found
-        // which shouldn't happen
-        let theTeamIdx = 0;
-        let playerNum = 0;
-        runDataActiveRunReplicant?.data?.teams.forEach((t, teamdIdx) => {
-            t.players.forEach(() => {
-                if (playerNum == props.playerIndex) {
-                    theTeamIdx = teamdIdx;
-                }
-                playerNum++;
-            });
-        });
-        return theTeamIdx;
+    const teamId = computed(() => {
+        const playerTeamIds = runDataActiveRunReplicant?.data?.teams.flatMap((t) => t.players.map(() => t.id));
+        return playerTeamIds?.[props.playerIndex] ?? null;
     });
 
     const bingoColor = computed(() => {
@@ -302,8 +271,8 @@
             return '';
         }
         // const the team this player belongs to
-        if (teamID.value) {
-            const finishTime = timerReplicant?.data?.teamFinishTimes[teamID.value];
+        if (teamId.value) {
+            const finishTime = timerReplicant?.data?.teamFinishTimes[teamId.value];
             if (finishTime) {
                 let place = 1;
                 const finishTimes = timerReplicant?.data?.teamFinishTimes;
@@ -375,9 +344,6 @@
 
     .PlayerInfoBox > .CurrentIcon > .PronounsContainer {
         font-size: 60%;
-        /* color: #f3ad00; */
-        /* border: 1px solid #f3ad00; */
-        /* background-color: #f3ad00; */
         bottom: 1px;
         color: white;
         height: 75%;
