@@ -9,7 +9,7 @@
                 v-if="boXEnabled"
                 id="boX"
                 :player-index="teamIndex"
-                :height-px="heightPx"
+                :height-px="heightPx * 0.75"
             />
         </div>
         <div :class="medalClasses"></div>
@@ -198,7 +198,7 @@
         color: var(--font-color);
         padding: 7px;
         font-size: 35px;
-        height: 60px;
+        box-sizing: border-box;
     }
 
     .TeamInfoBox.ReverseOrder {

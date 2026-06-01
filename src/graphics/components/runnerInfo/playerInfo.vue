@@ -9,7 +9,7 @@
                 v-if="boXEnabled"
                 id="boX"
                 :player-index="teamIndex"
-                :height-px="heightPx"
+                :height-px="heightPx * 0.75"
             />
         </div>
         <div class="CurrentIcon FlexContainer">
@@ -323,6 +323,7 @@
         padding: 7px;
         font-weight: 500;
         font-size: 30px;
+        box-sizing: border-box;
     }
 
     .PlayerInfoBox.ReverseOrder {
