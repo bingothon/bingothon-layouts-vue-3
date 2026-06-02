@@ -27,7 +27,7 @@
             :icon-height-px="40"
             :name-width-px="120"
             :max-user-count="maxDiscordMembers"
-            voice-highlight-color="red"
+            voice-highlight-color="var(--discord-voice-highlight-color)"
         ></DiscordDisplay>
         <SponsorLogoRotation
             id="SponsorContainer"
