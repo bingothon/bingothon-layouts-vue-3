@@ -24,7 +24,7 @@
                         "
                     >
                         <div
-                            v-for="color in cellStyles[`${i}-${j}`]"
+                            v-for="color in calculateBgColorStyles(cell)"
                             :key="color.color"
                             :class="'bg-color ' + color.color + 'square'"
                             :style="`background-color: ${color.color}; ${color.style};`"
@@ -66,36 +66,31 @@
     const rowCount = computed(() => bingoCells.value.length);
     const columnCount = computed(() => bingoCells.value[0]?.length ?? 0);
 
-    const cellStyles = computed(() => {
-        const rawCells = hostingBingoboard?.data ?? [];
-        const stylesMap: Record<string, { color: string; style: string }[]> = {};
-
-        rawCells.forEach((column, i) => {
-            column.forEach((cell, j) => {
-                const colors = [];
-                if (cell.marked) colors.push('red');
-                if (cell.markedRestream1) colors.push('blue');
-                if (cell.markedRestream2) colors.push('green');
-
-                const transformedColors = [];
-                if (colors.length > 0) {
-                    transformedColors.push({ color: colors[0], style: '' });
-                }
-
-                const translations = translatePercent[colors.length];
-                for (let k = 1; k < colors.length; k++) {
-                    transformedColors.push({
-                        color: colors[k],
-                        style: `transform: skew(-${skewAngle.value}rad) translateX(${translations[k]}%); border-right: solid 1.5px #444444`
-                    });
-                }
-
-                stylesMap[`${i}-${j}`] = transformedColors;
+    function calculateBgColorStyles(cell: HostBingoCell): { color: string; style: string }[] {
+     const colors = [];
+        if (cell.marked) {
+            colors.push('red');
+        }
+        if (cell.markedRestream1) {
+            colors.push('blue');
+        }
+        if (cell.markedRestream2) {
+            colors.push('green');
+        }
+        const newColors = [];
+        if (colors.length > 0) {
+            newColors.push({ color: colors[0], style: '' });
+        }
+        const translations = translatePercent[colors.length];
+        for (let i = 1; i < colors.length; i++) {
+            // how bingosync handles the backgrounds, set style here to simply bind it to html later
+            newColors.push({
+                color: colors[i],
+                style: `transform: skew(-${skewAngle.value}rad) translateX(${translations[i]}%); border-right: solid 1.5px #444444`
             });
-        });
-
-        return stylesMap;
-    });
+        }
+        return newColors;
+    }
 
     defineExpose({ resetBoard });
 
