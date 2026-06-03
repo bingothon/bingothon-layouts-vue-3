@@ -67,7 +67,7 @@
     const columnCount = computed(() => bingoCells.value[0]?.length ?? 0);
 
     function calculateBgColorStyles(cell: HostBingoCell): { color: string; style: string }[] {
-     const colors = [];
+        const colors = [];
         if (cell.marked) {
             colors.push('red');
         }
