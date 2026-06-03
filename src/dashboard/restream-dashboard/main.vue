@@ -5,59 +5,12 @@
     >
         <QHeader
             elevated
-            :class="headerClass"
+            class="bg-primary"
         >
             <div class="donation-total text-h4 text-weight-bold">Donation Total: {{ donationTotal }}</div>
             <QToolbar>
                 <QToolbarTitle class="text-subtitle1 text-weight-bold"> Host Dashboard </QToolbarTitle>
             </QToolbar>
-
-            <div
-                v-if="showHostsSpeakingBanner"
-                class="header-warning text-h5 text-weight-bold"
-            >
-                <QIcon
-                    name="mic"
-                    color="white"
-                    size="sm"
-                    class="q-mr-sm"
-                />
-                You are currently live on stream
-                <QBtn
-                    flat
-                    dense
-                    color="white"
-                    icon="mic_off"
-                    label="Mute"
-                    class="q-ml-md"
-                    @click="toggleHostsSpeakingDuringIntermission"
-                />
-            </div>
-            <div
-                v-else-if="showAdBanner"
-                class="header-warning text-h5 text-weight-bold"
-            >
-                <QIcon
-                    name="info"
-                    color="white"
-                    size="sm"
-                    class="q-mr-sm"
-                />
-                Playing ads for {{ adTimer }}s
-            </div>
-            <div
-                v-else-if="showVdoBanner"
-                class="header-warning text-h5 text-weight-bold"
-            >
-                <QIcon
-                    name="video_chat"
-                    color="white"
-                    size="sm"
-                    class="q-mr-sm"
-                />
-                VDO overlay is shown on intermission
-            </div>
-
             <QTabs
                 v-model="activeTab"
                 align="left"
@@ -111,37 +64,13 @@
 <script setup lang="ts">
     import { computed, ref } from 'vue';
     import { formatAmount } from '../../browser_shared/formatAmount';
-    import {
-        donationTotalReplicant,
-        hostsSpeakingDuringIntermissionReplicant,
-        showThingsDuringIntermissionReplicant,
-        twitchCommercialTimerReplicant
-    } from '../../browser_shared/replicants';
+    import { donationTotalReplicant } from '../../browser_shared/replicants';
     import BlurbsTab from '../host-dashboard/components/blurbsTab.vue';
     import ScheduledAndIncentivesTab from '../host-dashboard/components/scheduledAndIncentivesTab.vue';
     import HostBingoTab from '../host-dashboard/components/hostBingoTab.vue';
 
     const activeTab = ref('blurbs');
     const donationTotal = computed(() => formatAmount(donationTotalReplicant?.data || 0));
-
-    const adTimer = computed(() => twitchCommercialTimerReplicant?.data?.secondsRemaining ?? 0);
-    const showAdBanner = computed(() => adTimer.value > 0);
-    const showHostsSpeakingBanner = computed(() => hostsSpeakingDuringIntermissionReplicant?.data?.speaking || false);
-    // Use oldData to check if the replicant actually got updated and not just the model
-    const showVdoBanner = computed(() => !!showThingsDuringIntermissionReplicant?.oldData?.vdoUrl || '');
-
-    const headerClass = computed(() => {
-        if (showHostsSpeakingBanner.value) return 'bg-red';
-        if (showAdBanner.value) return 'bg-orange';
-        if (showVdoBanner.value) return 'bg-green';
-        return 'bg-primary';
-    });
-
-    function toggleHostsSpeakingDuringIntermission() {
-        hostsSpeakingDuringIntermissionReplicant!.data!.speaking =
-            !hostsSpeakingDuringIntermissionReplicant!.data!.speaking;
-        hostsSpeakingDuringIntermissionReplicant?.save();
-    }
 </script>
 
 <style scoped>
