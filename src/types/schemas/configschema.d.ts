@@ -7,5 +7,9 @@
  */
 
 export interface Configschema {
-	exampleProperty: string;
+	hlsPlayer?: {
+		delayDebug?: boolean;
+		maxLiveSyncPlaybackRate?: number;
+	};
+	[k: string]: unknown;
 }

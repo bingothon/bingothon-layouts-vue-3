@@ -70,6 +70,18 @@
                 "title": "Example",
                 "file": "example/main.html",
                 "width": 3
+            },
+            {
+                "name": "Z - Host Dashboard",
+                "title": "Z - Host Dashboard",
+                "file": "host-dashboard/main.html",
+                "fullbleed": true
+            },
+            {
+                "name": "Z - Restream Dashboard",
+                "title": "Z - Restream Dashboard",
+                "file": "restream-dashboard/main.html",
+                "fullbleed": true
             }
         ],
         "graphics": [
@@ -106,7 +118,7 @@
     "lint-staged": {
         "*.{cjs,json,css,scss,htm,html,md,yml,yaml}": "prettier --write",
         "*.{ts,vue}": [
-            "eslint --fix --max-warnings 0",
+            "eslint --fix --max-warnings 0 --no-warn-ignored",
             "prettier --write"
         ]
     }
