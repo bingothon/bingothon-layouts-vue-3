@@ -27,12 +27,12 @@
             id="discord-voice"
             :icon-height-px="40"
             :name-width-px="120"
-            :max-user-count="6"
+            :max-user-count="8"
             voice-highlight-color="var(--discord-voice-highlight-color)"
         ></DiscordDisplay>
         <SponsorLogoRotation
             id="SponsorContainer"
-            :logo-asset-type="LogoAssetType.squareLogos"
+            :logo-asset-type="LogoAssetType.wideLargeLogos"
         ></SponsorLogoRotation>
         <twitch-player
             id="stream1"
@@ -66,7 +66,7 @@
         position: absolute;
         left: 0px;
         border: 2px var(--container-border-color) solid;
-        width: 590px;
+        width: 810px;
     }
 
     .PlayerInfo.First {
@@ -85,8 +85,8 @@
     #stream1 {
         position: absolute;
         top: 0px;
-        left: 590px;
-        width: 1330px;
+        left: 810px;
+        width: 1110px;
         height: 1000px;
         border: 2px var(--container-border-color) solid;
         background-color: aqua;
@@ -96,7 +96,7 @@
         position: absolute;
         top: 460px;
         left: 325px;
-        width: 265px;
+        width: 485px;
         height: 150px;
         border: 2px var(--container-border-color) solid;
     }
@@ -106,14 +106,14 @@
         top: 610px;
         left: 0px;
         border: 2px var(--container-border-color) solid;
-        width: 590px;
+        width: 810px;
         height: 390px;
     }
 
     #game {
         position: absolute;
         left: 0px;
-        width: 590px;
+        width: 810px;
         border: 2px var(--container-border-color) solid;
     }
 
@@ -129,7 +129,7 @@
     #discord-voice {
         position: absolute;
         left: 0px;
-        width: 590px;
+        width: 810px;
         border: 2px var(--container-border-color) solid;
         height: 100px;
         top: 360px;
