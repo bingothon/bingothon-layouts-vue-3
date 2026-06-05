@@ -17,3 +17,4 @@ function hasNoDefault<T>(name: string) {
  * and to make sure they have any correct settings on startup.
  */
 export const exampleReplicant = hasDefault<Schemas.ExampleReplicant>('exampleReplicant');
+export const blurbsReplicant = hasDefault<Schemas.Blurbs>('blurbs');
