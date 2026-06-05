@@ -27,7 +27,7 @@
                 'streams:getUrlForStream',
                 oldBundle,
                 { stream: streamChannel.value },
-                (response) => {
+                (response: unknown) => {
                     if (typeof response === 'string') {
                         hls.loadSource(response);
                         hls.attachMedia(videoElem.value!);
