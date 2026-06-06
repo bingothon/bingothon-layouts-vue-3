@@ -19,6 +19,8 @@ export const exampleReplicant = useReplicant<Schemas.ExampleReplicant>('exampleR
 export const blurbsReplicant = useReplicant<Schemas.Blurbs>('blurbs', thisBundle);
 
 export const capturePositionsReplicant = useReplicant<oldSchemas.CapturePositions>('capturePositions', oldBundle);
+export const allGameLayoutsReplicant = useReplicant<oldSchemas.AllGameLayouts>('allGameLayouts', oldBundle);
+export const currentGameLayoutReplicant = useReplicant<oldSchemas.CurrentGameLayout>('currentGameLayout', oldBundle);
 export const voiceActivityReplicant = useReplicant<oldSchemas.VoiceActivity>('voiceActivity', oldBundle);
 export const currentMainBingoboard = useReplicant<oldSchemas.CurrentMainBingoboard>('currentMainBingoboard', oldBundle);
 export const bingoboardMeta = useReplicant<oldSchemas.BingoboardMeta>('bingoboardMeta', oldBundle);

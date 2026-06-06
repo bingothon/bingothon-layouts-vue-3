@@ -1,9 +1,10 @@
 import { createHead } from '@unhead/vue';
-import { createApp } from 'vue';
+import { createApp, watch } from 'vue';
 import '../common.css';
 import App from './main.vue';
 import { createRouter, createWebHashHistory, type RouteRecordRaw } from 'vue-router';
-import Example from '../example/main.vue';
+import { allGameLayoutsReplicant, currentGameLayoutReplicant, waitForComposable } from '../../browser_shared/replicants.ts';
+import type { CurrentGameLayout } from '../../../../bingothon-layouts/schemas/currentGameLayout';
 
 const layouts = import.meta.glob('./layouts/*.vue');
 
@@ -19,10 +20,31 @@ const routes: RouteRecordRaw[] = Object.keys(layouts).map((fullPath) => {
 
 const app = createApp(App);
 const head = createHead();
-const exampleRoute = { name: 'Example', path: '/example', component: Example };
 
-routes.push({ path: '/', redirect: '/2p-16x9' });
-routes.push(exampleRoute);
+await waitForComposable(allGameLayoutsReplicant);
+allGameLayoutsReplicant!.data! = routes.map((route) => {
+    return {
+        name: route.name as string,
+        path: route.path,
+        id: route.path.replace('/', '')
+    };
+});
+allGameLayoutsReplicant!.save();
+
+// Redirect needs to be done after mapping the routes to the replicant
+routes.push({ path: '/:pathMatch(.*)*', redirect: '/1p-16x9' });
+
+watch(
+    () => currentGameLayoutReplicant!.data!,
+    async (newLayout: CurrentGameLayout | undefined) => {
+        if (!newLayout) return;
+        if (allGameLayoutsReplicant?.data?.map((layout) => layout.name).includes(newLayout.name)) {
+            await router.push({ name: newLayout.name });
+        } else {
+            await router.push('/1p-16x9');
+        }
+    }
+);
 
 const router = createRouter({ routes, history: createWebHashHistory() });
 app.use(head);

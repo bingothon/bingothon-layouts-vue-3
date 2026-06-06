@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
     import { nextTick, onMounted, useTemplateRef } from 'vue';
-    import { type RouteLocationNormalized, type RouterView, useRoute, useRouter } from 'vue-router';
+    import { type RouteLocationNormalizedLoadedGeneric, type RouterView, useRoute, useRouter } from 'vue-router';
     import { capturePositionsReplicant, waitForComposable } from '../../browser_shared/replicants.ts';
 
     const router = useRouter();
@@ -18,9 +18,9 @@
         });
     });
 
-    function layoutChanged(route: RouteLocationNormalized): void {
+    function layoutChanged(route: RouteLocationNormalizedLoadedGeneric): void {
         // Is the last replace needed?
-        const layoutName = route.path.replace('/', '').replace('*', '');
+        const layoutName = route.name as string;
         updateCapturePositionData(layoutName);
     }
 
@@ -32,12 +32,11 @@
 
             const gameLayoutRef = useTemplateRef<HTMLElement>('gameLayout');
             if (!gameLayoutRef.value) return;
-            const numberOfStreams = gameLayoutRef.value.querySelectorAll('.PlayerContainer').length;
+            const numberOfStreams = gameLayoutRef.value.querySelectorAll('.TwitchPlayerContainer').length;
             const pos: { [k: string]: { x: number; y: number; width: number; height: number } } = {};
 
             for (let i = 0; i < numberOfStreams; i++) {
-                const captureElem = useTemplateRef<HTMLElement>(`playerContainer-${i}`);
-                const el = captureElem.value;
+                const el = gameLayoutRef.value.querySelector(`.TwitchPlayerContainer[data-index="${i}"]`);
                 if (!el) continue;
 
                 const sizes = el.getBoundingClientRect();
