@@ -13,7 +13,7 @@ export function timeUntilString(time: string, useNext: boolean): string {
             if (useNext) {
                 return seconds > 1 ? `In the next ${seconds} second(s)` : 'In the next second';
             }
-            return seconds > 1 ? `In the ${seconds} seconds` : 'In one second';
+            return seconds > 1 ? `In ${seconds} seconds` : 'In one second';
         }
         case diffMs < 60 * 60 * 1000: {
             const minutes = Math.floor(diffMs / (60 * 1000));
