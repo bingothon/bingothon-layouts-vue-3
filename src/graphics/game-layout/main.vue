@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-    import { nextTick, onMounted, useTemplateRef } from 'vue';
+    import { nextTick, onMounted } from 'vue';
     import { type RouteLocationNormalizedLoadedGeneric, type RouterView, useRoute, useRouter } from 'vue-router';
     import { capturePositionsReplicant, waitForComposable } from '../../browser_shared/replicants.ts';
 
@@ -30,14 +30,15 @@
                 return;
             }
 
-            const gameLayoutRef = useTemplateRef<HTMLElement>('gameLayout');
-            if (!gameLayoutRef.value) return;
-            const numberOfStreams = gameLayoutRef.value.querySelectorAll('.TwitchPlayerContainer').length;
+            const numberOfStreams = document.querySelectorAll('.TwitchPlayerContainer').length;
             const pos: { [k: string]: { x: number; y: number; width: number; height: number } } = {};
 
             for (let i = 0; i < numberOfStreams; i++) {
-                const el = gameLayoutRef.value.querySelector(`.TwitchPlayerContainer[data-index="${i}"]`);
-                if (!el) continue;
+                const el = document.querySelector(`.TwitchPlayerContainer[data-index="${i}"]`);
+                if (!el) {
+                    console.error(`Could not find TwitchPlayerContainer with data-index=${i}`);
+                    continue;
+                }
 
                 const sizes = el.getBoundingClientRect();
 
@@ -55,6 +56,7 @@
             }
 
             capturePositionsReplicant.data[layoutName] = pos;
+            capturePositionsReplicant.save();
         });
     }
 </script>
