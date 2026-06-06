@@ -66,12 +66,6 @@
         "compatibleRange": "^2.3.0",
         "dashboardPanels": [
             {
-                "name": "example",
-                "title": "Example",
-                "file": "example/main.html",
-                "width": 3
-            },
-            {
                 "name": "crop control",
                 "title": "crop control",
                 "fullbleed": true,
@@ -92,11 +86,6 @@
             }
         ],
         "graphics": [
-            {
-                "file": "example/main.html",
-                "width": 1920,
-                "height": 1080
-            },
             {
                 "file": "hls-player/main.html",
                 "width": 1920,
