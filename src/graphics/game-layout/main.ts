@@ -18,35 +18,40 @@ const routes: RouteRecordRaw[] = Object.keys(layouts).map((fullPath) => {
     };
 });
 
-const app = createApp(App);
-const head = createHead();
+const replicantRoutes = Array.from(routes);
 
-await waitForComposable(allGameLayoutsReplicant);
-allGameLayoutsReplicant!.data! = routes.map((route) => {
-    return {
-        name: route.name as string,
-        path: route.path,
-        id: route.path.replace('/', '')
-    };
-});
-allGameLayoutsReplicant!.save();
-
-// Redirect needs to be done after mapping the routes to the replicant
 routes.push({ path: '/:pathMatch(.*)*', redirect: '/1p-16x9' });
 
-watch(
-    () => currentGameLayoutReplicant!.data!,
-    async (newLayout: CurrentGameLayout | undefined) => {
-        if (!newLayout) return;
-        if (allGameLayoutsReplicant?.data?.map((layout) => layout.name).includes(newLayout.name)) {
-            await router.push({ name: newLayout.name });
-        } else {
-            await router.push('/1p-16x9');
-        }
-    }
-);
+const app = createApp(App);
+const head = createHead();
 
 const router = createRouter({ routes, history: createWebHashHistory() });
 app.use(head);
 app.use(router);
+
+(async () => {
+    await waitForComposable(allGameLayoutsReplicant);
+
+    allGameLayoutsReplicant!.data! = replicantRoutes.map((route) => {
+        return {
+            name: route.name as string,
+            path: route.path,
+            id: route.path.replace('/', '')
+        };
+    });
+    allGameLayoutsReplicant!.save();
+
+    watch(
+        () => currentGameLayoutReplicant!.data!,
+        async (newLayout: CurrentGameLayout | undefined) => {
+            if (!newLayout) return;
+            if (allGameLayoutsReplicant?.data?.map((layout) => layout.name).includes(newLayout.name)) {
+                await router.push({ name: newLayout.name });
+            } else {
+                await router.push('/1p-16x9');
+            }
+        }
+    );
+})();
+
 app.mount('#app');
