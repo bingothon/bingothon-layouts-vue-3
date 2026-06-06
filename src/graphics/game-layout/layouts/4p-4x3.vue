@@ -63,22 +63,22 @@
         ></SponsorLogoRotation>
         <twitch-player
             id="stream1"
-            stream-index="0"
+            :stream-index="0"
             :style="{ border: isTeamRun ? `2px ${teamColor1} solid` : '2px var(--container-border-color) solid' }"
         ></twitch-player>
         <twitch-player
             id="stream2"
-            stream-index="1"
+            :stream-index="1"
             :style="{ border: isTeamRun ? `2px ${teamColor1} solid` : '2px var(--container-border-color) solid' }"
         ></twitch-player>
         <twitch-player
             id="stream3"
-            stream-index="2"
+            :stream-index="2"
             :style="{ border: isTeamRun ? `2px ${teamColor2} solid` : '2px var(--container-border-color) solid' }"
         ></twitch-player>
         <twitch-player
             id="stream4"
-            stream-index="3"
+            :stream-index="3"
             :style="{ border: isTeamRun ? `2px ${teamColor2} solid` : '2px var(--container-border-color) solid' }"
         ></twitch-player>
     </div>

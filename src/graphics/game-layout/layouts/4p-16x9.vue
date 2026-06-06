@@ -43,19 +43,19 @@
         ></SponsorLogoRotation>
         <twitch-player
             id="stream1"
-            stream-index="0"
+            :stream-index="0"
         ></twitch-player>
         <twitch-player
             id="stream2"
-            stream-index="1"
+            :stream-index="1"
         ></twitch-player>
         <twitch-player
             id="stream3"
-            stream-index="2"
+            :stream-index="2"
         ></twitch-player>
         <twitch-player
             id="stream4"
-            stream-index="3"
+            :stream-index="3"
         ></twitch-player>
     </div>
 </template>

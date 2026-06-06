@@ -35,7 +35,7 @@
         ></SponsorLogoRotation>
         <twitch-player
             id="stream1"
-            stream-index="0"
+            :stream-index="0"
         ></twitch-player>
     </div>
 </template>

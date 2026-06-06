@@ -32,11 +32,11 @@
 
         <twitch-player
             id="stream1"
-            stream-index="0"
+            :stream-index="0"
         ></twitch-player>
         <twitch-player
             id="stream2"
-            stream-index="1"
+            :stream-index="1"
         ></twitch-player>
     </div>
 </template>
