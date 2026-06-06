@@ -46,7 +46,7 @@
                     'twitchClipDurationRequest',
                     'nodecg-speedcontrol',
                     requestData,
-                    (err, response) => {
+                    (err: unknown, response: unknown) => {
                         if (err) {
                             reject(err);
                         } else {
