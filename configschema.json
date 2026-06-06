@@ -1,11 +1,19 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
-    "additionalProperties": false,
+    "additionalProperties": true,
     "properties": {
-        "exampleProperty": {
-            "type": "string"
+        "hlsPlayer": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "delayDebug": {
+                    "type": "boolean"
+                },
+                "maxLiveSyncPlaybackRate": {
+                    "type": "number"
+                }
+            }
         }
-    },
-    "required": ["exampleProperty"]
+    }
 }
