@@ -10,13 +10,22 @@ export interface Blurbs {
 	charity: {
 		text: string;
 		enabled: boolean;
+		translations?: {
+			[k: string]: string;
+		};
 	}[];
 	sponsor: {
 		text: string;
 		enabled: boolean;
+		translations?: {
+			[k: string]: string;
+		};
 	}[];
 	bingothon: {
 		text: string;
 		enabled: boolean;
+		translations?: {
+			[k: string]: string;
+		};
 	}[];
 }

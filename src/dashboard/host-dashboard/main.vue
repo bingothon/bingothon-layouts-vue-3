@@ -96,7 +96,7 @@
                     class="fit bg-transparent"
                 >
                     <QTabPanel name="blurbs">
-                        <blurbs-tab />
+                        <blurbs-tab is-primary />
                     </QTabPanel>
                     <QTabPanel name="scheduleAndIncentives">
                         <scheduled-and-incentives-tab />

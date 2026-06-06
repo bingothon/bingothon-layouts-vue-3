@@ -27,7 +27,7 @@
                             v-for="color in calculateBgColorStyles(cell)"
                             :key="color.color"
                             :class="'bg-color ' + color.color + 'square'"
-                            :style="`background-color: ${color.color}; ${color.style}`"
+                            :style="`background-color: ${color.color}; ${color.style};`"
                         ></div>
                         <div class="shadow"></div>
                         <div class="CellTextFitContainer">
@@ -66,6 +66,32 @@
     const rowCount = computed(() => bingoCells.value.length);
     const columnCount = computed(() => bingoCells.value[0]?.length ?? 0);
 
+    function calculateBgColorStyles(cell: HostBingoCell): { color: string; style: string }[] {
+        const colors = [];
+        if (cell.marked) {
+            colors.push('red');
+        }
+        if (cell.markedRestream1) {
+            colors.push('blue');
+        }
+        if (cell.markedRestream2) {
+            colors.push('green');
+        }
+        const newColors = [];
+        if (colors.length > 0) {
+            newColors.push({ color: colors[0], style: '' });
+        }
+        const translations = translatePercent[colors.length];
+        for (let i = 1; i < colors.length; i++) {
+            // how bingosync handles the backgrounds, set style here to simply bind it to html later
+            newColors.push({
+                color: colors[i],
+                style: `transform: skew(-${skewAngle.value}rad) translateX(${translations[i]}%); border-right: solid 1.5px #444444`
+            });
+        }
+        return newColors;
+    }
+
     defineExpose({ resetBoard });
 
     function resetBoard() {
@@ -99,7 +125,6 @@
     }
 
     function toColumns(goals: { goal: string; description: string }[]): HostBingoCell[][] {
-        // console.log(goals);
         const result = [];
         for (let i = 0; i < 5; i++) {
             const cur: HostBingoCell[] = [];
@@ -109,7 +134,6 @@
             }
             result.push(cur);
         }
-        // console.log(result);
         return result;
     }
 
@@ -120,32 +144,6 @@
         if (!boardElem) return;
         skewAngle.value = Math.atan(boardElem.clientWidth / boardElem.clientHeight);
     });
-
-    function calculateBgColorStyles(cell: HostBingoCell): { color: string; style: string }[] {
-        const colors = [];
-        if (cell.marked) {
-            colors.push('red');
-        }
-        if (cell.markedRestream1) {
-            colors.push('blue');
-        }
-        if (cell.markedRestream2) {
-            colors.push('green');
-        }
-        const newColors = [];
-        if (colors.length > 0) {
-            newColors.push({ color: colors[0], style: '' });
-        }
-        const translations = translatePercent[colors.length];
-        for (let i = 1; i < colors.length; i++) {
-            // how bingosync handles the backgrounds, set style here to simply bind it to html later
-            newColors.push({
-                color: colors[i],
-                style: `transform: skew(-${skewAngle.value}rad) translateX(${translations[i]}%); border-right: solid 1.5px #444444`
-            });
-        }
-        return newColors;
-    }
 </script>
 
 <style lang="css">
@@ -155,12 +153,16 @@
         width: 100%;
         height: 100%;
         position: relative;
+        box-sizing: border-box;
     }
 
-    table {
+    .bingo-table {
         width: 100%;
         height: 100%;
         position: absolute;
+        border-collapse: separate;
+        border-spacing: 0;
+        table-layout: fixed;
     }
 
     .square {
@@ -169,8 +171,34 @@
         width: calc(100% / v-bind(columnCount));
         border: 2px black solid;
         box-sizing: border-box;
-        overflow: hidden;
         position: relative;
+        overflow: hidden;
+
+        /* Quasar layout rendering context overrides */
+        transform-style: flat !important;
+        backface-visibility: visible !important;
+        isolation: isolate;
+    }
+
+    .square .bg-color {
+        width: 102% !important;
+        height: 102% !important;
+        position: absolute;
+        top: -1%;
+        left: -1%;
+        padding: 0;
+        border: 0;
+        z-index: 1;
+    }
+
+    .square .shadow {
+        width: 102% !important;
+        height: 102% !important;
+        position: absolute;
+        top: -1%;
+        left: -1%;
+        z-index: 2;
+        pointer-events: none;
     }
 
     .CellTextFitContainer {
@@ -178,9 +206,6 @@
         width: calc(100% - 4px);
         position: absolute;
         margin: 2px;
-    }
-
-    .bingo-table {
-        border-collapse: collapse;
+        z-index: 3;
     }
 </style>

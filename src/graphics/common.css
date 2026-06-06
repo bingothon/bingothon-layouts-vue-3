@@ -36,6 +36,7 @@ body {
     --alternative-main-color: #d32f3e;
     --gradient-light: #ffa600;
     --gradient-dark: #ff1125be;
+    --discord-voice-highlight-color: #d40530;
 }
 
 .FlexContainer {
