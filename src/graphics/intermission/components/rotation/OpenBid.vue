@@ -132,6 +132,7 @@
         yaxis: {
             labels: {
                 style: {
+                    maxWidth: 500,
                     colors: '#ffffff', // Ensures long option labels stand out on dark layouts
                     fontFamily: 'Montserrat, sans-serif',
                     fontSize: '22px'

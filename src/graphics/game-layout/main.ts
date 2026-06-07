@@ -10,7 +10,6 @@ const layouts = import.meta.glob('./layouts/*.vue');
 
 const routes: RouteRecordRaw[] = Object.keys(layouts).map((fullPath) => {
     const path = fullPath.replace('./layouts/', '').replace('.vue', '');
-    console.log(path);
     return {
         name: path.replace('-', ' '),
         path: `/${path}`,

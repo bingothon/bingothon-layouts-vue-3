@@ -6,6 +6,7 @@
     import { nextTick, onMounted } from 'vue';
     import { type RouteLocationNormalizedLoadedGeneric, useRoute, useRouter } from 'vue-router';
     import { capturePositionsReplicant, waitForComposable } from '../../browser_shared/replicants.ts';
+    import type { CapturePositions } from '../../../../bingothon-layouts/schemas/capturePositions';
 
     const router = useRouter();
     const route = useRoute();
@@ -19,7 +20,6 @@
     });
 
     function layoutChanged(route: RouteLocationNormalizedLoadedGeneric): void {
-        // Is the last replace needed?
         const layoutName = route.name as string;
         updateCapturePositionData(layoutName);
     }
@@ -33,7 +33,7 @@
             if (!('obsstudio' in window)) return;
 
             const numberOfStreams = document.querySelectorAll('.TwitchPlayerContainer').length;
-            const pos: { [k: string]: { x: number; y: number; width: number; height: number } } = {};
+            const pos: CapturePositions[string] = {};
 
             for (let i = 0; i < numberOfStreams; i++) {
                 const el = document.querySelector(`.TwitchPlayerContainer[data-index="${i}"]`);
