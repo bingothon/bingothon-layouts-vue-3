@@ -121,10 +121,10 @@
     import {
         runDataActiveRunReplicant,
         runDataArrayReplicant,
+        trackerOpenBidsReplicant,
         trackerPrizesReplicant
     } from '../../../browser_shared/replicants';
     import { formatAmount } from '../../../browser_shared/formatAmount';
-    import { trackerOpenBidsReplicant } from '../../../browser_shared/replicants';
 
     const currentRun = computed(() => runDataActiveRunReplicant!.data!);
     const comingUpRun = computed(() => getNextRuns(currentRun.value.id, 1));
