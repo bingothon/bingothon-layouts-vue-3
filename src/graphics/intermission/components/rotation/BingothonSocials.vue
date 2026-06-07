@@ -1,42 +1,48 @@
 <template>
     <div id="Socials">
         <span id="SocialText">Follow Us</span>
-        <table id="SocialsTable">
-            <tbody>
-                <tr class="FlexContainer TwitchRow">
-                    <td>
-                        <div id="TwitchLogo">
-                            <img src="../../../../../assets/Twitch_icon.png" />
-                        </div>
-                    </td>
-                    <td class="SocialNames">Bingothon</td>
-                </tr>
-                <tr class="FlexContainer YouTubeRow">
-                    <td>
-                        <div id="YouTubeLogo">
-                            <img src="../../../../../assets/youtube-logo.png" />
-                        </div>
-                    </td>
-                    <td class="SocialNames">c/Bingothon</td>
-                </tr>
-                <tr class="FlexContainer InstaRow">
-                    <td>
-                        <div id="InstaLogo">
-                            <img src="../../../../../assets/Instagram_AppIcon_Aug2017.png" />
-                        </div>
-                    </td>
-                    <td class="SocialNames">Bingothon_Marathon</td>
-                </tr>
-                <tr class="FlexContainer BskyRow">
-                    <td>
-                        <div id="BskyLogo">
-                            <img src="../../../../../assets/Bluesky_Logo.svg.png" />
-                        </div>
-                    </td>
-                    <td class="SocialNames">&#64;Bingothon.com</td>
-                </tr>
-            </tbody>
-        </table>
+
+        <div class="SocialsList">
+            <div class="SocialRow TwitchRow">
+                <div class="SocialLogo">
+                    <img
+                        src="../../../../../assets/Twitch_icon.png"
+                        alt="Twitch"
+                    />
+                </div>
+                <span class="SocialNames">Bingothon</span>
+            </div>
+
+            <div class="SocialRow YouTubeRow">
+                <div class="SocialLogo">
+                    <img
+                        src="../../../../../assets/youtube-logo.png"
+                        alt="YouTube"
+                    />
+                </div>
+                <span class="SocialNames">c/Bingothon</span>
+            </div>
+
+            <div class="SocialRow InstaRow">
+                <div class="SocialLogo">
+                    <img
+                        src="../../../../../assets/Instagram_AppIcon_Aug2017.png"
+                        alt="Instagram"
+                    />
+                </div>
+                <span class="SocialNames">Bingothon_Marathon</span>
+            </div>
+
+            <div class="SocialRow BskyRow">
+                <div class="SocialLogo">
+                    <img
+                        src="../../../../../assets/Bluesky_Logo.svg.png"
+                        alt="Bluesky"
+                    />
+                </div>
+                <span class="SocialNames">&#64;Bingothon.com</span>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -51,64 +57,57 @@
 </script>
 
 <style scoped>
-    #SocialText {
-        position: absolute;
-        align-content: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        top: 0px;
-        left: 470px;
-        font-size: 50px;
-    }
-
-    #SocialsTable {
-        position: absolute;
-        top: 80px;
-    }
-
     #Socials {
-        position: absolute;
-        display: flex;
-        height: 100%;
         width: 100%;
+        height: 100%;
+        display: flex;
         flex-direction: column;
-        justify-content: space-around;
+        align-items: center;
+        box-sizing: border-box;
+        padding: 20px 0;
     }
 
-    #TwitchLogo > img {
-        position: absolute;
-        top: 0px;
-        left: 250px;
+    #SocialText {
+        font-size: 50px;
+        font-weight: bold;
+        margin-bottom: 40px;
+        text-align: center;
+    }
+
+    .SocialsList {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        flex-grow: 1;
+        width: fit-content;
+    }
+
+    .SocialRow {
+        display: flex;
+        align-items: center;
+        gap: 40px;
+    }
+
+    .SocialLogo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100px;
         height: 85px;
     }
 
-    #YouTubeLogo > img {
-        position: absolute;
-        top: 120px;
-        left: 240px;
-        height: 98px;
-    }
-
-    #InstaLogo > img {
-        position: absolute;
-        top: 240px;
-        left: 250px;
-        height: 85px;
-    }
-
-    #BskyLogo > img {
-        position: absolute;
-        top: 360px;
-        left: 250px;
-        height: 85px;
+    .SocialLogo > img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
     }
 
     .SocialNames {
-        margin-left: 300px;
         font-size: 50px;
         font-weight: bold;
-        margin-bottom: 60px;
-        align-content: flex-start;
+        white-space: nowrap;
+        line-height: 1;
+        min-width: 450px;
     }
 </style>
