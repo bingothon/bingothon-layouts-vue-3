@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
     import { nextTick, onMounted } from 'vue';
-    import { type RouteLocationNormalizedLoadedGeneric, type RouterView, useRoute, useRouter } from 'vue-router';
+    import { type RouteLocationNormalizedLoadedGeneric, useRoute, useRouter } from 'vue-router';
     import { capturePositionsReplicant, waitForComposable } from '../../browser_shared/replicants.ts';
 
     const router = useRouter();
@@ -29,6 +29,8 @@
             if (!capturePositionsReplicant?.oldData || !capturePositionsReplicant.data) {
                 return;
             }
+            // only update capture positions if we're in obs
+            if (!('obsstudio' in window)) return;
 
             const numberOfStreams = document.querySelectorAll('.TwitchPlayerContainer').length;
             const pos: { [k: string]: { x: number; y: number; width: number; height: number } } = {};
