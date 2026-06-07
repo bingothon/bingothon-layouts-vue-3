@@ -21,15 +21,16 @@ export const currentMainBingoboard = useReplicant<oldSchemas.CurrentMainBingoboa
 export const bingoboardMeta = useReplicant<oldSchemas.BingoboardMeta>('bingoboardMeta', oldBundle);
 export const soundOnTwitchStream = useReplicant<number>('soundOnTwitchStream', oldBundle);
 export const bestOfX = useReplicant<oldSchemas.BestOfX>('bestOfX', oldBundle);
-export const streamsReplicant = useReplicant<oldSchemas.TwitchStream[]>('twitchStreams', oldBundle);
-export const discordDelayInfo = useReplicant<oldSchemas.DiscordDelayInfo>('discordDelayInfo', oldBundle);
 export const hostsSpeakingDuringIntermissionReplicant = useReplicant<oldSchemas.HostsSpeakingDuringIntermission>('hostsSpeakingDuringIntermission', oldBundle);
 export const showThingsDuringIntermissionReplicant = useReplicant<oldSchemas.ShowThingsDuringIntermission>('showThingsDuringIntermission', oldBundle);
 export const donationTotalReplicant = useReplicant<oldSchemas.DonationTotal>('donationTotal', oldBundle);
 export const trackerOpenBidsReplicant = useReplicant<oldSchemas.TrackerOpenBids>('trackerOpenBids', oldBundle);
 export const trackerPrizesReplicant = useReplicant<oldSchemas.TrackerPrizes>('trackerPrizes', oldBundle);
 export const obsCurrentSceneReplicant = useReplicant<null | string>('obsCurrentScene', oldBundle);
+export const streamsReplicant = useReplicant<oldSchemas.TwitchStream[]>('twitchStreams', oldBundle);
+export const discordDelayInfo = useReplicant<oldSchemas.DiscordDelayInfo>('discordDelayInfo', oldBundle);
 export const hostingBingoboard = useReplicant<oldSchemas.HostingBingoboard>('hostingBingoboard', oldBundle);
+export const songDataReplicant = useReplicant<oldSchemas.SongData>('songData', oldBundle);
 
 // SpeedControl Replicants
 export const runDataActiveRunReplicant = useReplicant<RunDataActiveRun>('runDataActiveRun', scBundle);

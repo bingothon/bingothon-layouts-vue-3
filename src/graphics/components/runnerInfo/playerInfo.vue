@@ -92,7 +92,7 @@
     import { useReplicant } from 'nodecg-vue-composable';
     import type { Bingoboard } from '../../../../../bingothon-layouts/schemas';
     import BestOfX from './bestOfX.vue';
-    import TextFit from '../textFit.vue';
+    import TextFit from '../helpers/textFits/textFit.vue';
     import playerSoloImg from './player-solo.png';
     import twitchIconImg from './twitch-icon.png';
 

@@ -66,7 +66,7 @@
     import { computed, onMounted, onUnmounted, ref, type Ref, useTemplateRef, watch } from 'vue';
     import type { Bingoboard } from '../../../../../bingothon-layouts/schemas';
     import { bingoboardMeta, currentMainBingoboard, oldBundle } from '../../../browser_shared/replicants';
-    import CellTextFit from '../helpers/cellTextFit.vue';
+    import CellTextFit from '../helpers/textFits/cellTextFit.vue';
     import { type BingoCell, colorsToTransforms, colorToGradient, defaultBingoBoard } from './util';
 
     const props = withDefaults(
