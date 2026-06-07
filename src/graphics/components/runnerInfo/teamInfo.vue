@@ -23,8 +23,8 @@
             v-if="bingoColorShown === true"
             class="BingoColor FlexContainer"
             :style="{
-                width: parseFloat(height.replace('px', '')) * 0.75 + 'px',
-                height: parseFloat(height.replace('px', '')) * 0.75 + 'px',
+                width: heightPx * 0.75 + 'px',
+                height: heightPx * 0.75 + 'px',
                 'background-color': bingoColor
             }"
         >

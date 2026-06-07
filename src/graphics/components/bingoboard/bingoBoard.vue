@@ -266,6 +266,10 @@
         position: absolute;
     }
 
+    .BingoBoard {
+        box-sizing: border-box;
+    }
+
     .bingo-board-hide {
         width: 100%;
         height: 100%;

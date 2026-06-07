@@ -12,7 +12,10 @@
             :data="nextRun"
         ></run-upcoming>
         <IntermissionRotation></IntermissionRotation>
-        <div id="ReaderAndMusic">
+        <div
+            id="ReaderAndMusic"
+            class="FlexContainer"
+        >
             <div
                 v-if="hostsSpeakingDuringIntermission"
                 class="Mic"
@@ -23,7 +26,8 @@
                 v-if="hostsSpeakingDuringIntermission"
                 voice-highlight-color="var(--darker-main-color)"
                 :icon-height-px="40"
-                :name-width-px="100"
+                :name-width-px="165"
+                :max-user-count="3"
             ></DiscordDisplay>
             <MusicDisplay :use-small-variant="hostsSpeakingDuringIntermission"></MusicDisplay>
         </div>
@@ -186,8 +190,7 @@
     }
 
     .DiscordVoiceDisplay {
-        left: 750px;
-        top: 920px;
+        width: 680px;
     }
 
     .Mic {

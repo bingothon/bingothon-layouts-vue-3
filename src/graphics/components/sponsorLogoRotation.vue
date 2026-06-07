@@ -73,4 +73,8 @@
     .fade-leave-to {
         opacity: 0;
     }
+
+    .SponsorLogoRotation {
+        box-sizing: border-box;
+    }
 </style>
