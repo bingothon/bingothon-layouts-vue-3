@@ -100,6 +100,11 @@
                 "file": "intermission/main.html",
                 "width": 1920,
                 "height": 1080
+            },
+            {
+                "file": "cam-names/main.html",
+                "width": 1920,
+                "height": 1080
             }
         ],
         "mount": [
