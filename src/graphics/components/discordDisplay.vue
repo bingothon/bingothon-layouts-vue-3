@@ -40,16 +40,19 @@
         defineProps<{
             iconHeightPx: number;
             nameWidthPx: number;
+            micHeightPx?: number;
             voiceHighlightColor: string;
             maxUserCount?: number;
         }>(),
         {
-            maxUserCount: 20
+            maxUserCount: 20,
+            micHeightPx: 25
         }
     );
 
     const iconHeightString = computed(() => `${props.iconHeightPx}px`);
     const nameWidthString = computed(() => `${props.nameWidthPx}px`);
+    const micHeightString = computed(() => `${props.micHeightPx}px`);
 
     const members = computed(() => {
         const all = voiceActivityReplicant?.data?.members ?? [];
@@ -82,14 +85,19 @@
 
     .DiscordVoiceDisplay .Member .AvatarContainer .MicIcon {
         position: absolute;
-        width: 25px;
-        height: 25px;
+        width: v-bind(micHeightString);
+        height: v-bind(micHeightString);
         top: -4px;
         right: -4px;
         background-color: v-bind(voiceHighlightColor);
         border-radius: 100%;
 
         opacity: 0;
+    }
+
+    .MicIcon > svg {
+        width: calc(v-bind(micHeightString));
+        height: calc(v-bind(micHeightString) / 1.5);
     }
 
     .DiscordVoiceDisplay .Member.Active .AvatarContainer .MicIcon {
