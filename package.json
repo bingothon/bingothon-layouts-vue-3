@@ -110,6 +110,11 @@
                 "file": "interview/main.html",
                 "width": 1920,
                 "height": 1080
+            },
+            {
+                "file": "video-player/main.html",
+                "width": 1920,
+                "height": 1080
             }
         ],
         "mount": [
