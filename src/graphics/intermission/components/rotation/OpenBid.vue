@@ -53,13 +53,13 @@
 </template>
 
 <script setup lang="ts">
-    import clone from 'clone';
-    import apexChart from 'vue3-apexcharts';
-    import { formatAmount } from '../../../../browser_shared/formatAmount';
-    import { computed, defineEmits, onMounted, ref, watch } from 'vue';
-    import { trackerOpenBidsReplicant } from '../../../../browser_shared/replicants.ts';
-    import type { TrackerOpenBids } from '../../../../../../bingothon-layouts/schemas/trackerOpenBids';
     import type { ApexOptions } from 'apexcharts';
+    import clone from 'clone';
+    import { computed, defineEmits, onMounted, ref, watch } from 'vue';
+    import apexChart from 'vue3-apexcharts';
+    import type { TrackerOpenBids } from '../../../../../../bingothon-layouts/schemas/trackerOpenBids';
+    import { formatAmount } from '../../../../browser_shared/formatAmount';
+    import { trackerOpenBidsReplicant } from '../../../../browser_shared/replicants.ts';
 
     type TrackerOpenBid = TrackerOpenBids[0];
 
@@ -131,8 +131,8 @@
         },
         yaxis: {
             labels: {
+                maxWidth: 500,
                 style: {
-                    maxWidth: 500,
                     colors: '#ffffff', // Ensures long option labels stand out on dark layouts
                     fontFamily: 'Montserrat, sans-serif',
                     fontSize: '22px'
