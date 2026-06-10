@@ -1,0 +1,13 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "theme": {
+            "type": "string",
+            "enum": ["summer", "winter", "neutral"],
+            "default": "summer"
+        }
+    },
+    "required": ["theme"]
+}

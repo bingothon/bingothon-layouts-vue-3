@@ -27,7 +27,9 @@ body {
     --border-color-teal: #2e7372;
     --border-color-navy: #022b75;
     --border-color-yellow: #808080;
+}
 
+:root .summer {
     --container-background-color: rgba(206, 13, 0, 0.6);
     --container-border-color: black;
     --font-color: #fff;
@@ -37,6 +39,31 @@ body {
     --gradient-light: #ffa600;
     --gradient-dark: #ff1125be;
     --discord-voice-highlight-color: #d40530;
+}
+
+:root .winter {
+    --container-background-color: #3b5d7e;
+    --container-border-color: #5c88bc;
+    --font-color: #fff;
+    --darker-main-color: #315091;
+    --lighter-main-color: #5c88bc;
+    --alternative-main-color: #310088;
+    --gradient-light: #627fbe;
+    --gradient-dark: #050a1b;
+    --discord-voice-highlight-color: #315091;
+}
+
+:root .neutral {
+    --container-background-color: rgba(0, 0, 0, 0.4);
+    --container-border-color: white;
+    --font-color: #fff;
+    --darker-main-color: #e2a339;
+    --lighter-main-color: #ffff89;
+    --alternative-main-color: #ffff89;
+    --discord-voice-highlight-color: #d40530;
+    --darker-main-color-bingothon: #74051b;
+    --lighter-main-color-bingothon: #a20a17;
+    --alternative-main-color-bingothon: #072c5e;
 }
 
 .FlexContainer {
