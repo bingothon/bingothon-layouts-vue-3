@@ -1,12 +1,13 @@
 <template>
-    <router-view></router-view>
+    <router-view :class="themeClass"></router-view>
 </template>
 
 <script setup lang="ts">
     import { nextTick, onMounted } from 'vue';
     import { type RouteLocationNormalizedLoadedGeneric, useRoute, useRouter } from 'vue-router';
-    import { capturePositionsReplicant, waitForComposable } from '../../browser_shared/replicants.ts';
     import type { CapturePositions } from '../../../../bingothon-layouts/schemas/capturePositions';
+    import { capturePositionsReplicant, waitForComposable } from '../../browser_shared/replicants.ts';
+    import { themeClass } from '../theme.ts';
 
     const router = useRouter();
     const route = useRoute();

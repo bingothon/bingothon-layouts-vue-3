@@ -4,6 +4,7 @@
  * Also see index.d.ts for a "grouped" re-export of this as well.
  */
 
+export type { Blurbs } from './schemas/blurbs.d.ts';
 export type { Configschema } from './schemas/configschema.d.ts';
 export type { ExampleReplicant } from './schemas/exampleReplicant.d.ts';
-export type { Blurbs } from './schemas/blurbs.d.ts';
+export type { Theme } from './schemas/theme.d.ts';

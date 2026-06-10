@@ -1,5 +1,8 @@
 <template>
-    <div class="Cam-Names">
+    <div
+        class="Cam-Names"
+        :class="themeClass"
+    >
         <PlayerInfo
             v-for="(player, i) in players"
             :id="`pi${i}`"
@@ -17,6 +20,7 @@
     import { computed } from 'vue';
     import PlayerInfo from '../components/runnerInfo/playerInfo.vue';
     import { players } from '../game-layout/layouts/common';
+    import { themeClass } from '../theme.ts';
 
     const playerCount = computed(() => players.value.length);
 
