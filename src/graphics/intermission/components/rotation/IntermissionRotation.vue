@@ -18,7 +18,11 @@
     import TrackerPrize from './TrackerPrize.vue';
     import BingothonSocials from './BingothonSocials.vue';
     import type { RunData } from 'speedcontrol-util/types';
-    import { runDataActiveRunReplicant, runDataArrayReplicant } from '../../../../browser_shared/replicants.ts';
+    import {
+        oldBundle,
+        runDataActiveRunReplicant,
+        runDataArrayReplicant
+    } from '../../../../browser_shared/replicants.ts';
 
     const currentComponent = shallowRef<Component | null>(null);
     const componentArray: Array<Component> = [UpcomingRuns, OpenBid, TrackerPrize, BingothonSocials];
@@ -26,7 +30,7 @@
     let index: number = 0;
 
     onMounted(() => {
-        nodecg.listenFor('forceRefreshIntermission', () => updateNextRuns());
+        nodecg.listenFor('forceRefreshIntermission', oldBundle, () => updateNextRuns());
         if (runDataArrayReplicant?.data) {
             updateNextRuns();
         } else {
