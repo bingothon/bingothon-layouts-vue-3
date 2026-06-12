@@ -14,6 +14,7 @@
 
 <script setup lang="ts">
     import { computed, onMounted } from 'vue';
+    import { oldBundle } from '../../../browser_shared/replicants.ts';
 
     let isShown: boolean = false; // This is the new data property for internal visibility control
     let twitchClipSlug: string = '';
@@ -26,8 +27,8 @@
     );
 
     onMounted(() => {
-        nodecg.listenFor('playTwitchClip', playClip);
-        nodecg.listenFor('stopTwitchClip', stopClip);
+        nodecg.listenFor('playTwitchClip', oldBundle, playClip);
+        nodecg.listenFor('stopTwitchClip', oldBundle, stopClip);
     });
 
     async function fetchTwitchClipDuration(slug: string) {

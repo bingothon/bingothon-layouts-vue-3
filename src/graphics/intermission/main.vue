@@ -65,6 +65,7 @@
     import { computed, onMounted, ref, watch } from 'vue';
     import {
         hostsSpeakingDuringIntermissionReplicant,
+        oldBundle,
         runDataActiveRunReplicant,
         runDataArrayReplicant,
         showThingsDuringIntermissionReplicant
@@ -81,7 +82,7 @@
     const intermissionVdoUrl = computed(() => showThingsDuringIntermissionReplicant?.oldData?.vdoUrl);
 
     onMounted(() => {
-        nodecg.listenFor('forceRefreshIntermission', refreshUpcomingRun);
+        nodecg.listenFor('forceRefreshIntermission', oldBundle, refreshUpcomingRun);
         if (runDataActiveRunReplicant?.data && runDataArrayReplicant?.data) {
             refreshUpcomingRun();
             return;
