@@ -17,8 +17,9 @@
 </template>
 
 <script setup lang="ts">
-    import { pathsAndText } from './helpers/consoleLogoPaths';
     import { computed } from 'vue';
+    import { oldBundle } from '../../browser_shared/replicants';
+    import { pathsAndText } from './helpers/consoleLogoPaths';
 
     const props = defineProps({ gameSystem: { type: String, required: true } });
 
@@ -27,7 +28,7 @@
     const gameSystemImage = computed<string>(() => {
         const imagePath = pathsAndLogos.value[props.gameSystem.toLocaleLowerCase()]?.logoPath;
         if (imagePath) {
-            return `/bundles/bingothon-layouts/static/game-systems/${imagePath}`;
+            return `/bundles/${oldBundle}/static/game-systems/${imagePath}`;
         }
         return '';
     });

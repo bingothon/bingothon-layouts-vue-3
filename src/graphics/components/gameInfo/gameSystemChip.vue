@@ -5,10 +5,7 @@
             :src="gameSystemImage"
         />
         <span
-            v-if="
-                !gameSystemImage ||
-                (pathsAndTexts[gameSystem.toLocaleLowerCase()] ?? pathsAndTexts['default']).textNeeded
-            "
+            v-if="!gameSystemImage || pathsAndText[gameSystem.toLocaleLowerCase()].textNeeded"
             class="ChipText"
         >
             {{ gameSystem }}
@@ -18,25 +15,19 @@
 
 <script setup lang="ts">
     import { computed } from 'vue';
-    import { thisBundle } from '../../../browser_shared/replicants';
+    import { oldBundle } from '../../../browser_shared/replicants';
+    import { pathsAndText } from '../helpers/consoleLogoPaths';
 
-    const { gameSystem } = defineProps<{
-        gameSystem: string;
-    }>();
+    const props = defineProps({ gameSystem: { type: String, required: true } });
 
-    // TODO: Outsource to own file and update for all systems needed
-    const pathsAndTexts: { [key: string]: { logoPath?: string; textNeeded: boolean } } = {
-        // fallback for unknown systems
-        default: { logoPath: 'testConsole.svg', textNeeded: true }
-    };
+    const pathsAndLogos = computed(() => pathsAndText);
 
-    const gameSystemImage = computed(() => {
-        const entry = pathsAndTexts[gameSystem.toLocaleLowerCase()] ?? pathsAndTexts['default'];
-        const imagePath = entry?.logoPath;
+    const gameSystemImage = computed<string>(() => {
+        const imagePath = pathsAndLogos.value[props.gameSystem.toLocaleLowerCase()]?.logoPath;
         if (imagePath) {
-            return `/bundles/${thisBundle}/assets/${imagePath}`;
+            return `/bundles/${oldBundle}/static/game-systems/${imagePath}`;
         }
-        return undefined;
+        return '';
     });
 </script>
 
