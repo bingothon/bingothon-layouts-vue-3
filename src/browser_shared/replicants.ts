@@ -36,6 +36,8 @@ export const streamsReplicant = useReplicant<oldSchemas.TwitchStream[]>('twitchS
 export const discordDelayInfo = useReplicant<oldSchemas.DiscordDelayInfo>('discordDelayInfo', oldBundle);
 export const hostingBingoboard = useReplicant<oldSchemas.HostingBingoboard>('hostingBingoboard', oldBundle);
 export const songDataReplicant = useReplicant<oldSchemas.SongData>('songData', oldBundle);
+export const obsConnectionReplicant = useReplicant<oldSchemas.ObsConnection>('obsConnection', oldBundle);
+export const obsConnectionPresetsReplicant = useReplicant<oldSchemas.ObsConnectionPresets>('obsConnectionPresets', oldBundle);
 export const playerSlotsRep = useReplicant<oldSchemas.PlayerSlots>('playerSlots', oldBundle);
 
 // SpeedControl Replicants

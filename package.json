@@ -73,6 +73,14 @@
                 "headerColor": "#008BB9"
             },
             {
+                "name": "obs connection",
+                "title": "obs connection",
+                "file": "obs-connection/main.html",
+                "width": 2,
+                "headerColor": "#008BB9",
+                "workspace": "Misc"
+            },
+            {
                 "name": "Z - Host Dashboard",
                 "title": "Z - Host Dashboard",
                 "file": "host-dashboard/main.html",
