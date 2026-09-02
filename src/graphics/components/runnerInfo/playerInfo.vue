@@ -48,7 +48,7 @@
             v-if="showSound"
             class="Sound"
         >
-            <img :src="'/bundles/bingothon-layouts/static/music-note.png'" />
+            <img :src="`/bundles/${oldBundle}/static/music-note.png`" />
         </div>
         <div
             v-if="!!player?.country"
@@ -91,8 +91,8 @@
 
     import { useReplicant } from 'nodecg-vue-composable';
     import type { Bingoboard } from '../../../../../bingothon-layouts/schemas';
-    import BestOfX from './bestOfX.vue';
     import TextFit from '../helpers/textFits/textFit.vue';
+    import BestOfX from './bestOfX.vue';
     import playerSoloImg from './player-solo.png';
     import twitchIconImg from './twitch-icon.png';
 
@@ -305,7 +305,7 @@
     });
 
     const getPlayerFlag = (rawFlag: string) => {
-        return `/bundles/bingothon-layouts/static/flags/${rawFlag}.png`;
+        return `/bundles/${oldBundle}/static/flags/${rawFlag}.png`;
     };
 
     const boXEnabled = computed(() => {
