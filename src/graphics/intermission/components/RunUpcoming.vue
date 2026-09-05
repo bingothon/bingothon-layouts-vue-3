@@ -164,11 +164,11 @@
     </div>
 </template>
 <script setup lang="ts">
-    import GameSystem from '../../components/gameSystem.vue';
     import type { RunData, RunDataPlayer, RunDataTeam } from 'speedcontrol-util/types';
+    import { computed } from 'vue';
+    import GameSystem from '../../components/gameSystem.vue';
     import TextFit from '../../components/helpers/textFits/textFit.vue';
     import ScrollTitle from './ScrollTitle.vue';
-    import { computed } from 'vue';
 
     const props = withDefaults(defineProps<{ data?: RunData; when?: number }>(), {
         // TODO: Should probably create a runData stub somewhere we can use in case currentRun is undefined
@@ -336,8 +336,15 @@
         margin: 4px 4px 4px 5px;
     }
 
-    .PlayerPlaceHolder {
+    .summer .PlayerPlaceHolder {
         background-image: url('../../../../assets/sun.png');
+    }
+
+    .winter .PlayerPlaceHolder {
+        background-image: url('../../../../assets/snowflake.png');
+    }
+
+    .PlayerPlaceHolder {
         background-repeat: no-repeat;
         background-position: center center;
         background-size: cover;

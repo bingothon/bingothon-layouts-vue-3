@@ -1,8 +1,11 @@
 <template>
-    <div class="Interview">
+    <div
+        class="Interview"
+        :class="themeClass"
+    >
         <img
             id="logo"
-            src="../../../assets/logo-summer-wide.png"
+            :src="`../../../assets/logo-${themeClass}-wide.png`"
         />
         <div
             id="fillvoice"
@@ -98,6 +101,7 @@
     import TeamInfo from '../components/runnerInfo/teamInfo.vue';
     import TimerContainer from '../components/timerContainer.vue';
     import { isTeamRun, players, teamColor1, teamColor2 } from '../game-layout/layouts/common.ts';
+    import { themeClass } from '../theme.ts';
 </script>
 
 <style>
