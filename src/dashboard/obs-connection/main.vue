@@ -66,12 +66,27 @@
             >Disconnect</QBtn
         >
     </div>
+    <!-- TODO: own panel? -->
+    <hr />
+    <div>currently using {{ obsStreamSourceTypeReplicant?.data }}</div>
+    <QBtn
+        v-for="sourceType in allNotInUse"
+        :key="sourceType"
+        @click="() => useObsStreamSourceType(sourceType)"
+        >Use {{ sourceType }}</QBtn
+    >
 </template>
 
 <script setup lang="ts">
     import { useHead } from '@unhead/vue';
     import { computed, ref, type Ref } from 'vue';
-    import { obsConnectionPresetsReplicant, obsConnectionReplicant, oldBundle } from '../../browser_shared/replicants';
+    import type { ObsStreamSourceType } from '../../../../bingothon-layouts/schemas';
+    import {
+        obsConnectionPresetsReplicant,
+        obsConnectionReplicant,
+        obsStreamSourceTypeReplicant,
+        oldBundle
+    } from '../../browser_shared/replicants';
 
     useHead({ title: 'OBS Connection' });
 
@@ -145,6 +160,19 @@
     function doDisconnect() {
         if (confirm('are you sure you want to disconnect from OBS?')) {
             NodeCG.sendMessageToBundle('obs:disconnect', oldBundle);
+        }
+    }
+
+    const allObsStreamSourceTypes: ObsStreamSourceType[] = [
+        'obsStreamlinkMediasource',
+        'obsTwitchPlayer',
+        'obsSrtMediasource'
+    ];
+    const allNotInUse = computed(() => allObsStreamSourceTypes.filter((t) => t !== obsStreamSourceTypeReplicant?.data));
+    function useObsStreamSourceType(typ: ObsStreamSourceType) {
+        if (obsStreamSourceTypeReplicant && confirm(`are you sure you want to use ${typ}?`)) {
+            obsStreamSourceTypeReplicant.data = typ;
+            obsStreamSourceTypeReplicant.save();
         }
     }
 </script>
