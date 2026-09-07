@@ -83,6 +83,14 @@
                 "title": "Z - Restream Dashboard",
                 "file": "restream-dashboard/main.html",
                 "fullbleed": true
+            },
+            {
+                "name": "slots assignment",
+                "title": "Slot Assignment",
+                "file": "slots-assignment/main.html",
+                "width": 3,
+                "workspace": "Run Modifications",
+                "headerColor": "#008BB9"
             }
         ],
         "graphics": [

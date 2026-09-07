@@ -1,46 +1,144 @@
 <template>
-    <div>
-        <QSelect
-            v-model="source"
-            :options="SOURCE_OPTIONS"
-            @change="updateSource(source)"
-        ></QSelect>
-        <!-- Nothing to display if source is not set to race -->
-        <div v-if="source !== 'race'">
-            <div v-if="source === 'run'">Slot assignment is currently disabled due to the wrong mode</div>
-            <div v-if="source === 'relay'">
-                Slot assignment is currently disabled. Please use speedcontrol's Relay Handler
-            </div>
+    <div class="q-pa-md column q-gutter-md text-white">
+        <div class="row items-center q-gutter-sm">
+            <QIcon
+                name="mdi-account-group"
+                size="sm"
+            />
+            <div class="text-h6">Player Slots</div>
+            <QSpace />
+            <QChip
+                dense
+                square
+                color="primary"
+                text-color="white"
+                :label="`${slots.length} slot${slots.length === 1 ? '' : 's'}`"
+            />
         </div>
-        <div v-else>
-            <div v-for="(slot, i) in slots">
-                <QBtn
-                    square
-                    :icon="pinIcon(i, slot.pinned)"
-                    @mouseenter="hoveredSlot = i"
-                    @mouseleave="hoveredSlot = null"
-                    @click="togglePin(i, !slot.pinned)"
+
+        <QSelect
+            :model-value="source"
+            :options="SOURCE_OPTIONS"
+            label="Source"
+            outlined
+            dark
+            dense
+            emit-value
+            map-options
+            @update:model-value="updateSource"
+        />
+
+        <QBanner
+            v-if="source !== 'race'"
+            dense
+            rounded
+            class="bg-grey-9 text-white"
+        >
+            <template #avatar>
+                <QIcon
+                    name="mdi-information-outline"
+                    color="amber"
                 />
-                <QSelect
-                    v-model="slot.playerId"
-                    :options="poolOptions"
-                    @change="updateSlotPlayer(i, slot.playerId)"
-                ></QSelect>
-            </div>
-            <div>
-                <QCheckbox
-                    v-model="autoCycleEnabled"
-                    label="Auto Cycle"
-                    @change="updateAutoCycle"
+            </template>
+            <span v-if="source === 'run'">
+                Slots follow the run order automatically. Switch to <b>race</b> to assign players manually.
+            </span>
+            <span v-else> Slot assignment is disabled in relay mode. Please use speedcontrol's Relay Handler. </span>
+        </QBanner>
+
+        <template v-else>
+            <QBanner
+                v-if="!slots.length"
+                dense
+                rounded
+                class="bg-grey-9 text-white"
+            >
+                No slots available. Check that a run is active and a game layout is selected.
+            </QBanner>
+
+            <QList
+                v-else
+                bordered
+                separator
+                dark
+                class="rounded-borders"
+            >
+                <QItem
+                    v-for="(slot, i) in slots"
+                    :key="i"
+                >
+                    <QItemSection
+                        side
+                        class="slot-index"
+                    >
+                        {{ i + 1 }}
+                    </QItemSection>
+                    <QItemSection>
+                        <QSelect
+                            :model-value="slot.playerId"
+                            :options="poolOptions"
+                            :label="`Slot ${i + 1}`"
+                            outlined
+                            dark
+                            dense
+                            clearable
+                            emit-value
+                            map-options
+                            @update:model-value="(playerId: string | null) => updateSlotPlayer(i, playerId)"
+                        />
+                    </QItemSection>
+                    <QItemSection side>
+                        <QBtn
+                            round
+                            flat
+                            dense
+                            :icon="pinIcon(i, slot.pinned)"
+                            :color="slot.pinned ? 'primary' : 'grey-6'"
+                            @mouseenter="hoveredSlot = i"
+                            @mouseleave="hoveredSlot = null"
+                            @click="togglePin(i, !slot.pinned)"
+                        >
+                            <QTooltip>
+                                {{ slot.pinned ? 'Unpin (slot rejoins the rotation)' : 'Pin (slot keeps its player)' }}
+                            </QTooltip>
+                        </QBtn>
+                    </QItemSection>
+                </QItem>
+            </QList>
+
+            <QSeparator dark />
+
+            <div class="row items-center q-gutter-md">
+                <QToggle
+                    :model-value="autoCycleEnabled"
+                    label="Auto cycle"
+                    color="primary"
+                    @update:model-value="setAutoCycle"
                 />
                 <QInput
                     v-if="autoCycleEnabled"
-                    v-model="autoCycleInterval"
+                    :model-value="cycleIntervalSeconds"
                     type="number"
-                    label="Cycle Interval (seconds)"
+                    :min="MIN_CYCLE_INTERVAL_S"
+                    label="Interval (s)"
+                    outlined
+                    dark
+                    dense
+                    debounce="500"
+                    class="interval-input"
+                    @update:model-value="setCycleInterval"
+                />
+                <QSpace />
+                <QBtn
+                    color="primary"
+                    unelevated
+                    icon="mdi-rotate-right"
+                    label="Cycle now"
+                    :disable="!slots.length"
+                    @click="cycleNow"
                 />
             </div>
-        </div>
+        </template>
     </div>
 </template>
 <script setup lang="ts">
@@ -48,27 +146,34 @@
     import type { PlayerSlots } from '../../../../bingothon-layouts/schemas';
     import { oldBundle, playerSlotsRep, runDataActiveRunReplicant } from '../../browser_shared/replicants';
 
-    // Stupid way to get an exahustive list of all options, will error if a value is missing
-    const SOURCE_OPTIONS_MAP: Record<PlayerSlots['source'], boolean> = { run: true, relay: true, race: true };
-    const SOURCE_OPTIONS = Object.keys(SOURCE_OPTIONS_MAP);
+    const MIN_CYCLE_INTERVAL_S = 5;
 
-    const source = computed<PlayerSlots['source']>(() => playerSlotsRep?.data?.source || 'run');
+    // Exhaustive map, so adding a source to the schema fails to compile until it is labelled here.
+    const SOURCE_LABELS: Record<PlayerSlots['source'], string> = {
+        run: 'Run — slots mirror the flat run order',
+        relay: 'Relay — one slot per team',
+        race: 'Race — sliding window over the player pool'
+    };
+    const SOURCE_OPTIONS = (Object.keys(SOURCE_LABELS) as PlayerSlots['source'][]).map((value) => ({
+        label: SOURCE_LABELS[value],
+        value
+    }));
 
-    const slots = computed<PlayerSlots['slots']>(() => playerSlotsRep?.data?.slots || []);
+    const source = computed<PlayerSlots['source']>(() => playerSlotsRep?.data?.source ?? 'run');
+
+    const slots = computed<PlayerSlots['slots']>(() => playerSlotsRep?.data?.slots ?? []);
 
     const hoveredSlot = ref<number | null>(null);
 
-    const autoCycleEnabled = computed(() => playerSlotsRep?.data?.autoCycle || false);
-    const autoCycleInterval = computed(() => playerSlotsRep?.data?.cycleIntervalSeconds || 0);
+    const autoCycleEnabled = computed(() => playerSlotsRep?.data?.autoCycle ?? false);
+    const cycleIntervalSeconds = computed(() => playerSlotsRep?.data?.cycleIntervalSeconds ?? 0);
 
     const poolOptions = computed(() => {
-        const allPlayersFlat = runDataActiveRunReplicant?.data?.teams.flatMap((team) => team.players) || [];
-        return (
-            playerSlotsRep?.data?.pool.map((playerId) => ({
-                label: allPlayersFlat.find((player) => player.id === playerId)?.name || playerId,
-                value: playerId
-            })) || []
-        );
+        const allPlayersFlat = runDataActiveRunReplicant?.data?.teams?.flatMap((team) => team.players) ?? [];
+        return (playerSlotsRep?.data?.pool ?? []).map((playerId) => ({
+            label: allPlayersFlat.find((player) => player.id === playerId)?.name || playerId,
+            value: playerId
+        }));
     });
 
     // Shows the current state, but previews the resulting state while hovered/focused.
@@ -77,22 +182,56 @@
         return showPinned ? 'mdi-pin' : 'mdi-pin-off';
     }
 
-    function updateSource(source: string) {
-        NodeCG.sendMessageToBundle('playerSlots:setSource', oldBundle, source);
+    function updateSource(newSource: PlayerSlots['source']) {
+        nodecg.sendMessageToBundle('playerSlots:setSource', oldBundle, newSource);
     }
 
     function togglePin(slotIndex: number, pinned: boolean) {
-        NodeCG.sendMessageToBundle('playerSlots:setSlotPinned', oldBundle, { slot: slotIndex, pinned });
+        nodecg.sendMessageToBundle('playerSlots:setSlotPinned', oldBundle, { slot: slotIndex, pinned });
     }
 
     function updateSlotPlayer(slotIndex: number, playerId: string | null) {
-        NodeCG.sendMessageToBundle('playerSlots:setSlotPlayer', oldBundle, { slot: slotIndex, playerId });
+        nodecg.sendMessageToBundle('playerSlots:setSlotPlayer', oldBundle, { slot: slotIndex, playerId });
     }
 
-    function updateAutoCycle() {
-        NodeCG.sendMessageToBundle('playerSlots:setAutoCycle', oldBundle, {
-            autoCycleEnabled: autoCycleEnabled.value,
-            intervalSeconds: autoCycleInterval.value
+    function cycleNow() {
+        nodecg.sendMessageToBundle('playerSlots:cycleNow', oldBundle);
+    }
+
+    function setAutoCycle(enabled: boolean) {
+        if (!playerSlotsRep?.data) return;
+        playerSlotsRep.data.autoCycle = enabled;
+        playerSlotsRep.save();
+        nodecg.sendMessageToBundle('playerSlots:setAutoCycle', oldBundle, {
+            enabled,
+            intervalSeconds: playerSlotsRep.data.cycleIntervalSeconds
         });
     }
+
+    function setCycleInterval(value: string | number | null) {
+        if (!playerSlotsRep?.data) return;
+        const seconds = Math.max(MIN_CYCLE_INTERVAL_S, Math.round(Number(value)));
+        if (!Number.isFinite(seconds) || seconds === playerSlotsRep.data.cycleIntervalSeconds) return;
+        playerSlotsRep.data.cycleIntervalSeconds = seconds;
+        playerSlotsRep.save();
+        if (playerSlotsRep.data.autoCycle) {
+            // Restart the running timer so the new interval takes effect immediately.
+            nodecg.sendMessageToBundle('playerSlots:setAutoCycle', oldBundle, {
+                enabled: true,
+                intervalSeconds: seconds
+            });
+        }
+    }
 </script>
+
+<style scoped>
+    .slot-index {
+        min-width: 24px;
+        font-weight: bold;
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    .interval-input {
+        max-width: 140px;
+    }
+</style>
