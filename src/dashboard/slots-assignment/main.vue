@@ -81,7 +81,6 @@
                             outlined
                             dark
                             dense
-                            clearable
                             emit-value
                             map-options
                             @update:model-value="(playerId: string | null) => updateSlotPlayer(i, playerId)"
