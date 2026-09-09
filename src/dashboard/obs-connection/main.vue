@@ -1,24 +1,40 @@
 <template>
     <div>
-        <div
-            class="ConnectionStatus"
-            :class="obsStatusClass"
+        <QChip
+            :color="statusColor"
+            :icon="statusIcon"
         >
-            {{ statusStr }} {{ connectedTo }}
+            {{ connectedTo }}
+        </QChip>
+        <div class="q-mt-sm">
+            <QBtn
+                v-if="obsConnectionStatus != 'disconnected'"
+                color="red"
+                @click="doDisconnect"
+            >
+                Disconnect
+            </QBtn>
         </div>
-        <div
-            v-if="formState == 'none'"
-            class="OpenFormButtons"
+        <hr />
+        <QSelect
+            v-model="formState"
+            :options="connectionTypes"
+            dense
+            outlined
+            dark
+            label="Connection Type"
         >
-            <QBtn @click="() => (formState = 'custom')">Connect manual</QBtn>
-            <QBtn @click="() => (formState = 'preset')">Connect preset</QBtn>
-        </div>
+        </QSelect>
         <div v-if="formState == 'preset'">
             <QSelect
                 v-model="selectedPreset"
                 :options="availablePresets"
+                dense
+                outlined
+                dark
+                class="q-mt-sm"
                 :disable="isConnecting"
-                :dense="true"
+                label="Connection Preset"
             />
         </div>
         <div v-if="formState == 'custom'">
@@ -39,10 +55,7 @@
                 label="Password"
             />
         </div>
-        <div
-            v-if="formState != 'none'"
-            class="OpenFormButtons"
-        >
+        <div class="OpenFormButtons q-mt-sm">
             <div
                 v-if="errorMsg"
                 style="color: red"
@@ -50,37 +63,31 @@
                 {{ errorMsg }}
             </div>
             <QBtn
-                :disable="isConnecting"
-                @click="() => (formState = 'none')"
-                >Cancel</QBtn
-            >
-            <QBtn
+                color="green"
                 :disable="isConnecting"
                 @click="doConnect"
-                >Connect</QBtn
             >
+                Connect
+            </QBtn>
         </div>
-        <QBtn
-            v-if="obsStatusClass != 'disconnected'"
-            @click="doDisconnect"
-            >Disconnect</QBtn
-        >
     </div>
     <!-- TODO: own panel? -->
     <hr />
-    <div>currently using {{ obsStreamSourceTypeReplicant?.data }}</div>
-    <QBtn
-        v-for="sourceType in allNotInUse"
-        :key="sourceType"
-        @click="() => useObsStreamSourceType(sourceType)"
-        >Use {{ sourceType }}</QBtn
-    >
+    <QSelect
+        :model-value="currentObsStreamSourceType"
+        :options="allObsStreamSourceTypes"
+        dense
+        outlined
+        dark
+        label="OBS Stream Source Type"
+        @update:model-value="useObsStreamSourceType($event)"
+    />
 </template>
 
 <script setup lang="ts">
     import { useHead } from '@unhead/vue';
     import { computed, ref, type Ref } from 'vue';
-    import type { ObsStreamSourceType } from '../../../../bingothon-layouts/schemas';
+    import type { ObsConnectionPresets, ObsStreamSourceType } from '../../../../bingothon-layouts/schemas';
     import {
         obsConnectionPresetsReplicant,
         obsConnectionReplicant,
@@ -90,46 +97,50 @@
 
     useHead({ title: 'OBS Connection' });
 
-    const formState: Ref<'none' | 'custom' | 'preset'> = ref('none');
-    const selectedPreset: Ref<string | null> = ref(null);
+    const formState: Ref<'custom' | 'preset'> = ref('custom');
+    const connectionTypes = ['custom', 'preset'];
+    // TODO: get from config
+    const availablePresets = computed(() => obsConnectionPresetsReplicant?.data ?? []);
+    const selectedPreset: Ref<ObsConnectionPresets | null> = ref(availablePresets.value ?? null);
     const manualUrl = ref('');
     const manualPassword = ref('');
     const isConnecting = ref(false);
     const errorMsg = ref('');
 
-    const obsStatusClass = computed(() => obsConnectionReplicant?.data?.status);
-    const statusStr = computed(() => {
-        const status = obsConnectionReplicant?.data?.status;
-        switch (status) {
+    const obsConnectionStatus = computed(() => obsConnectionReplicant?.data?.status);
+    const statusColor = computed(() => {
+        switch (obsConnectionStatus.value) {
             case 'connected':
-                return 'connected to';
+                return 'green';
             case 'connecting':
-                return 'connecting to';
+                return 'yellow';
             case 'disabled':
-                return 'disabled';
             case 'disconnected':
-                return 'disconnected';
+                return 'grey-8';
             case 'error':
-                return 'error connecting to';
+                return 'red';
             default:
                 return 'unknown';
         }
     });
-
-    const connectedTo = computed(() => {
-        let result = obsConnectionReplicant?.data?.url;
-        if (!result) {
-            return null;
+    const statusIcon = computed(() => {
+        switch (obsConnectionStatus.value) {
+            case 'connected':
+                return 'check_circle';
+            case 'connecting':
+                return 'trending_up';
+            case 'error':
+                return 'error';
+            default:
+            case 'disabled':
+            case 'disconnected':
+                return 'disabled_by_default';
         }
-        const preset = obsConnectionReplicant?.data?.preset;
-        if (preset) {
-            result = `${result} (${preset})`;
-        }
-        return result;
     });
 
-    // TODO: get from config
-    const availablePresets = computed(() => obsConnectionPresetsReplicant?.data ?? []);
+    const connectedTo = computed(
+        () => obsConnectionReplicant?.data?.preset ?? obsConnectionReplicant?.data?.url ?? 'disconnected'
+    );
 
     function doConnect() {
         switch (formState.value) {
@@ -140,7 +151,6 @@
                     url: manualUrl.value,
                     password: manualPassword.value
                 })
-                    .then(() => (formState.value = 'none'))
                     .catch((e) => (errorMsg.value = e.message))
                     .finally(() => (isConnecting.value = false));
                 return;
@@ -149,7 +159,6 @@
                 isConnecting.value = true;
                 errorMsg.value = '';
                 NodeCG.sendMessageToBundle('obs:connectPreset', oldBundle, { preset: selectedPreset.value })
-                    .then(() => (formState.value = 'none'))
                     .catch((e) => (errorMsg.value = e.message))
                     .finally(() => (isConnecting.value = false));
                 return;
@@ -168,7 +177,7 @@
         'obsTwitchPlayer',
         'obsSrtMediasource'
     ];
-    const allNotInUse = computed(() => allObsStreamSourceTypes.filter((t) => t !== obsStreamSourceTypeReplicant?.data));
+    const currentObsStreamSourceType = computed(() => obsStreamSourceTypeReplicant?.data);
     function useObsStreamSourceType(typ: ObsStreamSourceType) {
         if (obsStreamSourceTypeReplicant && confirm(`are you sure you want to use ${typ}?`)) {
             obsStreamSourceTypeReplicant.data = typ;

@@ -73,16 +73,16 @@
                 "headerColor": "#008BB9"
             },
             {
-                "name": "obs connection",
-                "title": "obs connection",
+                "name": "OBS Connection",
+                "title": "OBS Connection",
                 "file": "obs-connection/main.html",
                 "width": 2,
                 "headerColor": "#008BB9",
                 "workspace": "Misc"
             },
             {
-                "name": "(Twitch) Streams",
-                "title": "(Twitch) Streams",
+                "name": "Streams",
+                "title": "Streams",
                 "file": "streams/main.html",
                 "width": 2,
                 "headerColor": "#008BB9"
