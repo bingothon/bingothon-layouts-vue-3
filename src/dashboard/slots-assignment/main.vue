@@ -114,8 +114,9 @@
                     color="primary"
                     @update:model-value="setAutoCycle"
                 />
+                <!-- v-if="autoCycleEnabled"-->
                 <QInput
-                    v-if="autoCycleEnabled"
+                    :style="{ visibility: autoCycleEnabled ? 'visible' : 'hidden' }"
                     :model-value="cycleIntervalSeconds"
                     type="number"
                     :min="MIN_CYCLE_INTERVAL_S"
@@ -128,24 +129,45 @@
                     @update:model-value="setCycleInterval"
                 />
                 <QSpace />
-                <QBtn
-                    color="primary"
-                    unelevated
-                    icon="mdi-rotate-right"
-                    label="Cycle now"
-                    :disable="!slots.length"
-                    @click="cycleNow"
-                />
+                <div class="row items-center q-gutter-sm">
+                    <QBtn
+                        color="primary"
+                        unelevated
+                        icon="mdi-rotate-right"
+                        label="Cycle now"
+                        :disable="!slots.length"
+                        @click="cycleNow"
+                    />
+                </div>
+                <span
+                    v-if="nextCycleTimestamp"
+                    class="text-caption text-grey-4"
+                    >Next auto cycle in: {{ nextCycleTimestamp }}</span
+                >
             </div>
         </template>
     </div>
 </template>
 <script setup lang="ts">
-    import { computed, ref } from 'vue';
+    import { computed, onMounted, onUnmounted, ref } from 'vue';
     import type { PlayerSlots } from '../../../../bingothon-layouts/schemas';
     import { oldBundle, playerSlotsRep, runDataActiveRunReplicant } from '../../browser_shared/replicants';
 
     const MIN_CYCLE_INTERVAL_S = 5;
+
+    // Date.now() is not reactive so we need a periodic timer update the ref to update the last cycle time.
+    const currentTime = ref(Date.now());
+    let timer: number | null = null;
+
+    onMounted(() => {
+        timer = window.setInterval(() => {
+            currentTime.value = Date.now();
+        }, 1000);
+    });
+
+    onUnmounted(() => {
+        if (timer) clearInterval(timer);
+    });
 
     // Exhaustive map, so adding a source to the schema fails to compile until it is labelled here.
     const SOURCE_LABELS: Record<PlayerSlots['source'], string> = {
@@ -161,6 +183,18 @@
     const source = computed<PlayerSlots['source']>(() => playerSlotsRep?.data?.source ?? 'run');
 
     const slots = computed<PlayerSlots['slots']>(() => playerSlotsRep?.data?.slots ?? []);
+
+    const nextCycleTimestamp = computed<string>(() => {
+        const lastTimestamp = playerSlotsRep?.data?.lastCycle;
+        if (!lastTimestamp || !autoCycleEnabled.value || cycleIntervalSeconds.value <= 0) {
+            return '';
+        }
+        const remainingMs = cycleIntervalSeconds.value * 1000 - (currentTime.value - lastTimestamp);
+        const remainingS = Math.floor(remainingMs / 1000);
+        const timestampMin = Math.floor(remainingS / 60);
+        const timestampSec = remainingS % 60;
+        return `${timestampMin}:${timestampSec < 10 ? '0' : ''}${timestampSec}`;
+    });
 
     const hoveredSlot = ref<number | null>(null);
 
