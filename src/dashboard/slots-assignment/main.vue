@@ -189,7 +189,7 @@
         if (!lastTimestamp || !autoCycleEnabled.value || cycleIntervalSeconds.value <= 0) {
             return '';
         }
-        const remainingMs = cycleIntervalSeconds.value * 1000 - (currentTime.value - lastTimestamp);
+        const remainingMs = Math.max(0, cycleIntervalSeconds.value * 1000 - (currentTime.value - lastTimestamp));
         const remainingS = Math.floor(remainingMs / 1000);
         const timestampMin = Math.floor(remainingS / 60);
         const timestampSec = remainingS % 60;
