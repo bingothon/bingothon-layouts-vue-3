@@ -9,6 +9,7 @@
             <QBtnGroup push>
                 <QBtn
                     dark
+                    color="black"
                     small
                     :title="slotIdx === soundOnTwitchStream?.data ? 'currently unmuted' : 'currently muted'"
                     :icon="slotIdx === soundOnTwitchStream?.data ? 'volume_up' : 'volume_off'"
@@ -18,12 +19,14 @@
                 <QBtn
                     icon="refresh"
                     dark
+                    color="black"
                     small
                     @click="refresh(slotIdx)"
                 >
                 </QBtn>
                 <QBtn
                     dark
+                    color="black"
                     small
                     :icon="stream.paused ? 'play_arrow' : 'pause'"
                     @click="togglePlayPause(slotIdx)"
