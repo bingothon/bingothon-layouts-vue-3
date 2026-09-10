@@ -84,7 +84,7 @@
         bingoboardMeta,
         currentMainBingoboard,
         oldBundle,
-        playerSlotsRep,
+        playerSlotsReplicant,
         runDataActiveRunReplicant,
         soundOnTwitchStream,
         timerReplicant
@@ -143,7 +143,7 @@
             return undefined;
         }
         const allPlayers = runDataActiveRunReplicant?.data?.teams.flatMap((t) => t.players);
-        const playerId = playerSlotsRep?.data?.slots[props.playerIndex].playerId;
+        const playerId = playerSlotsReplicant?.data?.slots[props.playerIndex].playerId;
         const correctPlayer = allPlayers.find((player) => player.id === playerId);
         if (!correctPlayer) {
             return {

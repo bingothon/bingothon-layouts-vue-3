@@ -73,6 +73,21 @@
                 "headerColor": "#008BB9"
             },
             {
+                "name": "OBS Connection",
+                "title": "OBS Connection",
+                "file": "obs-connection/main.html",
+                "width": 2,
+                "headerColor": "#008BB9",
+                "workspace": "Misc"
+            },
+            {
+                "name": "Streams",
+                "title": "Streams",
+                "file": "streams/main.html",
+                "width": 2,
+                "headerColor": "#008BB9"
+            },
+            {
                 "name": "Z - Host Dashboard",
                 "title": "Z - Host Dashboard",
                 "file": "host-dashboard/main.html",
