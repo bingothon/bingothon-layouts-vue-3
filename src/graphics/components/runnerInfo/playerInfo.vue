@@ -84,6 +84,7 @@
         bingoboardMeta,
         currentMainBingoboard,
         oldBundle,
+        playerSlotsRep,
         runDataActiveRunReplicant,
         soundOnTwitchStream,
         timerReplicant
@@ -95,6 +96,7 @@
     import BestOfX from './bestOfX.vue';
     import playerSoloImg from './player-solo.png';
     import twitchIconImg from './twitch-icon.png';
+    import type { RunDataPlayer } from 'speedcontrol-util/types/speedcontrol';
 
     const playerAlternate = ref(true);
     let alternateInterval: NodeJS.Timeout;
@@ -136,18 +138,13 @@
         return `${props.heightPx}px`;
     });
 
-    const player = computed(() => {
-        let correctPlayer;
+    const player = computed<RunDataPlayer | undefined>(() => {
         if (!runDataActiveRunReplicant || !runDataActiveRunReplicant.data || !runDataActiveRunReplicant.data.teams) {
             return undefined;
         }
-        if (!runDataActiveRunReplicant.data.relay) {
-            const allPlayers = runDataActiveRunReplicant?.data?.teams.flatMap((t) => t.players);
-            return allPlayers[props.playerIndex];
-        } else {
-            const team = runDataActiveRunReplicant.data.teams[props.playerIndex];
-            correctPlayer = team.players.find((player) => player.id === team.relayPlayerID);
-        }
+        const allPlayers = runDataActiveRunReplicant?.data?.teams.flatMap((t) => t.players);
+        const playerId = playerSlotsRep?.data?.slots[props.playerIndex].playerId;
+        const correctPlayer = allPlayers.find((player) => player.id === playerId);
         if (!correctPlayer) {
             return {
                 name: 'test2',
@@ -163,6 +160,15 @@
             };
         }
         return correctPlayer;
+    });
+
+    const runnerIndex = computed(() => {
+        if (!runDataActiveRunReplicant || !runDataActiveRunReplicant.data || !runDataActiveRunReplicant.data.teams) {
+            return -1;
+        }
+
+        const allPlayers = runDataActiveRunReplicant?.data?.teams.flatMap((t) => t.players);
+        return player.value ? allPlayers.indexOf(player.value) : -1;
     });
 
     const show = computed(() => {
@@ -228,12 +234,11 @@
     });
 
     const teamId = computed(() => {
-        const playerTeamIds = runDataActiveRunReplicant?.data?.teams.flatMap((t) => t.players.map(() => t.id));
-        return playerTeamIds?.[props.playerIndex] ?? null;
+        return player.value?.teamID;
     });
 
     const bingoColor = computed(() => {
-        return bingoboardMeta?.data?.playerColors[props.playerIndex] || 'red';
+        return bingoboardMeta?.data?.playerColors[runnerIndex.value] || 'red';
     });
 
     const bingoGoalCount = computed(() => {
@@ -241,15 +246,13 @@
             return 0;
         }
         if (bingoboardMeta?.data?.manualScoreOverride) {
-            return bingoboardMeta.data.manualScores[props.playerIndex];
+            return bingoboardMeta.data.manualScores[runnerIndex.value];
         }
         const bingoboard = useReplicant<Bingoboard>(currentMainBingoboard.data.boardReplicant, oldBundle, {});
         if (!bingoboard) {
             return 0;
         }
-        return <number>(
-            (bingoboard.data?.colorCounts[bingoboardMeta?.data?.playerColors[props.playerIndex] || 'red'] ?? 0)
-        );
+        return <number>(bingoboard.data?.colorCounts[bingoColor.value] ?? 0);
     });
 
     const bingoColorShown = computed(() => {
