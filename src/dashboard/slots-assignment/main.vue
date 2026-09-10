@@ -151,7 +151,7 @@
 <script setup lang="ts">
     import { computed, onMounted, onUnmounted, ref } from 'vue';
     import type { PlayerSlots } from '../../../../bingothon-layouts/schemas';
-    import { oldBundle, playerSlotsRep, runDataActiveRunReplicant } from '../../browser_shared/replicants';
+    import { oldBundle, playerSlotsReplicant, runDataActiveRunReplicant } from '../../browser_shared/replicants';
 
     const MIN_CYCLE_INTERVAL_S = 5;
 
@@ -180,12 +180,12 @@
         value
     }));
 
-    const source = computed<PlayerSlots['source']>(() => playerSlotsRep?.data?.source ?? 'run');
+    const source = computed<PlayerSlots['source']>(() => playerSlotsReplicant?.data?.source ?? 'run');
 
-    const slots = computed<PlayerSlots['slots']>(() => playerSlotsRep?.data?.slots ?? []);
+    const slots = computed<PlayerSlots['slots']>(() => playerSlotsReplicant?.data?.slots ?? []);
 
     const nextCycleTimestamp = computed<string>(() => {
-        const lastTimestamp = playerSlotsRep?.data?.lastCycle;
+        const lastTimestamp = playerSlotsReplicant?.data?.lastCycle;
         if (!lastTimestamp || !autoCycleEnabled.value || cycleIntervalSeconds.value <= 0) {
             return '';
         }
@@ -198,12 +198,12 @@
 
     const hoveredSlot = ref<number | null>(null);
 
-    const autoCycleEnabled = computed(() => playerSlotsRep?.data?.autoCycle ?? false);
-    const cycleIntervalSeconds = computed(() => playerSlotsRep?.data?.cycleIntervalSeconds ?? 0);
+    const autoCycleEnabled = computed(() => playerSlotsReplicant?.data?.autoCycle ?? false);
+    const cycleIntervalSeconds = computed(() => playerSlotsReplicant?.data?.cycleIntervalSeconds ?? 0);
 
     const poolOptions = computed(() => {
         const allPlayersFlat = runDataActiveRunReplicant?.data?.teams?.flatMap((team) => team.players) ?? [];
-        return (playerSlotsRep?.data?.pool ?? []).map((playerId) => ({
+        return (playerSlotsReplicant?.data?.pool ?? []).map((playerId) => ({
             label: allPlayersFlat.find((player) => player.id === playerId)?.name || playerId,
             value: playerId
         }));
@@ -232,22 +232,22 @@
     }
 
     function setAutoCycle(enabled: boolean) {
-        if (!playerSlotsRep?.data) return;
-        playerSlotsRep.data.autoCycle = enabled;
-        playerSlotsRep.save();
+        if (!playerSlotsReplicant?.data) return;
+        playerSlotsReplicant.data.autoCycle = enabled;
+        playerSlotsReplicant.save();
         nodecg.sendMessageToBundle('playerSlots:setAutoCycle', oldBundle, {
             enabled,
-            intervalSeconds: playerSlotsRep.data.cycleIntervalSeconds
+            intervalSeconds: playerSlotsReplicant.data.cycleIntervalSeconds
         });
     }
 
     function setCycleInterval(value: string | number | null) {
-        if (!playerSlotsRep?.data) return;
+        if (!playerSlotsReplicant?.data) return;
         const seconds = Math.max(MIN_CYCLE_INTERVAL_S, Math.round(Number(value)));
-        if (!Number.isFinite(seconds) || seconds === playerSlotsRep.data.cycleIntervalSeconds) return;
-        playerSlotsRep.data.cycleIntervalSeconds = seconds;
-        playerSlotsRep.save();
-        if (playerSlotsRep.data.autoCycle) {
+        if (!Number.isFinite(seconds) || seconds === playerSlotsReplicant.data.cycleIntervalSeconds) return;
+        playerSlotsReplicant.data.cycleIntervalSeconds = seconds;
+        playerSlotsReplicant.save();
+        if (playerSlotsReplicant.data.autoCycle) {
             // Restart the running timer so the new interval takes effect immediately.
             nodecg.sendMessageToBundle('playerSlots:setAutoCycle', oldBundle, {
                 enabled: true,
