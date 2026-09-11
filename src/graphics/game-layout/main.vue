@@ -1,5 +1,8 @@
 <template>
-    <router-view :class="themeClass"></router-view>
+    <router-view
+        id="GameLayout"
+        :class="themeClass"
+    ></router-view>
 </template>
 
 <script setup lang="ts">
@@ -63,3 +66,20 @@
         });
     }
 </script>
+
+<style>
+    #GameLayout {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 1920px;
+        height: 1080px;
+        &:not(.neutral) {
+            background: linear-gradient(-128deg, var(--gradient-light) 0, var(--gradient-dark) 100%) 100% no-repeat
+                fixed;
+        }
+        &.neutral {
+            background: url(../../../assets/middle-info-background.png);
+        }
+    }
+</style>

@@ -35,7 +35,8 @@ body {
     --font-color: #fff;
     --darker-main-color: #e94e1b;
     --lighter-main-color: #f39200;
-    --alternative-main-color: #d32f3e;
+    --player-gradient-light: #d32f3e;
+    --player-gradient-dark: #e94e1b;
     --gradient-light: #ffa600;
     --gradient-dark: #ff1125be;
     --discord-voice-highlight-color: #d40530;
@@ -47,23 +48,24 @@ body {
     --font-color: #fff;
     --darker-main-color: #315091;
     --lighter-main-color: #5c88bc;
-    --alternative-main-color: #310088;
+    --player-gradient-light: #310088;
+    --player-gradient-dark: #315091;
     --gradient-light: #627fbe;
     --gradient-dark: #050a1b;
     --discord-voice-highlight-color: #315091;
 }
-
+/* player info gradient #6d001d, #280000 */
 :root .neutral {
-    --container-background-color: rgba(0, 0, 0, 0.4);
-    --container-border-color: white;
+    --container-background-color: rgba(0, 0, 0, 0.2);
+    --container-border-color: black;
     --font-color: #fff;
-    --darker-main-color: #e2a339;
-    --lighter-main-color: #ffff89;
-    --alternative-main-color: #ffff89;
+    --darker-main-color: #74051b;
+    --lighter-main-color: #a20a17;
+    --player-gradient-light: #6d001d;
+    --player-gradient-dark: #280000;
+    --gradient-light: #a20a17;
+    --gradient-dark: #6d001d;
     --discord-voice-highlight-color: #d40530;
-    --darker-main-color-bingothon: #74051b;
-    --lighter-main-color-bingothon: #a20a17;
-    --alternative-main-color-bingothon: #072c5e;
 }
 
 .FlexContainer {

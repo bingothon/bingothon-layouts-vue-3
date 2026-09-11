@@ -5,7 +5,7 @@
     >
         <img
             id="logo"
-            :src="`../../../assets/logo-${themeClass}-wide.png`"
+            :src="`../../assets/logo-${themeClass}-wide.png`"
         />
         <div
             id="fillvoice"

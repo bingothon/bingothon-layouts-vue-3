@@ -1,5 +1,5 @@
 <template>
-    <div id="GameLayout">
+    <div>
         <div
             v-for="(_player, i) in players"
             :key="i"
@@ -41,15 +41,15 @@
 </template>
 
 <script setup lang="ts">
-    import PlayerInfo from '../../components/runnerInfo/playerInfo.vue';
-    import GameInfoContainer from '../../components/gameInfo/gameInfoContainer.vue';
+    import { computed } from 'vue';
     import BingoBoard from '../../components/bingoboard/bingoBoard.vue';
-    import TwitchPlayer from '../../components/twitchStreamPlaceholder.vue';
+    import DiscordDisplay from '../../components/discordDisplay.vue';
+    import GameInfoContainer from '../../components/gameInfo/gameInfoContainer.vue';
+    import PlayerInfo from '../../components/runnerInfo/playerInfo.vue';
     import SponsorLogoRotation, { LogoAssetType } from '../../components/sponsorLogoRotation.vue';
     import TimerContainer from '../../components/timerContainer.vue';
-    import DiscordDisplay from '../../components/discordDisplay.vue';
+    import TwitchPlayer from '../../components/twitchStreamPlaceholder.vue';
     import { players } from './common.ts';
-    import { computed } from 'vue';
 
     const maxDiscordMembers = computed<number>(() => {
         switch (players.value.length) {
@@ -67,15 +67,6 @@
 </script>
 
 <style scoped>
-    #GameLayout {
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        width: 1920px;
-        height: 1080px;
-        background: linear-gradient(-128deg, var(--gradient-light) 0, var(--gradient-dark) 100%) 100% no-repeat fixed;
-    }
-
     #discord-voice {
         position: absolute;
         left: 0px;

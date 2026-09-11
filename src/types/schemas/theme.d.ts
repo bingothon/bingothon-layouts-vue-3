@@ -7,5 +7,5 @@
  */
 
 export interface Theme {
-	theme: 'summer' | 'winter';
+	theme: 'summer' | 'winter' | 'neutral';
 }
