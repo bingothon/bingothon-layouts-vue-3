@@ -145,6 +145,11 @@
                 "file": "video-player/main.html",
                 "width": 1920,
                 "height": 1080
+            },
+            {
+                "file": "omnibar/main.html",
+                "width": 1920,
+                "height": 80
             }
         ],
         "mount": [

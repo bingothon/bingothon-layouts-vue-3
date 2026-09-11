@@ -42,6 +42,7 @@ export const obsConnectionPresetsReplicant = useReplicant<oldSchemas.ObsConnecti
 export const obsStreamSourceTypeReplicant = useReplicant<oldSchemas.ObsStreamSourceType>('obsStreamSourceType', oldBundle);
 export const obsAudioLevels = useReplicant<oldSchemas.ObsAudioLevels>('obsAudioLevels', oldBundle);
 export const playerSlotsReplicant = useReplicant<oldSchemas.PlayerSlots>('playerSlots', oldBundle);
+export const omnibarMessagesReplicant = useReplicant<oldSchemas.OmnibarMessages>('omnibarMessages', oldBundle);
 
 // SpeedControl Replicants
 export const runDataActiveRunReplicant = useReplicant<RunDataActiveRun>('runDataActiveRun', scBundle);
