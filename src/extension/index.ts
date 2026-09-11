@@ -9,4 +9,5 @@ export default async (nodecg: NodeCGServerAPI) => {
     set(nodecg); // set nodecg "context" before anything else
     await import('./util/replicants.js'); // make sure replicants are set up
     await import('./example.js');
+    await import('./countdown-timer.js');
 };

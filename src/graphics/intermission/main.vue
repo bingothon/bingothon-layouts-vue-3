@@ -29,7 +29,13 @@
                 :name-width-px="165"
                 :max-user-count="3"
             ></DiscordDisplay>
-            <MusicDisplay :use-small-variant="hostsSpeakingDuringIntermission"></MusicDisplay>
+            <MusicDisplay
+                :style="{
+                    width: `${hostsSpeakingDuringIntermission ? '450' : '1172'}px`,
+                    left: `${hostsSpeakingDuringIntermission ? '730' : '0'}px`
+                }"
+                :use-small-variant="hostsSpeakingDuringIntermission"
+            ></MusicDisplay>
         </div>
 
         <div class="HostingBingo">
@@ -55,13 +61,7 @@
 </template>
 
 <script setup lang="ts">
-    import IntermissionRotation from './components/rotation/IntermissionRotation.vue';
-    import RunUpcoming from './components/RunUpcoming.vue';
     import type { RunData } from 'speedcontrol-util/types/speedcontrol/RunData';
-    import DiscordDisplay from '../components/discordDisplay.vue';
-    import HostBingoBoard from '../components/bingoboard/hostBingoBoard.vue';
-    import MusicDisplay from './components/MusicDisplay.vue';
-    import TwitchClipPlayer from './components/TwitchClipPlayer.vue';
     import { computed, onMounted, ref, watch } from 'vue';
     import {
         hostsSpeakingDuringIntermissionReplicant,
@@ -70,6 +70,12 @@
         runDataArrayReplicant,
         showThingsDuringIntermissionReplicant
     } from '../../browser_shared/replicants.ts';
+    import HostBingoBoard from '../components/bingoboard/hostBingoBoard.vue';
+    import DiscordDisplay from '../components/discordDisplay.vue';
+    import MusicDisplay from './components/MusicDisplay.vue';
+    import IntermissionRotation from './components/rotation/IntermissionRotation.vue';
+    import RunUpcoming from './components/RunUpcoming.vue';
+    import TwitchClipPlayer from './components/TwitchClipPlayer.vue';
 
     const nextRun = ref<RunData | null>(null);
 

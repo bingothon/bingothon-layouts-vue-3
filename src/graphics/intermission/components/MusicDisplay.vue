@@ -3,10 +3,6 @@
         <div
             v-if="show"
             class="Music FlexContainer"
-            :style="{
-                width: `${useSmallVariant ? '450' : '1172'}px`,
-                left: `${useSmallVariant ? '730' : '0'}px`
-            }"
         >
             <div class="MCat">
                 <img src="../../../../assets/music.png" />
@@ -34,8 +30,8 @@
 </template>
 
 <script setup lang="ts">
-    import type { SongData } from '../../../../../bingothon-layouts/schemas';
     import { nextTick, onMounted, ref, useTemplateRef, watch } from 'vue';
+    import type { SongData } from '../../../../../bingothon-layouts/schemas';
     import { songDataReplicant } from '../../../browser_shared/replicants.ts';
 
     const props = defineProps({ useSmallVariant: Boolean });
