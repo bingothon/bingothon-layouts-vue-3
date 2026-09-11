@@ -1,9 +1,18 @@
 <template>
-    <div id="Intermission">
+    <div
+        id="Intermission"
+        :class="themeClass"
+    >
         <div class="ImageOverlay"></div>
         <img
+            v-if="themeClass == 'summer'"
             id="logoSummer"
             src="../../../assets/logo-summer-wide.png"
+        />
+        <img
+            v-else
+            id="logoWinter"
+            src="../../../assets/logo-winter-wide.png"
         />
         <div id="host-bingo-text">Host Bingo</div>
         <run-upcoming
@@ -55,13 +64,7 @@
 </template>
 
 <script setup lang="ts">
-    import IntermissionRotation from './components/rotation/IntermissionRotation.vue';
-    import RunUpcoming from './components/RunUpcoming.vue';
     import type { RunData } from 'speedcontrol-util/types/speedcontrol/RunData';
-    import DiscordDisplay from '../components/discordDisplay.vue';
-    import HostBingoBoard from '../components/bingoboard/hostBingoBoard.vue';
-    import MusicDisplay from './components/MusicDisplay.vue';
-    import TwitchClipPlayer from './components/TwitchClipPlayer.vue';
     import { computed, onMounted, ref, watch } from 'vue';
     import {
         hostsSpeakingDuringIntermissionReplicant,
@@ -70,6 +73,13 @@
         runDataArrayReplicant,
         showThingsDuringIntermissionReplicant
     } from '../../browser_shared/replicants.ts';
+    import HostBingoBoard from '../components/bingoboard/hostBingoBoard.vue';
+    import DiscordDisplay from '../components/discordDisplay.vue';
+    import { themeClass } from '../theme.ts';
+    import MusicDisplay from './components/MusicDisplay.vue';
+    import IntermissionRotation from './components/rotation/IntermissionRotation.vue';
+    import RunUpcoming from './components/RunUpcoming.vue';
+    import TwitchClipPlayer from './components/TwitchClipPlayer.vue';
 
     const nextRun = ref<RunData | null>(null);
 

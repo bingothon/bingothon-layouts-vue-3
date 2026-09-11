@@ -18,3 +18,4 @@ function hasNoDefault<T>(name: string) {
  */
 export const exampleReplicant = hasDefault<Schemas.ExampleReplicant>('exampleReplicant');
 export const blurbsReplicant = hasDefault<Schemas.Blurbs>('blurbs');
+export const themeReplicant = hasDefault<Schemas.Theme>('theme');

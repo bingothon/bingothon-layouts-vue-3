@@ -1,9 +1,9 @@
 import { useReplicant } from 'nodecg-vue-composable';
 import type { RunDataArray } from 'speedcontrol-util/types/speedcontrol';
 import type { RunDataActiveRun, Timer, TwitchCommercialTimer } from 'speedcontrol-util/types/speedcontrol/schemas';
+import { nextTick, watch } from 'vue';
 import type * as oldSchemas from '../../../bingothon-layouts/schemas';
 import type { Schemas } from '../types';
-import { nextTick, watch } from 'vue';
 
 // YOU MUST CHANGE THIS TO YOUR BUNDLE'S NAME!
 export const thisBundle = 'bingothon-layouts-vue-3';
@@ -17,6 +17,7 @@ export const scBundle = 'nodecg-speedcontrol';
  */
 export const exampleReplicant = useReplicant<Schemas.ExampleReplicant>('exampleReplicant', thisBundle);
 export const blurbsReplicant = useReplicant<Schemas.Blurbs>('blurbs', thisBundle);
+export const themeReplicant = useReplicant<Schemas.Theme>('theme', thisBundle);
 
 export const capturePositionsReplicant = useReplicant<oldSchemas.CapturePositions>('capturePositions', oldBundle);
 export const allGameLayoutsReplicant = useReplicant<oldSchemas.AllGameLayouts>('allGameLayouts', oldBundle);
@@ -41,6 +42,7 @@ export const obsConnectionPresetsReplicant = useReplicant<oldSchemas.ObsConnecti
 export const obsStreamSourceTypeReplicant = useReplicant<oldSchemas.ObsStreamSourceType>('obsStreamSourceType', oldBundle);
 export const obsAudioLevels = useReplicant<oldSchemas.ObsAudioLevels>('obsAudioLevels', oldBundle);
 export const playerSlotsReplicant = useReplicant<oldSchemas.PlayerSlots>('playerSlots', oldBundle);
+export const omnibarMessagesReplicant = useReplicant<oldSchemas.OmnibarMessages>('omnibarMessages', oldBundle);
 
 // SpeedControl Replicants
 export const runDataActiveRunReplicant = useReplicant<RunDataActiveRun>('runDataActiveRun', scBundle);

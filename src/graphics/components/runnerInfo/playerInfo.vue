@@ -91,12 +91,12 @@
     } from '../../../browser_shared/replicants';
 
     import { useReplicant } from 'nodecg-vue-composable';
+    import type { RunDataPlayer } from 'speedcontrol-util/types/speedcontrol';
     import type { Bingoboard } from '../../../../../bingothon-layouts/schemas';
     import TextFit from '../helpers/textFits/textFit.vue';
     import BestOfX from './bestOfX.vue';
     import playerSoloImg from './player-solo.png';
     import twitchIconImg from './twitch-icon.png';
-    import type { RunDataPlayer } from 'speedcontrol-util/types/speedcontrol';
 
     const playerAlternate = ref(true);
     let alternateInterval: NodeJS.Timeout;
@@ -320,7 +320,7 @@
     @import '../shared/medals/medals.css';
 
     .PlayerInfoBox {
-        background-image: linear-gradient(var(--alternative-main-color), var(--darker-main-color));
+        background-image: linear-gradient(var(--player-gradient-light), var(--player-gradient-dark));
         color: var(--font-color);
         padding: 7px;
         font-weight: 500;
