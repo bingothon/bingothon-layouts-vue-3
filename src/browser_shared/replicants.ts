@@ -17,6 +17,7 @@ export const scBundle = 'nodecg-speedcontrol';
  */
 export const exampleReplicant = useReplicant<Schemas.ExampleReplicant>('exampleReplicant', thisBundle);
 export const blurbsReplicant = useReplicant<Schemas.Blurbs>('blurbs', thisBundle);
+export const themeReplicant = useReplicant<Schemas.Theme>('theme', thisBundle);
 export const countdownTimerReplicant = useReplicant<Schemas.CountdownTimer>('countdownTimer', thisBundle);
 
 export const capturePositionsReplicant = useReplicant<oldSchemas.CapturePositions>('capturePositions', oldBundle);
@@ -42,6 +43,7 @@ export const obsConnectionPresetsReplicant = useReplicant<oldSchemas.ObsConnecti
 export const obsStreamSourceTypeReplicant = useReplicant<oldSchemas.ObsStreamSourceType>('obsStreamSourceType', oldBundle);
 export const obsAudioLevels = useReplicant<oldSchemas.ObsAudioLevels>('obsAudioLevels', oldBundle);
 export const playerSlotsReplicant = useReplicant<oldSchemas.PlayerSlots>('playerSlots', oldBundle);
+export const omnibarMessagesReplicant = useReplicant<oldSchemas.OmnibarMessages>('omnibarMessages', oldBundle);
 
 // SpeedControl Replicants
 export const runDataActiveRunReplicant = useReplicant<RunDataActiveRun>('runDataActiveRun', scBundle);

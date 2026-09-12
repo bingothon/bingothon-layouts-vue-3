@@ -88,6 +88,13 @@
                 "headerColor": "#008BB9"
             },
             {
+                "name": "Theme Control",
+                "title": "Theme Control",
+                "file": "theme-control/main.html",
+                "width": 2,
+                "workspace": "Misc"
+            },
+            {
                 "name": "Z - Host Dashboard",
                 "title": "Z - Host Dashboard",
                 "file": "host-dashboard/main.html",
@@ -146,6 +153,11 @@
                 "file": "video-player/main.html",
                 "width": 1920,
                 "height": 1080
+            },
+            {
+                "file": "omnibar/main.html",
+                "width": 1920,
+                "height": 80
             },
             {
                 "file": "intro/main.html",

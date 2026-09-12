@@ -1,12 +1,16 @@
 <template>
-    <router-view></router-view>
+    <router-view
+        id="GameLayout"
+        :class="themeClass"
+    ></router-view>
 </template>
 
 <script setup lang="ts">
     import { nextTick, onMounted } from 'vue';
     import { type RouteLocationNormalizedLoadedGeneric, useRoute, useRouter } from 'vue-router';
-    import { capturePositionsReplicant, waitForComposable } from '../../browser_shared/replicants.ts';
     import type { CapturePositions } from '../../../../bingothon-layouts/schemas/capturePositions';
+    import { capturePositionsReplicant, waitForComposable } from '../../browser_shared/replicants.ts';
+    import { themeClass } from '../theme.ts';
 
     const router = useRouter();
     const route = useRoute();
@@ -62,3 +66,20 @@
         });
     }
 </script>
+
+<style>
+    #GameLayout {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 1920px;
+        height: 1080px;
+        &:not(.neutral) {
+            background: linear-gradient(-128deg, var(--gradient-light) 0, var(--gradient-dark) 100%) 100% no-repeat
+                fixed;
+        }
+        &.neutral {
+            background: url(../../../assets/middle-info-background.png);
+        }
+    }
+</style>

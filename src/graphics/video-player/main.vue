@@ -1,5 +1,8 @@
 <template>
-    <div id="PlayerContainer">
+    <div
+        id="PlayerContainer"
+        :class="themeClass"
+    >
         <div
             v-if="nextRun"
             id="upcoming"
@@ -21,6 +24,7 @@
     import { computed } from 'vue';
     import { runDataActiveRunReplicant } from '../../browser_shared/replicants.ts';
     import TextFit from '../components/helpers/textFits/textFit.vue';
+    import { themeClass } from '../theme.ts';
 
     const nextRun = computed(() => runDataActiveRunReplicant?.data);
 </script>
