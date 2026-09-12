@@ -6,5 +6,6 @@
 
 export type { Blurbs } from './schemas/blurbs.d.ts';
 export type { Configschema } from './schemas/configschema.d.ts';
+export type { CountdownTimer } from './schemas/countdownTimer.d.ts';
 export type { ExampleReplicant } from './schemas/exampleReplicant.d.ts';
 export type { Theme } from './schemas/theme.d.ts';

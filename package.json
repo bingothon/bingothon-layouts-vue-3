@@ -113,6 +113,14 @@
                 "width": 3,
                 "workspace": "Run Modifications",
                 "headerColor": "#008BB9"
+            },
+            {
+                "name": "Intro Control",
+                "title": "Intro Control",
+                "file": "intro-control/main.html",
+                "width": 2,
+                "workspace": "Misc",
+                "headerColor": "#008BB9"
             }
         ],
         "graphics": [
@@ -150,6 +158,11 @@
                 "file": "omnibar/main.html",
                 "width": 1920,
                 "height": 80
+            },
+            {
+                "file": "intro/main.html",
+                "width": 1920,
+                "height": 1080
             }
         ],
         "mount": [

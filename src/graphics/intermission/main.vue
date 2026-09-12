@@ -38,7 +38,13 @@
                 :name-width-px="165"
                 :max-user-count="3"
             ></DiscordDisplay>
-            <MusicDisplay :use-small-variant="hostsSpeakingDuringIntermission"></MusicDisplay>
+            <MusicDisplay
+                :style="{
+                    width: `${hostsSpeakingDuringIntermission ? '450' : '1172'}px`,
+                    left: `${hostsSpeakingDuringIntermission ? '730' : '0'}px`
+                }"
+                :use-small-variant="hostsSpeakingDuringIntermission"
+            ></MusicDisplay>
         </div>
 
         <div class="HostingBingo">
