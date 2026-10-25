@@ -1,0 +1,48 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "categories": {
+            "type": "array",
+            "maxItems": 5,
+            "minitems": 5,
+            "default": ["Category 1", "Category 2", "Category 3", "Category 4", "Category 5"],
+            "items": {
+                "type": "string"
+            }
+        },
+        "questions": {
+            "type": "array",
+            "items": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "question": {
+                            "type": "string"
+                        },
+                        "answer": {
+                            "type": "string"
+                        },
+                        "markedPlayer": {
+                            "type": "string"
+                        },
+                        "questionFr": {
+                            "type": "string"
+                        },
+                        "answerFr": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "currentlySelected": {
+            "type": "string",
+            "maxLength": 2,
+            "minLength": 2,
+            "$comment": "Coordinates of the currently selected question, so '00' for the top left question"
+        }
+    }
+}

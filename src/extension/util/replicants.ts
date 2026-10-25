@@ -20,3 +20,4 @@ export const exampleReplicant = hasDefault<Schemas.ExampleReplicant>('exampleRep
 export const blurbsReplicant = hasDefault<Schemas.Blurbs>('blurbs');
 export const themeReplicant = hasDefault<Schemas.Theme>('theme');
 export const countdownTimerRep = hasDefault<Schemas.CountdownTimer>('countdownTimer');
+export const quizBingoRep = hasDefault<Schemas.QuizBingo>('quizBingo');
