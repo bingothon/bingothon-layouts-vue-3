@@ -17,7 +17,7 @@
         "autofix": "eslint --fix --max-warnings 0",
         "format": "prettier --write .",
         "format:check": "prettier --check .",
-        "prebuild": "trash ./extension && trash ./node_modules/.vite && trash ./shared/dist && trash ./dashboard && trash ./graphics",
+        "prebuild": "trash ./extension && trash ./node_modules/.vite && trash ./node_modules/.tmp && trash ./shared/dist && trash ./dashboard && trash ./graphics",
         "build": "vite build && tsc -b tsconfig.extension.json",
         "lint": "eslint --max-warnings 0",
         "schema-types": "nodecg schema-types",
