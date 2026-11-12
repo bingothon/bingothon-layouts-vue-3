@@ -6,7 +6,7 @@
         "categories": {
             "type": "array",
             "maxItems": 5,
-            "minitems": 5,
+            "minItems": 5,
             "default": ["Category 1", "Category 2", "Category 3", "Category 4", "Category 5"],
             "items": {
                 "type": "string"
@@ -26,7 +26,7 @@
                             "type": "string"
                         },
                         "markedPlayer": {
-                            "type": "string"
+                            "type": "number"
                         },
                         "questionFr": {
                             "type": "string"
@@ -34,15 +34,37 @@
                         "answerFr": {
                             "type": "string"
                         }
-                    }
+                    },
+                    "additionalProperties": false
                 }
             }
         },
         "currentlySelected": {
+            "oneOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "row": {
+                            "type": "number",
+                            "default": 0
+                        },
+                        "column": {
+                            "type": "number",
+                            "default": 0
+                        }
+                    },
+                    "required": ["row", "column"],
+                    "default": null,
+                    "additionalProperties": false,
+                    "$comment": "Coordinates of the currently selected question, so '00' for the top left question"
+                },
+                { "type": "null" }
+            ]
+        },
+        "stage": {
             "type": "string",
-            "maxLength": 2,
-            "minLength": 2,
-            "$comment": "Coordinates of the currently selected question, so '00' for the top left question"
+            "enum": ["board", "question", "answer"],
+            "default": "board"
         }
     }
 }

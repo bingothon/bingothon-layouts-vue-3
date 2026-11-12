@@ -7,14 +7,21 @@
  */
 
 export interface QuizBingo {
-	categories?: string[];
+	/**
+	 * @minItems 5
+	 * @maxItems 5
+	 */
+	categories?: [string, string, string, string, string];
 	questions?: {
 		question?: string;
 		answer?: string;
-		markedPlayer?: string;
+		markedPlayer?: number;
 		questionFr?: string;
 		answerFr?: string;
-		[k: string]: unknown;
 	}[][];
-	currentlySelected?: string;
+	currentlySelected?: {
+		row: number;
+		column: number;
+	} | null;
+	stage?: 'board' | 'question' | 'answer';
 }

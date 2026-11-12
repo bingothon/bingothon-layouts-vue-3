@@ -121,6 +121,14 @@
                 "width": 2,
                 "workspace": "Misc",
                 "headerColor": "#008BB9"
+            },
+            {
+                "name": "Quiz Editor",
+                "title": "Quiz Editor",
+                "file": "quiz-bingo-setup/main.html",
+                "width": 2,
+                "workspace": "Misc",
+                "headerColor": "#008BB9"
             }
         ],
         "graphics": [

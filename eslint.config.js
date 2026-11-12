@@ -4,7 +4,7 @@ import extensionConfig from './eslint.extension.js';
 
 export default [
     {
-        ignores: ['node_modules/**', 'dashboard/**', 'graphics/**', 'shared/**', 'src/types/**']
+        ignores: ['node_modules/**', 'extension/**', 'dashboard/**', 'graphics/**', 'shared/**', 'src/types/**']
     },
     ...extensionConfig,
     ...browserConfig

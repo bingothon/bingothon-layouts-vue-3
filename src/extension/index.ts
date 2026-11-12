@@ -10,4 +10,5 @@ export default async (nodecg: NodeCGServerAPI) => {
     await import('./util/replicants.js'); // make sure replicants are set up
     await import('./example.js');
     await import('./countdown-timer.js');
+    await import('./quiz.js');
 };
