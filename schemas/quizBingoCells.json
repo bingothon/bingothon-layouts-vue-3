@@ -1,0 +1,112 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "required": ["colorCounts", "cells", "colors", "scores"],
+    "additionalProperties": false,
+    "properties": {
+        "colorCounts": {
+            "default": {
+                "pink": 0,
+                "red": 0,
+                "orange": 0,
+                "brown": 0,
+                "yellow": 0,
+                "green": 0,
+                "teal": 0,
+                "blue": 0,
+                "navy": 0,
+                "purple": 0
+            },
+            "$comment": "How many fields of each color are  marked on the board",
+            "type": "object",
+            "additionalProperties": {
+                "type": "number"
+            }
+        },
+        "cells": {
+            "type": "array",
+            "default": [],
+            "items": {
+                "type": "array",
+                "default": [],
+                "items": {
+                    "type": "object",
+                    "required": ["name", "colors", "rawColors"],
+                    "additionalProperties": false,
+                    "properties": {
+                        "name": {
+                            "type": "string",
+                            "default": ""
+                        },
+                        "colors": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "color": {
+                                        "type": "string"
+                                    },
+                                    "style": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": ["color", "style"],
+                                "additionalProperties": false
+                            },
+                            "default": []
+                        },
+                        "rawColors": {
+                            "type": "string",
+                            "default": ""
+                        }
+                    }
+                }
+            }
+        },
+        "colors": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "default": ["", ""]
+        },
+        "scores": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "goals": {
+                        "type": "number",
+                        "default": 0
+                    },
+                    "lineScore": {
+                        "type": "number",
+                        "default": 0
+                    },
+                    "totalScore": {
+                        "type": "number",
+                        "default": 0
+                    }
+                },
+                "additionalProperties": false,
+                "required": ["goals", "lineScore", "totalScore"]
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "default": [
+                {
+                    "goals": 0,
+                    "lineScore": 0,
+                    "totalScore": 0
+                },
+                {
+                    "goals": 0,
+                    "lineScore": 0,
+                    "totalScore": 0
+                }
+            ]
+        }
+    }
+}

@@ -54,12 +54,12 @@
                         }
                     },
                     "required": ["row", "column"],
-                    "default": null,
                     "additionalProperties": false,
-                    "$comment": "Coordinates of the currently selected question, so '00' for the top left question"
+                    "$comment": "Coordinates of the currently selected question, row = difficulty - 1, column index of category"
                 },
                 { "type": "null" }
-            ]
+            ],
+            "default": null
         },
         "stage": {
             "type": "string",
