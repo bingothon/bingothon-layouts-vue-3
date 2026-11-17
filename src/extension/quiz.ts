@@ -34,7 +34,9 @@ nodecg.listenFor('quiz:reset', (data: { questions: Question[][]; categories: str
 });
 
 nodecg.listenFor('quiz:select', (data: { row: number; column: number }, cb) => {
-    if (!data.row || !data.column) {
+    const row = data.row ?? undefined;
+    const column = data.column ?? undefined;
+    if (row === undefined || column === undefined) {
         if (cb && !cb.handled) {
             cb('No coordinates specified');
         }
@@ -54,7 +56,7 @@ nodecg.listenFor('quiz:setStage', (stage: 'board' | 'question' | 'answer') => {
     quizBingoRep.value.stage = stage;
 });
 
-nodecg.listenFor('quiz:mark', (player: number | undefined, cb) => {
+nodecg.listenFor('quiz:mark', (player: number | null, cb) => {
     if (!quizBingoRep.value.currentlySelected) {
         if (cb && !cb.handled) {
             cb('No coordinates specified');
@@ -83,7 +85,7 @@ function quizToBingoboard(quiz: QuizBingo, colors: [string, string]): QuizBingoC
                 const color = question?.markedPlayer === null || question?.markedPlayer === undefined ? undefined : colors[question.markedPlayer];
                 return {
                     name: `${quiz.categories?.[catIdx] ?? ''} ${qIdx + 1}`,
-                    colors: color ? [{ color, style: '' }] : [],
+                    colors: color ? [color] : [],
                     rawColors: color ?? 'blank'
                 };
             })

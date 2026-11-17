@@ -11,33 +11,27 @@
             id="quizSecondaryLogo"
             :src="`../../assets/Fred-Hutch-Logo-Full-Color-RGB_WHITE.png`"
         />
-        <div id="CategoryContainer">
-            <span
-                v-for="category in categories"
-                :key="category"
-                class="Categories"
-                >{{ category }}</span
-            >
-        </div>
         <PlayerInfo
             id="pi0"
             class="player"
             :player-index="0"
             :show-color="true"
             :hide-sound-icon="true"
-            height="45px"
+            :height-px="60"
         ></PlayerInfo>
         <PlayerInfo
             id="pi1"
             class="player"
-            :player-index="0"
+            :player-index="1"
             :show-color="true"
             :hide-sound-icon="true"
-            height="45px"
+            :height-px="60"
         ></PlayerInfo>
         <BingoBoard
             id="Bingo-board"
             font-size="20px"
+            bingoboard-rep="quizBingoCells"
+            :bingo-rep-bundle="thisBundle"
         ></BingoBoard>
         <DiscordDisplay
             id="discord-voice"
@@ -47,6 +41,7 @@
             :name-width-px="220"
             voice-highlight-color="var(--discord-voice-highlight-color)"
         ></DiscordDisplay>
+        <QuestionOverlay></QuestionOverlay>
     </div>
 </template>
 
@@ -55,10 +50,8 @@
     import BingoBoard from '../components/bingoboard/bingoBoard.vue';
     import DiscordDisplay from '../components/discordDisplay.vue';
     import PlayerInfo from '../components/runnerInfo/playerInfo.vue';
-    import { quizBingoReplicant } from '../../browser_shared/replicants.ts';
-    import { computed } from 'vue';
-
-    const categories = computed(() => quizBingoReplicant?.data?.categories);
+    import { thisBundle } from '../../browser_shared/replicants.ts';
+    import QuestionOverlay from './components/QuestionOverlay.vue';
 </script>
 
 <style scoped>
@@ -71,24 +64,9 @@
         background: linear-gradient(-128deg, var(--gradient-light) 0, var(--gradient-dark) 100%) 100% no-repeat fixed;
     }
 
-    .Categories {
-        width: 120px;
-        margin-left: 10px;
-        margin-right: 10px;
-        font-size: 28px;
-        color: var(--font-color);
-    }
-
-    #CategoryContainer {
-        position: absolute;
-        top: 0px;
-        left: 610px;
-        display: flex;
-    }
-
     #Bingo-board {
         position: absolute;
-        top: 200px;
+        top: 150px;
         left: 610px;
         width: 700px;
         height: 700px;

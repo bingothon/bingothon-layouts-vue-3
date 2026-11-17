@@ -129,6 +129,13 @@
                 "width": 2,
                 "workspace": "Misc",
                 "headerColor": "#008BB9"
+            },
+            {
+                "name": "Quiz Bingo Control",
+                "title": "Quiz Bingo Control",
+                "file": "quiz-bingo-control/main.html",
+                "width": 2,
+                "workspace": "Misc"
             }
         ],
         "graphics": [

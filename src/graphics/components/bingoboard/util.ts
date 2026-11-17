@@ -74,15 +74,11 @@ export function colorsToTransforms(colorsIn: string[], skewAngle: number): { col
             // how bingosync handles the backgrounds, set style here to simply bind it to html later
             newColors.push({
                 color: colors[i],
-                style: getStyle(skewAngle, translations[i])
+                style: `transform: skew(-${skewAngle}rad) translateX(${translations[i]}%); border-right: solid 1.5px #444444`
             });
         }
         return newColors;
     } else {
         return [];
     }
-}
-
-export function getStyle(skewAngle: number, translation: string) {
-    return `\`transform: skew(-${skewAngle}rad) translateX(${translation}%); border-right: solid 1.5px #444444\``;
 }

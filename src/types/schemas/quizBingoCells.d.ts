@@ -12,10 +12,7 @@ export interface QuizBingoCells {
 	};
 	cells: {
 		name: string;
-		colors: {
-			color: string;
-			style: string;
-		}[];
+		colors: string[];
 		rawColors: string;
 	}[][];
 	/**

@@ -39,19 +39,10 @@
                             "default": ""
                         },
                         "colors": {
+                            "$comment": "Plain bingosync color names (e.g. 'red'); BingoBoard turns them into styled stripes itself",
                             "type": "array",
                             "items": {
-                                "type": "object",
-                                "properties": {
-                                    "color": {
-                                        "type": "string"
-                                    },
-                                    "style": {
-                                        "type": "string"
-                                    }
-                                },
-                                "required": ["color", "style"],
-                                "additionalProperties": false
+                                "type": "string"
                             },
                             "default": []
                         },

@@ -20,6 +20,7 @@ export const blurbsReplicant = useReplicant<Schemas.Blurbs>('blurbs', thisBundle
 export const themeReplicant = useReplicant<Schemas.Theme>('theme', thisBundle);
 export const countdownTimerReplicant = useReplicant<Schemas.CountdownTimer>('countdownTimer', thisBundle);
 export const quizBingoReplicant = useReplicant<Schemas.QuizBingo>('quizBingo', thisBundle);
+export const quizBingoCellsReplicant = useReplicant<Schemas.QuizBingoCells>('quizBingoCells', thisBundle);
 
 export const capturePositionsReplicant = useReplicant<oldSchemas.CapturePositions>('capturePositions', oldBundle);
 export const allGameLayoutsReplicant = useReplicant<oldSchemas.AllGameLayouts>('allGameLayouts', oldBundle);

@@ -44,8 +44,7 @@
         if (!input.questions || !input.categories) {
             throw new Error('Input has no questions and/or categories');
         }
-        console.log('sending message');
-        nodecg.sendMessageToBundle('resetQuiz', thisBundle, input).catch((e: Error) => {
+        nodecg.sendMessageToBundle('quiz:reset', thisBundle, input).catch((e: Error) => {
             throw e;
         });
     }
