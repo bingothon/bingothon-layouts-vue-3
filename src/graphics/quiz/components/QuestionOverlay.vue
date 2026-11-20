@@ -50,41 +50,10 @@
                 </Transition>
             </div>
         </Transition>
-
-        <!-- 4. Players in the foreground, flying in from their side -->
-        <Transition
-            v-for="i in [0, 1]"
-            :key="i"
-            :name="i === 0 ? 'from-left' : 'from-right'"
-        >
-            <div
-                v-if="showQuestionModal"
-                class="PlayerSlot"
-                :class="[
-                    i === 0 ? 'Left' : 'Right',
-                    {
-                        Winner: showAnswer && answeredBy === i,
-                        Loser: showAnswer && answeredBy !== undefined && answeredBy !== i
-                    }
-                ]"
-                :style="{ '--winner-color': answerColor }"
-            >
-                <PlayerInfo
-                    :player-index="i"
-                    :show-color="true"
-                    :hide-sound-icon="true"
-                    :hide-finish-time="true"
-                    :height-px="55"
-                    :score-override="scores[i]?.totalScore"
-                    :reverse-order="i === 1"
-                />
-            </div>
-        </Transition>
     </div>
 </template>
 
 <script setup lang="ts">
-    import PlayerInfo from '../../components/runnerInfo/playerInfo.vue';
     import { computed } from 'vue';
     import { quizBingoCellsReplicant, quizBingoReplicant } from '../../../browser_shared/replicants.ts';
 
@@ -126,14 +95,6 @@
         const p = answeredBy.value;
         return p === undefined ? '' : (cells.value?.colors?.[p] ?? '');
     });
-
-    const scores = computed(
-        () =>
-            cells.value?.scores ?? [
-                { goals: 0, lineScore: 0, totalScore: 0 },
-                { goals: 0, lineScore: 0, totalScore: 0 }
-            ]
-    );
 </script>
 
 <style scoped>

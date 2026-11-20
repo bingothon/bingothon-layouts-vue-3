@@ -1,5 +1,5 @@
 import { nodecg } from './util/nodecg.js';
-import { bingoBoardMetaRep, quizBingoCellsRep, quizBingoRep } from './util/replicants.js';
+import { bingoBoardMetaRep, quizBingoCellsRep, quizBingoRep, quizBuzzersRep } from './util/replicants.js';
 import type { QuizBingo } from '../types/schemas/quizBingo.js';
 import type { QuizBingoCells } from '../types/schemas/quizBingoCells.js';
 
@@ -72,6 +72,26 @@ nodecg.listenFor('quiz:mark', (player: number | null, cb) => {
     quizBingoRep.value.questions[quizBingoRep.value.currentlySelected.column][quizBingoRep.value.currentlySelected.row].markedPlayer = player ?? undefined;
 });
 
+nodecg.listenFor('quiz:buzzer', (data: { player: number }, cb) => {
+    // lock buzzer precautionary, so no race condition can happen
+    quizBuzzersRep.value.open = false;
+    const now = Date.now();
+    if (quizBuzzersRep.value.player && quizBuzzersRep.value.player.at < now) {
+        if (cb && !cb.handled) {
+            cb('Buzzer is currently locked');
+        }
+    }
+    quizBuzzersRep.value.player = { number: data.player, at: now };
+    setTimeout(resetBuzzer, quizBuzzersRep.value.timeToAnswerMs);
+});
+
+nodecg.listenFor('quiz:buzzerReset', resetBuzzer);
+
+function resetBuzzer() {
+    quizBuzzersRep.value.player = null;
+    quizBuzzersRep.value.open = true;
+}
+
 function quizToBingoboard(quiz: QuizBingo, colors: [string, string]): QuizBingoCells {
     const cells = Array.from(
         { length: 5 },
@@ -91,11 +111,6 @@ function quizToBingoboard(quiz: QuizBingo, colors: [string, string]): QuizBingoC
             })
     );
     const colorCounts: Record<string, number> = {};
-    /* cells.flat().forEach((cell) => {
-        return cell.colors.forEach((col) => {
-            return (colorCounts[col.color] = (colorCounts[col.color] ?? 0) + 1);
-        });
-    });*/
     return { cells, colorCounts, colors, scores: computeQuizScore(quiz) };
 }
 

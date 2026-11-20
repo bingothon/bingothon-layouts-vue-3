@@ -183,6 +183,11 @@
                 "file": "quiz/main.html",
                 "width": 1920,
                 "height": 1080
+            },
+            {
+                "file": "player-buzzers/main.html",
+                "width": 500,
+                "height": 500
             }
         ],
         "mount": [

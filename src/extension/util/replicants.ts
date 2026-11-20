@@ -27,5 +27,6 @@ export const themeReplicant = hasDefault<Schemas.Theme>('theme');
 export const countdownTimerRep = hasDefault<Schemas.CountdownTimer>('countdownTimer');
 export const quizBingoRep = hasDefault<Schemas.QuizBingo>('quizBingo');
 export const quizBingoCellsRep = hasDefault<Schemas.QuizBingoCells>('quizBingoCells');
+export const quizBuzzersRep = hasDefault<Schemas.QuizBuzzers>('quizBuzzers');
 
 export const bingoBoardMetaRep = oldDefault<BingoboardMeta>('bingoboardMeta');
