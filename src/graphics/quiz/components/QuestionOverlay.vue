@@ -183,6 +183,11 @@
         font-weight: bold;
     }
 
+    .QuestionText,
+    .AnswerText {
+        white-space: pre-line;
+    }
+
     .PlayerSlot {
         position: absolute;
         top: 750px;

@@ -6,31 +6,47 @@ import type { QuizBingoCells } from '../types/schemas/quizBingoCells.js';
 const logger = new nodecg.Logger(`${nodecg.bundleName}:quiz`);
 
 type Question = NonNullable<QuizBingo['questions']>[number][number];
+type Categories = NonNullable<QuizBingo['categories']>;
 
-nodecg.listenFor('quiz:reset', (data: { questions: Question[][]; categories: string[] }, cb) => {
-    logger.debug('quiz reset quiz started');
-    const { questions, categories } = data;
-    if (!questions.length || questions.length !== 5 || !questions.every((questionsPerCat) => questionsPerCat.length === 5)) {
-        if (cb && !cb.handled) {
-            cb('Questions array is incorrectly formated');
+nodecg.listenFor('quiz:reset', (data: { questions: Question[][]; categories: Categories }, cb) => {
+    try {
+        logger.debug('quiz reset quiz started');
+        const { questions, categories } = data;
+        if (questions.length !== 5 || !questions.every((questionsPerCat) => questionsPerCat.length === 5)) {
+            if (cb && !cb.handled) {
+                cb('Questions array is incorrectly formated');
+            }
+            return;
         }
-        return;
-    }
-    if (!categories.length && categories.length !== 5) {
-        if (cb && !cb.handled) {
-            cb('Categories array is incorrectly formated');
+        if (categories?.length !== 5) {
+            if (cb && !cb.handled) {
+                cb('Categories array is incorrectly formated');
+            }
+            return;
         }
-        return;
+
+        quizBingoRep.value = {
+            categories: categories,
+            questions: questions,
+            currentlySelected: null,
+            stage: 'board'
+        };
+
+        logger.debug('Quiz replicant reset');
+
+        if (cb && !cb.handled) {
+            cb();
+        }
+    } catch (e) {
+        if (cb && !cb.handled) {
+            if ((e as unknown as Error).message) {
+                cb((e as unknown as Error).message);
+                return;
+            }
+            cb('Failed to reset quiz');
+            return;
+        }
     }
-
-    quizBingoRep.value = {
-        categories: quizBingoRep.value.categories,
-        questions: quizBingoRep.value.questions,
-        currentlySelected: null,
-        stage: 'board'
-    };
-
-    logger.debug('Quiz replicant reset');
 });
 
 nodecg.listenFor('quiz:select', (data: { row: number; column: number }, cb) => {
@@ -79,6 +95,7 @@ nodecg.listenFor('quiz:buzzer', (data: { player: number }, cb) => {
     if (quizBuzzersRep.value.player && quizBuzzersRep.value.player.at < now) {
         if (cb && !cb.handled) {
             cb('Buzzer is currently locked');
+            return;
         }
     }
     quizBuzzersRep.value.player = { number: data.player, at: now };
@@ -202,9 +219,7 @@ function computeQuizScore(quiz: QuizBingo): QuizBingoCells['scores'] {
 }
 
 function updateQuizCells() {
-    const colors: [string, string] = bingoBoardMetaRep.value
-        ? [bingoBoardMetaRep.value?.playerColors[0], bingoBoardMetaRep.value?.playerColors[1]]
-        : ['blank', 'blank'];
+    const colors: [string, string] = [bingoBoardMetaRep.value?.playerColors[0] ?? 'pink', bingoBoardMetaRep.value?.playerColors[1] ?? 'red'];
     quizBingoCellsRep.value = quizToBingoboard(quizBingoRep.value, colors);
 }
 

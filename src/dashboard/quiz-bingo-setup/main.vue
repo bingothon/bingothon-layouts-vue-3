@@ -31,22 +31,38 @@
 <script setup lang="ts">
     import { ref } from 'vue';
     import { thisBundle } from '../../browser_shared/replicants.ts';
+    import { useQuasar } from 'quasar';
 
     const showInput = ref<boolean>(false);
     const textInput = ref<string>('');
 
+    const $q = useQuasar();
     function changeInputActive() {
         showInput.value = !showInput.value;
     }
 
     async function resetQuiz() {
-        const input = JSON.parse(textInput.value);
-        if (!input.questions || !input.categories) {
-            throw new Error('Input has no questions and/or categories');
+        // Too lazy to properly type this, check extension or replicant for proper typing
+        let input: { questions?: unknown; categories?: unknown };
+        try {
+            input = JSON.parse(textInput.value);
+        } catch (e) {
+            $q.notify((e as unknown as Error).message);
+            return;
         }
-        nodecg.sendMessageToBundle('quiz:reset', thisBundle, input).catch((e: Error) => {
-            throw e;
-        });
+        if (!input.questions || !input.categories) {
+            $q.notify('Input has no questions and/or categories');
+            return;
+        }
+        try {
+            await nodecg.sendMessageToBundle('quiz:reset', thisBundle, {
+                questions: input.questions,
+                categories: input.categories
+            });
+        } catch (e) {
+            $q.notify(e as unknown as Error);
+            return;
+        }
     }
 </script>
 

@@ -11,10 +11,10 @@
             <div>No cell selected</div>
         </div>
         <div v-else>
-            <div>
+            <div style="white-space: pre-line">
                 {{ question.question }}
             </div>
-            <div>
+            <div style="white-space: pre-line">
                 {{ question.answer }}
             </div>
             <div>
@@ -23,7 +23,7 @@
                     color="black"
                     small
                     @click="markP0()"
-                    >Mark {{ players[0].name }}</QBtn
+                    >Mark {{ players[0]?.name ?? 'Player 0' }}</QBtn
                 >
                 <QBtn
                     dark
@@ -37,7 +37,7 @@
                     color="black"
                     small
                     @click="markP1()"
-                    >Mark {{ players[1].name }}</QBtn
+                    >Mark {{ players[1]?.name ?? 'Player 1' }}</QBtn
                 >
             </div>
             <QBtn
