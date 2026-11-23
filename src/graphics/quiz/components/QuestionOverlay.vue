@@ -8,32 +8,18 @@
             ></div>
         </Transition>
 
-        <!-- 2. Question card; :key + out-in replays the animation on a direct question switch -->
-        <Transition
-            name="card"
-            mode="out-in"
-        >
+        <!-- 2. Question card -->
+        <Transition name="card">
             <div
                 v-if="showQuestionModal && selectedQuestionMarker"
                 class="Card"
             >
                 <div class="CardHeader">
                     <span class="Category">{{ quiz?.categories?.[selectedQuestionMarker.column] }}</span>
-                    <span class="Difficulty">
-                        <!--                        <span
-                            v-for="n in 5"
-                            :key="n"
-                            class="Pip"
-                            :class="{ Filled: n <= selectedQuestionMarker.row + 1 }"
-                        ></span>-->
-                        Difficulty {{ selectedQuestionMarker.row + 1 }}
-                    </span>
+                    <span class="Difficulty">Difficulty {{ selectedQuestionMarker.row + 1 }}</span>
                 </div>
 
-                <div
-                    class="QuestionText"
-                    :style="{ fontSize: '36px' }"
-                >
+                <div class="QuestionText">
                     {{ questionText }}
                 </div>
 
@@ -140,22 +126,9 @@
         opacity: 0.85;
     }
 
-    .Difficulty {
-        display: flex;
-        gap: 8px;
-    }
-    .Pip {
-        width: 16px;
-        height: 16px;
-        border-radius: 50%;
-        border: 2px solid var(--font-color);
-    }
-    .Pip.Filled {
-        background: var(--font-color);
-    }
-
     .QuestionText {
         flex: 1;
+        font-size: 36px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -186,23 +159,6 @@
     .QuestionText,
     .AnswerText {
         white-space: pre-line;
-    }
-
-    .PlayerSlot {
-        position: absolute;
-        top: 750px;
-        width: 470px;
-        border-radius: 8px;
-        transition:
-            opacity 0.3s,
-            filter 0.3s,
-            transform 0.3s;
-    }
-    .PlayerSlot.Left {
-        left: 460px;
-    }
-    .PlayerSlot.Right {
-        right: 460px;
     }
 
     /* ---------- Animations ---------- */
@@ -252,48 +208,5 @@
     }
     .answer-leave-to {
         opacity: 0;
-    }
-
-    /* Players: fly in from their side, a bit after the card */
-    .from-left-enter-active,
-    .from-right-enter-active {
-        transition:
-            opacity 0.4s ease 0.25s,
-            transform 0.5s cubic-bezier(0.2, 1.2, 0.4, 1) 0.25s;
-    }
-    .from-left-leave-active,
-    .from-right-leave-active {
-        transition:
-            opacity 0.25s ease-in,
-            transform 0.25s ease-in;
-    }
-    .from-left-enter-from,
-    .from-left-leave-to {
-        opacity: 0;
-        transform: translateX(-140px);
-    }
-    .from-right-enter-from,
-    .from-right-leave-to {
-        opacity: 0;
-        transform: translateX(140px);
-    }
-
-    /* Answer revealed: winner pulses in their color, the other player dims */
-    .PlayerSlot.Winner {
-        transform: scale(1.06);
-        animation: winner-pulse 1.6s ease-in-out infinite;
-    }
-    .PlayerSlot.Loser {
-        opacity: 0.5;
-        filter: grayscale(0.6);
-    }
-    @keyframes winner-pulse {
-        0%,
-        100% {
-            box-shadow: 0 0 0 0 var(--winner-color);
-        }
-        50% {
-            box-shadow: 0 0 32px 8px var(--winner-color);
-        }
     }
 </style>

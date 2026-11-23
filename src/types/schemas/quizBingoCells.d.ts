@@ -7,9 +7,6 @@
  */
 
 export interface QuizBingoCells {
-	colorCounts: {
-		[k: string]: number;
-	};
 	cells: {
 		name: string;
 		colors: string[];

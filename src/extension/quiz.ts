@@ -127,8 +127,7 @@ function quizToBingoboard(quiz: QuizBingo, colors: [string, string]): QuizBingoC
                 };
             })
     );
-    const colorCounts: Record<string, number> = {};
-    return { cells, colorCounts, colors, scores: computeQuizScore(quiz) };
+    return { cells, colors, scores: computeQuizScore(quiz) };
 }
 
 function computeQuizScore(quiz: QuizBingo): QuizBingoCells['scores'] {
