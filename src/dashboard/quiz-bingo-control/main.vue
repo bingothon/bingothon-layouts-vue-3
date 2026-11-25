@@ -33,7 +33,7 @@
             </tbody>
         </table>
         <div v-if="selected">
-            <single-view></single-view>
+            <single-view :selected></single-view>
         </div>
     </div>
 </template>

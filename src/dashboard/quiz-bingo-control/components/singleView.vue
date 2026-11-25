@@ -11,12 +11,9 @@
             <div>No cell selected</div>
         </div>
         <div v-else>
-            <div style="white-space: pre-line">
-                {{ question.question }}
-            </div>
-            <div style="white-space: pre-line">
-                {{ question.answer }}
-            </div>
+            <div style="white-space: pre-line">Q: {{ question.question }}</div>
+            <br />
+            <div style="white-space: pre-line">A: {{ question.answer }}</div>
             <div>
                 <QBtn
                     dark
@@ -56,10 +53,8 @@
     import { quizBingoReplicant, thisBundle } from '../../../browser_shared/replicants.ts';
     import { players } from '../../../graphics/game-layout/layouts/common.ts';
 
-    const selected = computed(() => quizBingoReplicant?.data?.currentlySelected);
-    const question = computed(() =>
-        selected.value ? quizBingoReplicant?.data?.questions?.[selected.value?.column][selected.value?.row] : undefined
-    );
+    const props = defineProps<{ selected: { row: number; column: number } }>();
+    const question = computed(() => quizBingoReplicant?.data?.questions?.[props.selected.column][props.selected.row]);
 
     function unselect(): void {
         nodecg.sendMessageToBundle('quiz:deselect', thisBundle);
