@@ -93,7 +93,7 @@
 
     #discord-voice {
         position: absolute;
-        top: 750px;
+        top: 690px;
         left: 667px;
         width: 586px;
         height: 250px;
@@ -102,7 +102,7 @@
 
     #pi1 {
         position: absolute;
-        top: 380px;
+        top: 0px;
         left: 665px;
         border: 2px var(--container-border-color) solid;
         width: 566px;
@@ -118,7 +118,7 @@
 
     #pi3 {
         position: absolute;
-        top: 500px;
+        top: 940px;
         left: 665px;
         border: 2px var(--container-border-color) solid;
         width: 566px;
@@ -135,7 +135,7 @@
 
     #game {
         position: absolute;
-        top: 0px;
+        top: 60px;
         left: 667px;
         width: 586px;
         border: 2px var(--container-border-color) solid;
@@ -144,7 +144,7 @@
 
     #timer {
         position: absolute;
-        top: 560px;
+        top: 500px;
         left: 667px;
         width: 586px;
         border: 2px var(--container-border-color) solid;
@@ -153,7 +153,7 @@
 
     #SponsorContainer {
         position: absolute;
-        top: 180px;
+        top: 240px;
         left: 667px;
         width: 586px;
         height: 200px;
