@@ -11,6 +11,7 @@
             class="PlayerInfo"
             :player-index="1"
             :height-px="60"
+            :reverse-order="true"
         ></PlayerInfo>
         <PlayerInfo
             id="pi3"
@@ -47,6 +48,9 @@
             id="stream3"
             :stream-index="2"
         ></twitch-player>
+        <div id="border1"></div>
+        <div id="border2"></div>
+        <div id="border3"></div>
     </div>
 </template>
 
@@ -98,6 +102,7 @@
         width: 586px;
         height: 250px;
         border: 2px var(--container-border-color) solid;
+        border-bottom: none;
     }
 
     #pi1 {
@@ -108,6 +113,17 @@
         width: 566px;
     }
 
+    #border1 {
+        position: absolute;
+        top: 0px;
+        left: 1231px;
+        border: 2px var(--container-border-color) solid;
+        border-bottom: none;
+        border-left: none;
+        height: 60px;
+        width: 20px;
+    }
+
     #pi2 {
         position: absolute;
         top: 440px;
@@ -116,12 +132,34 @@
         width: 566px;
     }
 
+    #border2 {
+        position: absolute;
+        top: 438px;
+        left: 667px;
+        border: 2px var(--container-border-color) solid;
+        border-top: none;
+        border-right: none;
+        height: 60px;
+        width: 20px;
+    }
+
     #pi3 {
         position: absolute;
         top: 940px;
         left: 665px;
         border: 2px var(--container-border-color) solid;
         width: 566px;
+    }
+
+    #border3 {
+        position: absolute;
+        top: 938px;
+        left: 1231px;
+        border: 2px var(--container-border-color) solid;
+        border-top: none;
+        border-left: none;
+        height: 60px;
+        width: 20px;
     }
 
     #Bingo-board {
@@ -140,6 +178,7 @@
         width: 586px;
         border: 2px var(--container-border-color) solid;
         height: 180px;
+        border-top: none;
     }
 
     #timer {
@@ -158,5 +197,6 @@
         width: 586px;
         height: 200px;
         border: 2px var(--container-border-color) solid;
+        border-bottom: none;
     }
 </style>
