@@ -14,7 +14,7 @@
             <div
                 v-if="timerLeftMs > 0"
                 id="progressbar"
-                :style="{ width: `${(timerLeftMs / timeToAnswer) * 100}%`, backgroundColor: color }"
+                :style="{ width: `${progressPercent}%`, backgroundColor: color }"
             ></div>
         </div>
         <bingo-board
@@ -33,24 +33,14 @@
 </template>
 
 <script setup lang="ts">
-    import { computed, ref, watch } from 'vue';
-    import {
-        bingoboardMeta,
-        quizBingoReplicant,
-        quizBuzzersReplicant,
-        thisBundle
-    } from '../../browser_shared/replicants.ts';
+    import { computed } from 'vue';
+    import { bingoboardMeta, quizBingoReplicant, thisBundle } from '../../browser_shared/replicants.ts';
     import BingoBoard from '../components/bingoboard/bingoBoard.vue';
-
-    let timerCountdown: NodeJS.Timeout | undefined;
+    import { buzzerOpen, useBuzzerCountdown } from '../../browser_shared/quiz.ts';
 
     const playerNumber = parseInt(new URLSearchParams(window.location.search).get('player') ?? '0');
 
-    const timerLeftMs = ref(-1);
-
-    const timeToAnswer = computed<number>(() => quizBuzzersReplicant?.data?.timeToAnswerMs || 10_000);
-
-    const buzzerOpen = computed(() => quizBuzzersReplicant?.data?.open);
+    const { timerLeftMs, progressPercent } = useBuzzerCountdown(playerNumber);
 
     const color = computed(() => bingoboardMeta?.data?.playerColors[playerNumber] || 'red');
 
@@ -61,30 +51,6 @@
         }
         return quizBingoReplicant?.data?.questions?.[currentlySelected.column][currentlySelected.row].question;
     });
-
-    watch(
-        () => quizBuzzersReplicant?.data?.open,
-        () => {
-            stopCountdown();
-            const startedAt = Date.now();
-            if (quizBuzzersReplicant?.data?.player?.number === playerNumber && !quizBuzzersReplicant.data.open) {
-                const countdown = () => {
-                    const timerEnd = startedAt + timeToAnswer.value;
-                    timerLeftMs.value = Math.floor(timerEnd - Date.now());
-                    if (timerLeftMs.value < 0) {
-                        stopCountdown();
-                    }
-                };
-                countdown();
-                timerCountdown = setInterval(countdown, 100);
-            }
-        }
-    );
-
-    function stopCountdown(): void {
-        clearInterval(timerCountdown);
-        timerCountdown = undefined;
-    }
 
     function buzz() {
         nodecg.sendMessageToBundle('quiz:buzzer', thisBundle, { player: playerNumber });

@@ -58,11 +58,7 @@
             <div
                 v-if="timerLeftMs > 0"
                 id="progressBar"
-                :style="
-                    playerBuzzerColor
-                        ? { backgroundColor: playerBuzzerColor, width: `${(timerLeftMs / timeToAnswer) * 100}%` }
-                        : {}
-                "
+                :style="playerBuzzerColor ? { backgroundColor: playerBuzzerColor, width: `${progressPercent}%` } : {}"
             ></div>
         </div>
         <div id="omnibarPlaceHolder"></div>
@@ -73,43 +69,16 @@
     import { themeClass } from '../theme.ts';
     import BingoBoard from '../components/bingoboard/bingoBoard.vue';
     import PlayerInfo from '../components/runnerInfo/playerInfo.vue';
-    import { bingoboardMeta, quizBuzzersReplicant, thisBundle } from '../../browser_shared/replicants.ts';
+    import { bingoboardMeta, thisBundle } from '../../browser_shared/replicants.ts';
+    import { buzzedPlayer, useBuzzerCountdown } from '../../browser_shared/quiz.ts';
     import QuestionOverlay from './components/QuestionOverlay.vue';
-    import { computed, ref, watch } from 'vue';
+    import { computed } from 'vue';
 
-    let timerCountdown: NodeJS.Timeout | undefined;
-
-    const timerLeftMs = ref(-1);
-
-    const timeToAnswer = computed(() => quizBuzzersReplicant?.data?.timeToAnswerMs || 10_000);
+    const { timerLeftMs, progressPercent } = useBuzzerCountdown();
 
     const playerBuzzerColor = computed<string | undefined>(
-        () => bingoboardMeta?.data?.playerColors[quizBuzzersReplicant?.data?.player?.number ?? -1]
+        () => bingoboardMeta?.data?.playerColors[buzzedPlayer.value ?? -1]
     );
-
-    watch(
-        () => quizBuzzersReplicant?.data?.open,
-        () => {
-            stopCountdown();
-            const startedAt = Date.now();
-            if (quizBuzzersReplicant?.data?.player && !quizBuzzersReplicant.data.open) {
-                const countdown = () => {
-                    const timerEnd = startedAt + timeToAnswer.value;
-                    timerLeftMs.value = Math.floor(timerEnd - Date.now());
-                    if (timerLeftMs.value < 0) {
-                        stopCountdown();
-                    }
-                };
-                countdown();
-                timerCountdown = setInterval(countdown, 100);
-            }
-        }
-    );
-
-    function stopCountdown(): void {
-        clearInterval(timerCountdown);
-        timerCountdown = undefined;
-    }
 </script>
 
 <style scoped>
