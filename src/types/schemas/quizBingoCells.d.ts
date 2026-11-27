@@ -13,10 +13,10 @@ export interface QuizBingoCells {
 		rawColors: string;
 	}[][];
 	/**
-	 * @minItems 2
-	 * @maxItems 2
+	 * @minItems 3
+	 * @maxItems 3
 	 */
-	colors: [string, string];
+	colors: [string, string, string];
 	/**
 	 * @minItems 2
 	 * @maxItems 2

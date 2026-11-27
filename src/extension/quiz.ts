@@ -109,7 +109,7 @@ function resetBuzzer() {
     quizBuzzersRep.value.open = true;
 }
 
-function quizToBingoboard(quiz: QuizBingo, colors: [string, string]): QuizBingoCells {
+function quizToBingoboard(quiz: QuizBingo, colors: [string, string, string]): QuizBingoCells {
     const cells = Array.from(
         { length: 5 },
         (
@@ -218,7 +218,11 @@ function computeQuizScore(quiz: QuizBingo): QuizBingoCells['scores'] {
 }
 
 function updateQuizCells() {
-    const colors: [string, string] = [bingoBoardMetaRep.value?.playerColors[0] ?? 'pink', bingoBoardMetaRep.value?.playerColors[1] ?? 'red'];
+    const colors: [string, string, string] = [
+        bingoBoardMetaRep.value?.playerColors[0] ?? 'pink',
+        bingoBoardMetaRep.value?.playerColors[1] ?? 'red',
+        bingoBoardMetaRep.value?.playerColors[2] ?? 'orange'
+    ];
     quizBingoCellsRep.value = quizToBingoboard(quizBingoRep.value, colors);
 }
 
