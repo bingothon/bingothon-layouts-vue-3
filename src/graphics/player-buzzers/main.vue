@@ -17,12 +17,30 @@
                 :style="{ width: `${(timerLeftMs / timeToAnswer) * 100}%`, backgroundColor: color }"
             ></div>
         </div>
+        <bingo-board
+            id="Bingo-board"
+            font-size="20px"
+            bingoboard-rep="quizBingoCells"
+            :bingo-rep-bundle="thisBundle"
+        ></bingo-board>
+    </div>
+    <div
+        v-if="question"
+        id="question"
+    >
+        {{ question }}
     </div>
 </template>
 
 <script setup lang="ts">
     import { computed, ref, watch } from 'vue';
-    import { bingoboardMeta, quizBuzzersReplicant, thisBundle } from '../../browser_shared/replicants.ts';
+    import {
+        bingoboardMeta,
+        quizBingoReplicant,
+        quizBuzzersReplicant,
+        thisBundle
+    } from '../../browser_shared/replicants.ts';
+    import BingoBoard from '../components/bingoboard/bingoBoard.vue';
 
     let timerCountdown: NodeJS.Timeout | undefined;
 
@@ -35,6 +53,14 @@
     const buzzerOpen = computed(() => quizBuzzersReplicant?.data?.open);
 
     const color = computed(() => bingoboardMeta?.data?.playerColors[playerNumber] || 'red');
+
+    const question = computed(() => {
+        const currentlySelected = quizBingoReplicant?.data?.currentlySelected;
+        if (!currentlySelected) {
+            return undefined;
+        }
+        return quizBingoReplicant?.data?.questions?.[currentlySelected.column][currentlySelected.row].question;
+    });
 
     watch(
         () => quizBuzzersReplicant?.data?.open,
@@ -96,5 +122,23 @@
 
     #progressbar {
         transition: width 0.01s;
+    }
+
+    #Bingo-board {
+        position: absolute;
+        top: 0;
+        left: 400px;
+        width: 500px;
+        height: 500px;
+    }
+
+    #question {
+        position: absolute;
+        font-size: 20px;
+        top: 350px;
+        width: 300px;
+        left: 0;
+        color: white;
+        white-space: pre-line;
     }
 </style>
