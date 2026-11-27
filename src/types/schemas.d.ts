@@ -9,3 +9,6 @@ export type { Configschema } from './schemas/configschema.d.ts';
 export type { CountdownTimer } from './schemas/countdownTimer.d.ts';
 export type { ExampleReplicant } from './schemas/exampleReplicant.d.ts';
 export type { Theme } from './schemas/theme.d.ts';
+export type { QuizBingo } from './schemas/quizBingo.d.ts';
+export type { QuizBingoCells } from './schemas/quizBingoCells.d.ts';
+export type { QuizBuzzers } from './schemas/quizBuzzers.d.ts';

@@ -73,11 +73,13 @@
         defineProps<{
             fontSize?: string;
             bingoboardRep?: string | null;
+            bingoRepBundle?: string | null;
             alwaysShown?: boolean;
         }>(),
         {
             fontSize: '10px',
             bingoboardRep: null,
+            bingoRepBundle: null,
             alwaysShown: false
         }
     );
@@ -97,7 +99,7 @@
         return bingoRep;
     });
 
-    const bingoboard = useDynamicReplicant<Bingoboard>(bingoRep, oldBundle, {});
+    const bingoboard = useDynamicReplicant<Bingoboard>(bingoRep, props.bingoRepBundle ?? oldBundle, {});
 
     function onBingoBoardUpdate(newGoals: Bingoboard) {
         if (!newGoals) return;
@@ -113,7 +115,8 @@
 
     watch(
         () => bingoboard.value.data,
-        () => onBingoBoardUpdate(bingoboard.value.data)
+        () => onBingoBoardUpdate(bingoboard.value.data),
+        { immediate: true }
     );
 
     function showBingoSplash(data: { color?: string }) {

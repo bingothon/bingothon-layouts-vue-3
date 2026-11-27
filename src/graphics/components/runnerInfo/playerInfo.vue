@@ -184,7 +184,8 @@
     });
 
     const text = computed(() => {
-        if (show.value) {
+        // If Player has no Twitch always show their name
+        if (show.value || !player.value?.social.twitch) {
             return player.value?.name;
         } else {
             return '/' + player.value?.social.twitch;

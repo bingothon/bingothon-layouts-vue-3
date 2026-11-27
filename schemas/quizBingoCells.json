@@ -1,0 +1,84 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "required": ["cells", "colors", "scores"],
+    "additionalProperties": false,
+    "properties": {
+        "cells": {
+            "type": "array",
+            "default": [],
+            "items": {
+                "type": "array",
+                "default": [],
+                "items": {
+                    "type": "object",
+                    "required": ["name", "colors", "rawColors"],
+                    "additionalProperties": false,
+                    "properties": {
+                        "name": {
+                            "type": "string",
+                            "default": ""
+                        },
+                        "colors": {
+                            "$comment": "Plain bingosync color names (e.g. 'red'); BingoBoard turns them into styled stripes itself",
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "default": []
+                        },
+                        "rawColors": {
+                            "type": "string",
+                            "default": ""
+                        }
+                    }
+                }
+            }
+        },
+        "colors": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "maxItems": 3,
+            "minItems": 3,
+            "default": ["", ""]
+        },
+        "scores": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "goals": {
+                        "type": "number",
+                        "default": 0
+                    },
+                    "lineScore": {
+                        "type": "number",
+                        "default": 0
+                    },
+                    "totalScore": {
+                        "type": "number",
+                        "default": 0
+                    }
+                },
+                "additionalProperties": false,
+                "required": ["goals", "lineScore", "totalScore"]
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "default": [
+                {
+                    "goals": 0,
+                    "lineScore": 0,
+                    "totalScore": 0
+                },
+                {
+                    "goals": 0,
+                    "lineScore": 0,
+                    "totalScore": 0
+                }
+            ]
+        }
+    }
+}

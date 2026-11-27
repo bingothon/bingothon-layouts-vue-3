@@ -1,7 +1,7 @@
 {
     /* Settings here mimick those included in a generated Vue project (npm create vue). */
     /* They are only used for the vite.config.ts file. */
-    "extends": "@tsconfig/node22/tsconfig.json",
+    "extends": "@tsconfig/node26/tsconfig.json",
     "compilerOptions": {
         "incremental": true,
         "noEmit": true,
