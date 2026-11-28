@@ -53,7 +53,7 @@
 
     .GameChip {
         text-align: center;
-        height: 28px;
+        min-height: 28px;
         padding: 0 6px;
         background-color: rgba(220, 240, 255, 0.9);
         border-radius: 2px;
